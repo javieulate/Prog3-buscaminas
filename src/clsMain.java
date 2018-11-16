@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import COMUN.clsEmailNoValido;
+import LD.clsBaseDeDatos;
 import LN.clsGestor;
 import LN.clsUsuario;
 import LN.clsUsuarioRepetido;
@@ -14,6 +15,14 @@ public class clsMain {
 		frmPantalla frame = new frmPantalla();
 		frame.setVisible(true);
 		ArrayList<clsUsuario> listaUsu = new ArrayList<clsUsuario>();
+		clsBaseDeDatos.initBD( "Usuarios.bd" );
+		clsBaseDeDatos.crearTablaBD();
+		listaUsu=clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
+		for (clsUsuario aux : listaUsu) {
+			
+			System.out.println(aux.toString());
+		}
+		
 //		clsUsuario a = new clsUsuario("aa", "aa@aa.es", "aa", 0, 0);
 //		clsUsuario b = new clsUsuario("aa", "bb@aa.es", "aa", 0, 0);
 //		

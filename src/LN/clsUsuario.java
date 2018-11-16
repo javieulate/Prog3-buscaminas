@@ -8,14 +8,22 @@ import COMUN.clsPropertyException;
 
 public class clsUsuario implements Serializable, itfProperty {
 	
-	private String nombre;
-	private String apellido;
-	private String mail;
-	private String nomUsuario;
-	private String contrasena;
-	private int numeroVidas;
-	private int puntuacion;
+	public String nombre;
+	public String apellido;
+	public String mail;
+	public String nomUsuario;
+	public String contrasena;
+	public int numeroVidas;
+	public int puntuacion;
 	
+	@Override
+	public String toString() {
+		return "clsUsuario [nombre=" + nombre + ", apellido=" + apellido
+				+ ", mail=" + mail + ", nomUsuario=" + nomUsuario
+				+ ", contrasena=" + contrasena + ", numeroVidas=" + numeroVidas
+				+ ", puntuacion=" + puntuacion + "]";
+	}
+
 	public clsUsuario(){
 		nomUsuario="";
 		mail="";

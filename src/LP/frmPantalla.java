@@ -32,7 +32,10 @@ import javax.swing.border.TitledBorder;
 import COMUN.clsElementoRepetido;
 import COMUN.clsEmailNoValido;
 import COMUN.clsUsuarioNoRegistrado;
+import LD.clsBaseDeDatos;
 import LN.clsGestor;
+import LN.clsUsuario;
+import LN.clsUsuarioRepetido;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -114,31 +117,41 @@ public class frmPantalla extends JFrame implements ActionListener
 	
 		case CMD_BTN_REGISTRARSE2:
 			
+//			try {
+//				clsGestor.validarEmail(corretxt.getText());
+//			} catch (clsEmailNoValido e2) {
+//				JOptionPane.showMessageDialog(null, e2.getMessage());
+//			}
+//			try 
+//			{
+//				clsGestor.AltaUsuario(nomtxt.getText(), apetxt.getText(), corretxt.getText(), nomusutxt.getText(), contrausutxt.getText());
+//		        JOptionPane.showMessageDialog(null, "Compruebe que se ha registrado correctamente en su dirección de correo electrónico. ¡Gracias!" );
+//
+//				this.setVisible(false);
+////					frmMenuPrincipal frame = new frmMenuPrincipal();
+////					frame.setVisible(true);
+//					clsHilo repeticion = new clsHilo();
+//					repeticion.start();
+//				
+//			} 
+//			catch (clsElementoRepetido e1) 
+//			{
+//				JOptionPane.showMessageDialog(null, e1.getMessage());
+//			}
+//			 
+//			
+//			break;
+			@SuppressWarnings("deprecation")
+			clsUsuario a = new clsUsuario(nomtxt.getText(), apetxt.getText(), corretxt.getText(), nomusutxt.getText(), contrausutxt.getText());
 			try {
-				clsGestor.validarEmail(corretxt.getText());
-			} catch (clsEmailNoValido e2) {
-				JOptionPane.showMessageDialog(null, e2.getMessage());
-			}
-			try 
-			{
-				clsGestor.AltaUsuario(nomtxt.getText(), apetxt.getText(), corretxt.getText(), nomusutxt.getText(), contrausutxt.getText());
-		        JOptionPane.showMessageDialog(null, "Compruebe que se ha registrado correctamente en su dirección de correo electrónico. ¡Gracias!" );
-
-				this.setVisible(false);
-//					frmMenuPrincipal frame = new frmMenuPrincipal();
-//					frame.setVisible(true);
-					clsHilo repeticion = new clsHilo();
-					repeticion.start();
-				
-			} 
-			catch (clsElementoRepetido e1) 
-			{
+				clsBaseDeDatos.anyadirFilaATabla(clsBaseDeDatos.getStatement(), a);
+			} catch (clsEmailNoValido e1) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+			} catch (clsUsuarioRepetido e1) {
+				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, e1.getMessage());
 			}
-			 
-			
-			break;
-			
 		default: break;
 			}	
 	}
