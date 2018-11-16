@@ -6,15 +6,19 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import LN.clsJuegoPrincipiante;
 
 public class VentanaPrincipiante extends JPanel 
 {
-	int numminas;
+	int numminas = 10;
+	int casillasbuenas;
 	public JLabel JLabelP;
 	private JButton botonesCasillaP [][];
+	private boolean pulsada [][] = new boolean [numminas][numminas];
+	clsJuegoPrincipiante PartidaPrincipiante;
 	
 	private String imagenesbotones[] = {"imagenes/0.PNG",
 								"imagenes/1.PNG",
@@ -29,9 +33,14 @@ public class VentanaPrincipiante extends JPanel
 	private ImageIcon[] imagenes = new ImageIcon[10];
 	
 	public VentanaPrincipiante(){
-		clsJuegoPrincipiante PartidaPrincipiante = new clsJuegoPrincipiante();
+		PartidaPrincipiante = new clsJuegoPrincipiante();
 		this.setSize(200, 240);
-		numminas = PartidaPrincipiante.getMinas();
+		for (int i = 0; i < numminas; i++){
+			for (int j = 0; j < numminas; j++){
+				pulsada[i][j] = false;
+			}
+		}
+		casillasbuenas = PartidaPrincipiante.getCasillasbuenas();
 		
 		botonesCasillaP  = new JButton [numminas][numminas];
 		AsignarBotonesP();
@@ -79,6 +88,82 @@ public class VentanaPrincipiante extends JPanel
 	}
 	
 	public void PulsarBotonP(int i, int j){
-		
+		if(i>=0 && i<numminas && j>=0 && j<numminas && pulsada[i][j] == false){
+			// Si en la casilla pulsada se encuentra una bomba
+			if(PartidaPrincipiante.getSituacioncasillas(i, j) == 9){
+				DestaparBotonP();
+				JOptionPane.showMessageDialog(null, "Has ganado!");
+			}
+			else{
+				casillasbuenas++;
+				PartidaPrincipiante.setCasillasbuenas(casillasbuenas);
+				if (casillasbuenas==90){
+					DestaparBotonP();
+					JOptionPane.showMessageDialog(null, "Lo siento, has perdido");
+				}
+			}
+			if(PartidaPrincipiante.getSituacioncasillas(i, j) == 0){
+				PulsarBotonP(i, j - 1);
+				PulsarBotonP(i, j + 1);
+				PulsarBotonP(i - 1, j);
+				PulsarBotonP(i + 1, j);
+			}
+		}
+		VisualizarCasillasP();
+	}
+	
+	public void DestaparBotonP(){
+		for(int i = 0; i < numminas; i++){
+			for(int j = 0; j < numminas; j++){
+				pulsada[i][j] = true;
+			}
+		}
+	}
+	
+	public void VisualizarCasillasP(){
+		for(int i = 0; i < numminas; i++){
+			for(int j = 0; j < numminas; j++){
+				if(pulsada[i][j] == true){
+					if(PartidaPrincipiante.getSituacioncasillas(i, j) == 0){
+						botonesCasillaP[i][j].setIcon(imagenes[0]);
+					}
+					else if(PartidaPrincipiante.getSituacioncasillas(i, j) == 1){
+						botonesCasillaP[i][j].setIcon(imagenes[1]);
+					}
+					else if(PartidaPrincipiante.getSituacioncasillas(i, j) == 2){
+						botonesCasillaP[i][j].setIcon(imagenes[2]);
+					}
+					else if(PartidaPrincipiante.getSituacioncasillas(i, j) == 3){
+						botonesCasillaP[i][j].setIcon(imagenes[3]);
+					}
+					else if(PartidaPrincipiante.getSituacioncasillas(i, j) == 4){
+						botonesCasillaP[i][j].setIcon(imagenes[4]);
+					}
+					else if(PartidaPrincipiante.getSituacioncasillas(i, j) == 5){
+						botonesCasillaP[i][j].setIcon(imagenes[5]);
+					}
+					else if(PartidaPrincipiante.getSituacioncasillas(i, j) == 6){
+						botonesCasillaP[i][j].setIcon(imagenes[6]);
+					}
+					else if(PartidaPrincipiante.getSituacioncasillas(i, j) == 7){
+						botonesCasillaP[i][j].setIcon(imagenes[7]);
+					}
+					else if(PartidaPrincipiante.getSituacioncasillas(i, j) == 8){
+						botonesCasillaP[i][j].setIcon(imagenes[8]);
+					}
+					else if(PartidaPrincipiante.getSituacioncasillas(i, j) == 9){
+						botonesCasillaP[i][j].setIcon(imagenes[9]);
+					}
+				}
+			}
+		}
+	}
+	
+	public void QuitarBotonesP(){
+		for(int i = 0; i < numminas; i++){
+			for(int j = 0; j < numminas; j++){
+				this.remove(botonesCasillaP[i][j]);
+			}
+		}
 	}
 }

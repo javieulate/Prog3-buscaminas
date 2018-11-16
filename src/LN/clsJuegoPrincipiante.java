@@ -4,21 +4,19 @@ import LP.VentanaPrincipiante;
 
 public class clsJuegoPrincipiante 
 {
-	private int casillasbuenas = 0;
-	private int minas = 10;
+	private int casillasbuenas;
+	private int minas;
 	// Cada casilla tendrá un valor, dependiendo del número de minas que tenga a su alrededor o si, en su defecto, se trata de una mina.
 	
-	int situacioncasillas[][] = new int [minas][minas]; 
+	int situacioncasillas[][];
 	
-	private boolean pulsada [][] = new boolean [minas][minas];
+	
 	
 	
 	public clsJuegoPrincipiante(){
-		for (int i = 0; i < minas; i++){
-			for (int j = 0; j < minas; j++){
-				pulsada[i][j] = false;
-			}
-		}
+		casillasbuenas = 0;
+		minas = 10;
+		situacioncasillas = new int [minas][minas]; 
 		PartidaPrincipiante();
 	}
 	
@@ -48,8 +46,9 @@ public class clsJuegoPrincipiante
 
 
 
-	public int[][] getSituacioncasillas() {
-		return situacioncasillas;
+	public int getSituacioncasillas(int i, int j) 
+	{
+		return situacioncasillas[i][j];
 	}
 
 
@@ -57,19 +56,6 @@ public class clsJuegoPrincipiante
 	public void setSituacioncasillas(int[][] situacioncasillas) {
 		this.situacioncasillas = situacioncasillas;
 	}
-
-
-
-	public boolean[][] getPulsada() {
-		return pulsada;
-	}
-
-
-
-	public void setPulsada(boolean[][] pulsada) {
-		this.pulsada = pulsada;
-	}
-
 
 
 	public void PartidaPrincipiante(){

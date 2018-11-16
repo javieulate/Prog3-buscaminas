@@ -50,6 +50,7 @@ import static COMUN.clsConstantes.CMD_BTN_REGISTRARSE;
 import static COMUN.clsConstantes.CMD_BTN_REGISTRARSE2;
 import static COMUN.clsConstantes.CMD_BTN_CERRARSESION;
 import static COMUN.clsConstantes.CMD_BTN_ACTUALIZARLISTAS;
+import static COMUN.clsConstantes.CMD_BTN_PRINCIPIANTE;
 
 import javax.swing.JLabel;
 
@@ -229,6 +230,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		principiante.setMnemonic(KeyEvent.VK_P);
 		principiante.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_P, ActionEvent.ALT_MASK));
+		principiante.setActionCommand(CMD_BTN_PRINCIPIANTE);
 		principiante.addActionListener(this);
 		nivel.add(principiante);
 		
@@ -295,13 +297,13 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	{
 		switch(e.getActionCommand())
 		{
-//			case CMD_BTN_SUBIRPELI:
-//				
-//				frmSubirMetraje subirpeli = new frmSubirMetraje();
-//				desktop.add(subirpeli);
-//				subirpeli.setVisible(true);
-//				
-//				break;
+			case CMD_BTN_PRINCIPIANTE:
+				
+				frmPartida NuevaPartida = new frmPartida();
+				desktop.add(NuevaPartida);
+				NuevaPartida.setVisible(true);
+				
+				break;
 			
 //			case CMD_BTN_SUBIRSERIE:
 //				

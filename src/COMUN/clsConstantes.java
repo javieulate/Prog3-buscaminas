@@ -32,13 +32,10 @@ public class clsConstantes
 	public static final String CMD_BTN_REGISTRARSE = "CMD_BTN_REGISTRARSE";
 	public static final String CMD_BTN_INICIAR_SESION2 = "CMD_BTN_INICIAR_SESION2";
 	public static final String CMD_BTN_REGISTRARSE2 = "CMD_BTN_REGISTRARSE2";
+	public static final String CMD_BTN_PRINCIPIANTE = "CMD_BTN_PRINCIPIANTE";
 	
 
 	public static final String CMD_BTN_CERRARSESION = "CMD_BTN_CERRARSESION";
-//	public static final String CMD_BTN_CERRARSESION = "CMD_BTN_CERRARSESION";
-//	public static final String CMD_BTN_CERRARSESION = "CMD_BTN_CERRARSESION";
-//	public static final String CMD_BTN_CERRARSESION = "CMD_BTN_CERRARSESION";
-//	public static final String CMD_BTN_CERRARSESION = "CMD_BTN_CERRARSESION";
 
 
 	public static final String CMD_BTN_ACTUALIZARLISTAS = "CMD_BTN_ACTUALIZARLISTAS";
