@@ -20,21 +20,22 @@ public class VentanaPrincipiante extends JPanel
 	private boolean pulsada [][] = new boolean [numminas][numminas];
 	clsJuegoPrincipiante PartidaPrincipiante;
 	
-	private String imagenesbotones[] = {"imagenes/0.PNG",
-								"imagenes/1.PNG",
-								"imagenes/2.PNG",
-								"imagenes/3.PNG",
-								"imagenes/4.PNG",
-								"imagenes/5.PNG",
-								"imagenes/6.PNG",
-								"imagenes/7.PNG",
-								"imagenes/8.PNG",
-								"imagenes/9.PNG"};
+	private String imagenesbotones[] = {"src/imagenes/0.PNG",
+								"src/imagenes/1.PNG",
+								"src/imagenes/2.PNG",
+								"src/imagenes/3.PNG",
+								"src/imagenes/4.PNG",
+								"src/imagenes/5.PNG",
+								"src/imagenes/6.PNG",
+								"src/imagenes/7.PNG",
+								"src/imagenes/8.PNG",
+								"src/imagenes/9.PNG"};
 	private ImageIcon[] imagenes = new ImageIcon[10];
 	
 	public VentanaPrincipiante(){
 		PartidaPrincipiante = new clsJuegoPrincipiante();
 		this.setSize(200, 240);
+		this.setLayout(null);
 		for (int i = 0; i < numminas; i++){
 			for (int j = 0; j < numminas; j++){
 				pulsada[i][j] = false;
@@ -44,12 +45,12 @@ public class VentanaPrincipiante extends JPanel
 		
 		botonesCasillaP  = new JButton [numminas][numminas];
 		AsignarBotonesP();
-		AsignarImagenesP();
+		GestionEventosP();
 	}
 	
 	public void AsignarBotonesP(){
 		for(int i = 0; i < imagenes.length; i++){
-			imagenes[i] = new ImageIcon(getClass().getResource(imagenesbotones[i]));
+			imagenes[i] = new ImageIcon(imagenesbotones[i]);
 		}
 		for(int f = 0; f < numminas; f++){
 			for (int j = 0;j < numminas; j++){
@@ -62,9 +63,6 @@ public class VentanaPrincipiante extends JPanel
 		}
 	}
 	
-	public void AsignarImagenesP(){
-		
-	}
 	
 	public void GestionEventosP(){
 		for(int i = 0; i < numminas; i++){
@@ -88,18 +86,24 @@ public class VentanaPrincipiante extends JPanel
 	}
 	
 	public void PulsarBotonP(int i, int j){
+		PulsarBotonP2(i, j);
+		VisualizarCasillasP();
+	}
+	
+	public void PulsarBotonP2(int i, int j){
 		if(i>=0 && i<numminas && j>=0 && j<numminas && pulsada[i][j] == false){
+			pulsada[i][j] = true;
 			// Si en la casilla pulsada se encuentra una bomba
 			if(PartidaPrincipiante.getSituacioncasillas(i, j) == 9){
 				DestaparBotonP();
-				JOptionPane.showMessageDialog(null, "Has ganado!");
+				JOptionPane.showMessageDialog(null, "Lo siento, has perdido");
 			}
 			else{
 				casillasbuenas++;
 				PartidaPrincipiante.setCasillasbuenas(casillasbuenas);
 				if (casillasbuenas==90){
 					DestaparBotonP();
-					JOptionPane.showMessageDialog(null, "Lo siento, has perdido");
+					JOptionPane.showMessageDialog(null, "Has ganado!");
 				}
 			}
 			if(PartidaPrincipiante.getSituacioncasillas(i, j) == 0){
@@ -109,7 +113,6 @@ public class VentanaPrincipiante extends JPanel
 				PulsarBotonP(i + 1, j);
 			}
 		}
-		VisualizarCasillasP();
 	}
 	
 	public void DestaparBotonP(){

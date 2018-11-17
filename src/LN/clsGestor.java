@@ -20,70 +20,12 @@ import COMUN.clsElementoRepetido;
 import COMUN.clsEmailNoValido;
 import COMUN.clsUsuarioNoRegistrado;
 import COMUN.clsConstantes.enFicDatos;
+import LD.clsBaseDeDatos;
 import LD.clsDatos;
 import LD.itfDatos;
 
 public class clsGestor {
 	
-	public static void altaUsuario(clsUsuario usuario,  ArrayList <clsUsuario> listaUsu) throws clsUsuarioRepetido {
-		clsUsuario a = new clsUsuario();
-		a=usuario;
-		HashSet<clsUsuario>miSet = new HashSet<clsUsuario>();
-		for (clsUsuario aux : listaUsu) {
-			miSet.add(aux);
-		}
-		if(miSet.add(a)==true){
-			System.out.println("El usuario se ha añadido");
-			listaUsu.add(a);
-		}
-		else{
-			throw new clsUsuarioRepetido();
-		}
-	}
-	
-	/**
-	 * Este es el método de alta de un usuario. Es un método que usa la lógica de presentación cuando quiere registrar
-	 * un usuario nuevo en nuestra aplicación. Dispone de la funcionalidad del Hashset para eliminar aquellos usuarios 
-	 * que estén repetidos (por mail). Los guarda en el fichero de usuarios que hemos definido en clsConstantes.
-	 * @param nombre nombre del usuario
-	 * @param apellido apellido del usuario
-	 * @param correoelectronico mail del usuario
-	 * @param nomusu nombre de usuario
-	 */
-	public static void AltaUsuario(String nombre, String apellido, String mail, String nomUsu, String contrasena) throws clsElementoRepetido
-	{
-			itfProperty a = new clsUsuario(nombre, apellido, mail, nomUsu, contrasena);
-			itfDatos ObjDatos = new clsDatos();
-			
-			HashSet<itfProperty>miSet = new HashSet<itfProperty>();
-			
-			ArrayList<itfProperty>milista;
-			milista = ListaUsuarios();
-		
-			
-			for (itfProperty aux : milista) 
-			{
-				miSet.add((clsUsuario)aux);
-			}
-			if(miSet.add(a)==true)
-			{
-				ObjDatos.ComenzarSave(enFicDatos.FICHEROUSU);
-				ObjDatos.Save((Serializable)a);
-				ObjDatos.TerminarSave();
-				
-//				ObjDatos.ComenzarSave(enFicDatos.FICHEROSESION);
-//				ObjDatos.Save((Serializable)a);
-//				ObjDatos.TerminarSave();
-				
-			    String asunto = "Bienvenido a BuscaminasDeusto";
-			    String cuerpo = "¡Gracias! Tu registro en BuscaminasDeusto se ha realizado con éxito.";
-			    enviarConGMail(mail, asunto, cuerpo);
-			}
-			else
-			{
-				throw new clsElementoRepetido();
-			}		
-	}
 	
 	
 	/**
@@ -92,81 +34,13 @@ public class clsGestor {
 	 */
 	public static ArrayList<clsUsuario> ListaUsuariosclsUsuarios()
 	{
-		ArrayList<Serializable>leido;
-		ArrayList<clsUsuario>retorno;
-		clsDatos objDatos;
+		ArrayList<clsUsuario>listausuarios = new ArrayList<clsUsuario>();
 		
-		retorno=null;
-		objDatos=new clsDatos();
+		listausuarios = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
 		
-		try
-		{
-			objDatos.ComenzarRead(enFicDatos.FICHEROUSU);
-			leido=objDatos.Read();
-			retorno=new ArrayList<clsUsuario>();
-			
-			for(Serializable s: leido)
-			{
-				retorno.add((clsUsuario)s);
-			}
-			
-		}
-		catch(IOException e)
-		{
-			//Si hay error devuelvo una lista vacía.
-			retorno=new ArrayList<clsUsuario>();
-		}
-		finally
-		{
-			objDatos.TerminarRead();
-		}
-		
-		objDatos=null;
-		return retorno;
+		return listausuarios;
 	}	
 		
-	/**
-	 * Este es el método del clsGestor que elabora una lista de usuarios de nuestra aplicación. Lo que hace es
-	 * leer toda la información que existe de los usuarios registrados entrando en el fichero de estos. Mete los
-	 * usuarios registrados en una lista y la manda a donde queramos, normalmente se usa en el menú principal.
-	 * 
-	 * @return lista llena de información de los usuarios.
-	 */
-	public static ArrayList<itfProperty> ListaUsuarios()
-	{
-		ArrayList<Serializable>leido;
-		ArrayList<itfProperty>retorno;
-		clsDatos objDatos;
-		
-		retorno=null;
-		objDatos=new clsDatos();
-		
-		try
-		{
-			objDatos.ComenzarRead(enFicDatos.FICHEROUSU);
-			leido=objDatos.Read();
-			retorno=new ArrayList<itfProperty>();
-			
-			for(Serializable s: leido)
-			{
-				retorno.add((itfProperty)s);
-			}
-			
-		}
-		catch(IOException e)
-		{
-			//Si hay error devuelvo una lista vacía.
-			retorno=new ArrayList<itfProperty>();
-		}
-		finally
-		{
-			objDatos.TerminarRead();
-		}
-		
-		objDatos=null;
-		return retorno;
-	}
-	
 	/**
 	 * Método para comprobar si un usuario existe en fichero.	
 	 * @param nomusuario nombre de usuario a buscar

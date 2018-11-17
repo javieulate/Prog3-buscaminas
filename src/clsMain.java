@@ -12,12 +12,12 @@ public class clsMain {
 
 	public static void main(String[] args) {
 
-		frmPantalla frame = new frmPantalla();
-		frame.setVisible(true);
+		frmPantalla frPantalla = new frmPantalla();
+		frPantalla.setVisible(true);
 		ArrayList<clsUsuario> listaUsu = new ArrayList<clsUsuario>();
 		clsBaseDeDatos.initBD( "Usuarios.bd" );
 		clsBaseDeDatos.crearTablaBD();
-		listaUsu=clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
+		listaUsu = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
 		for (clsUsuario aux : listaUsu) {
 			
 			System.out.println(aux.toString());

@@ -104,10 +104,10 @@ public class frmPantalla extends JFrame implements ActionListener
 				clsGestor.ComprobarUsuario(t1.getText(), t2.getText());
 				clsGestor.IniciarSesion(t1.getText(), t2.getText());
 				this.setVisible(false);
-//				frmMenuPrincipal frame = new frmMenuPrincipal();
-//				frame.setVisible(true);
-				clsHilo repeticion = new clsHilo();
-				repeticion.start();
+				frmMenuPrincipal frame = new frmMenuPrincipal();
+				frame.setVisible(true);
+//				clsHilo repeticion = new clsHilo();
+//				repeticion.start();
 			} 
 			catch (clsUsuarioNoRegistrado e1)
 			{
@@ -117,30 +117,6 @@ public class frmPantalla extends JFrame implements ActionListener
 	
 		case CMD_BTN_REGISTRARSE2:
 			
-//			try {
-//				clsGestor.validarEmail(corretxt.getText());
-//			} catch (clsEmailNoValido e2) {
-//				JOptionPane.showMessageDialog(null, e2.getMessage());
-//			}
-//			try 
-//			{
-//				clsGestor.AltaUsuario(nomtxt.getText(), apetxt.getText(), corretxt.getText(), nomusutxt.getText(), contrausutxt.getText());
-//		        JOptionPane.showMessageDialog(null, "Compruebe que se ha registrado correctamente en su dirección de correo electrónico. ¡Gracias!" );
-//
-//				this.setVisible(false);
-////					frmMenuPrincipal frame = new frmMenuPrincipal();
-////					frame.setVisible(true);
-//					clsHilo repeticion = new clsHilo();
-//					repeticion.start();
-//				
-//			} 
-//			catch (clsElementoRepetido e1) 
-//			{
-//				JOptionPane.showMessageDialog(null, e1.getMessage());
-//			}
-//			 
-//			
-//			break;
 			@SuppressWarnings("deprecation")
 			clsUsuario a = new clsUsuario(nomtxt.getText(), apetxt.getText(), corretxt.getText(), nomusutxt.getText(), contrausutxt.getText());
 			try {
@@ -152,7 +128,10 @@ public class frmPantalla extends JFrame implements ActionListener
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, e1.getMessage());
 			}
-		default: break;
+			this.setVisible(false);
+			frmMenuPrincipal frame = new frmMenuPrincipal();
+			frame.setVisible(true);
+			break;
 			}	
 	}
 	

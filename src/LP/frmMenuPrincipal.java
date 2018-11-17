@@ -300,7 +300,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 			case CMD_BTN_PRINCIPIANTE:
 				
 				frmPartida NuevaPartida = new frmPartida();
-				desktop.add(NuevaPartida);
+				this.setVisible(false);
 				NuevaPartida.setVisible(true);
 				
 				break;
