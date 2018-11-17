@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
 public class clsBaseDeDatos 
 {
 	// ------------------------------------
-			// VALIDO PARA CUALQUIER BASE DE DATOS
-			// ------------------------------------
+	// VALIDO PARA CUALQUIER BASE DE DATOS
+	// ------------------------------------
 			
 			private static Connection connection = null; //Gestiona la conexión 
 			private static Statement statement = null; //Gestiona las instrucciones de la base

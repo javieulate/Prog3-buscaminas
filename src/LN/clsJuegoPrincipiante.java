@@ -10,62 +10,45 @@ public class clsJuegoPrincipiante
 	
 	int situacioncasillas[][];
 	
-	
-	
-	
 	public clsJuegoPrincipiante(){
 		casillasbuenas = 0;
 		situacioncasillas = new int [minas][minas]; 
 		PartidaPrincipiante();
 	}
 	
-	
-	
 	public int getCasillasbuenas() {
 		return casillasbuenas;
 	}
-
-
 
 	public void setCasillasbuenas(int casillasbuenas) {
 		this.casillasbuenas = casillasbuenas;
 	}
 
-
-
 	public int getMinas() {
 		return minas;
 	}
 
-
-
 	public void setMinas(int minas) {
 		this.minas = minas;
 	}
-
-
 
 	public int getSituacioncasillas(int i, int j) 
 	{
 		return situacioncasillas[i][j];
 	}
 
-
-
 	public void setSituacioncasillas(int[][] situacioncasillas) {
 		this.situacioncasillas = situacioncasillas;
 	}
 
-
 	public void PartidaPrincipiante(){
 		ColocarMinasP();
-		SituacionMinas();
-		
+		SituacionMinas();		
 	}
 	
 	/*
-	 * El método ColocarMinasP se va a ocupar de colocar 10 minas aleatoriamente a lo largo del "tablero". Conceptualmente se colocará una mina
-	 * en aquellas casillas a las que se le asignen el valor 9.
+	 * El método ColocarMinasP se va a ocupar de colocar 10 minas aleatoriamente a lo largo del "tablero". 
+	 * Conceptualmente se colocará una mina en aquellas casillas a las que se le asignen el valor 9.
 	 * @param 
 	 * @param
 	 */
@@ -108,7 +91,4 @@ public class clsJuegoPrincipiante
 			}
 		}
 	}
-	
-	
-	
 }

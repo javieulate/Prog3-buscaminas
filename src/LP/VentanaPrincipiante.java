@@ -106,6 +106,7 @@ public class VentanaPrincipiante extends JPanel
 					JOptionPane.showMessageDialog(null, "Has ganado!");
 				}
 			}
+			//Si no es bomba y no hay bombas cerca, pone las casillas visibles.
 			if(PartidaPrincipiante.getSituacioncasillas(i, j) == 0){
 				PulsarBotonP(i, j - 1);
 				PulsarBotonP(i, j + 1);

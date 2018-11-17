@@ -44,13 +44,7 @@ import COMUN.clsUsuarioNoRegistrado;
 import LN.clsGestor;
 import LN.clsUsuario;
 import LN.itfProperty;
-import static COMUN.clsConstantes.CMD_BTN_INICIAR_SESION;
-import static COMUN.clsConstantes.CMD_BTN_INICIAR_SESION2;
-import static COMUN.clsConstantes.CMD_BTN_REGISTRARSE;
-import static COMUN.clsConstantes.CMD_BTN_REGISTRARSE2;
-import static COMUN.clsConstantes.CMD_BTN_CERRARSESION;
-import static COMUN.clsConstantes.CMD_BTN_ACTUALIZARLISTAS;
-import static COMUN.clsConstantes.CMD_BTN_PRINCIPIANTE;
+import static COMUN.clsConstantes.*;
 
 import javax.swing.JLabel;
 
@@ -113,14 +107,14 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 			    clsGestor.CerrarSesion();;
 			  }
 			});
-		this.setBounds(100, 100, 1000, 650);
+		this.setBounds(100, 100, 600, 431);
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar(createMenuBar());
 		
 		JTextArea txtrMenuUsuario = new JTextArea();
 		txtrMenuUsuario.setForeground(Color.BLACK);
 		txtrMenuUsuario.setEditable(false);
-		txtrMenuUsuario.setBounds(52, 60, 309, 48);
+		txtrMenuUsuario.setBounds(450, 20, 309, 48);
 		txtrMenuUsuario.setBackground(SystemColor.text);
 		txtrMenuUsuario.setFont(new Font("Microsoft Tai Le", Font.BOLD, 17));
 		txtrMenuUsuario.setText("Bienvenid@");
@@ -136,84 +130,13 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		desktop.add(txtrMenuUsuario);
 		
 		JLabel label = new JLabel("");
-		label.setBounds(155, 152, 531, 168);
+		label.setBounds(140, 53, 537, 203);
 		ImageIcon logo= new ImageIcon("src/imagenes/buscaminas.png");
 		desktop.setLayout(null);
 		label.setIcon(logo);
 		getContentPane().add(label);
 		
-		JLabel lblListaDePelculas = new JLabel("TOP 10 de mejores resultados obtenidos");
-		lblListaDePelculas.setBounds(611, 26, 167, 14);
-		lblListaDePelculas.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 13));
-		desktop.add(lblListaDePelculas);
-		
-		JLabel lblListaDeSeries = new JLabel("Ranking general");
-		lblListaDeSeries.setBounds(611, 289, 167, 14);
-		lblListaDeSeries.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 13));
-		desktop.add(lblListaDeSeries);
-		
-		buscador = new JTextField();
-		buscador.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 13));
-		buscador.setBounds(52, 309, 501, 31);
-		desktop.add(buscador);
-		buscador.setColumns(10);
-		
-		JButton buscarserie = new JButton("");
-		buscarserie.setBounds(330, 356, 169, 22);
-//		buscarserie.setActionCommand(CMD_BTN_BUSCARSERIE);
-		buscarserie.addActionListener(this);
-		desktop.add(buscarserie);
-		
-		JButton buscarpeli = new JButton("");
-		buscarpeli.setBounds(119, 356, 169, 22);
-//		buscarpeli.setActionCommand(CMD_BTN_);
-		buscarpeli.addActionListener(this);
-		desktop.add(buscarpeli);
-//		ArrayList<itfProperty>listapelisArray = clsGestor.listaPelis();
-		DefaultListModel<String> DLMPelis = new DefaultListModel<String>();
-//		for(itfProperty o: listapelisArray)
-		{
-//			 DLMPelis.addElement(o.getStringProperty(COMUN.clsConstantes.PROP_METRAJE_TITULO));
-		}
-		
-		rankingpersonal = new JList<String>();
-//		ArrayList<itfProperty>listaseriesArray =  clsGestor.listaSeries();
-		DefaultListModel<String> DLMSeries = new DefaultListModel<String>();
-//		for (itfProperty aux: listaseriesArray) 
-		{
-//			DLMSeries.addElement(aux.getStringProperty(COMUN.clsConstantes.PROP_METRAJE_TITULO));
-		}
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBounds(611, 314, 350, 227);
-		desktop.add(scrollPane);
-		
-		rankingpersonal.setModel(DLMSeries);
-		desktop.add(rankingpersonal);
-		rankingpersonal.setBounds(611, 314, 350, 227);
-		rankingpersonal.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
-		rankingpersonal.setFont(new Font("Franklin Gothic Demi", Font.ITALIC, 15));
-		rankingpersonal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		rankingpersonal.setLayoutOrientation(JList.VERTICAL);
-		scrollPane.setViewportView(rankingpersonal);
-		
-		JScrollPane scrollPane2 = new JScrollPane();
-		scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane2.setBounds(611, 51, 350, 227);
-		desktop.add(scrollPane2);
-		
-		rankingabsoluto = new JList<String>();
-		rankingabsoluto.setModel(DLMPelis);
-		desktop.add(rankingabsoluto);
-		rankingabsoluto.setBounds(611, 51, 350, 227);
-		rankingabsoluto.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
-		rankingabsoluto.setFont(new Font("Franklin Gothic Demi", Font.ITALIC, 15));
-		rankingabsoluto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		rankingabsoluto.setLayoutOrientation(JList.VERTICAL);
-		rankingabsoluto.setVisibleRowCount(-1);
-		scrollPane2.setViewportView(rankingabsoluto);
-		
+	
 	}
 	/**
 	 * Este es le método para crear la barra de herramientas que vemos en la parte de arriba de la ventana.
@@ -255,9 +178,18 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	
 		URLabel label = new URLabel();
         label.setURL("https://drive.google.com/open?id=18fz2OB2qhgtiEDcL0h9mDG0mb023lVfH");
-        label.setLocation(5, 0); 
+        label.setLocation(10, 0); 
         label.setText("Manual");
         ayuda.add(label);
+        
+        ayuda.addSeparator();
+        
+        URLabel label2 = new URLabel();
+        label2.setURL("https://www.youtube.com/watch?v=5Qu-AjHkQ54");
+        label2.setLocation(10, 0); 
+        label2.setText("Tutorial de youtube");
+        ayuda.add(label2);
+        
 //		try {
 //		     File path = new File ("carpeta/tuArchivo.pdf");
 //		     Desktop.getDesktop().open(path);
@@ -265,6 +197,26 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 //		     ex.printStackTrace();
 //		}
 		
+        JMenu rankings = new JMenu("Ranking");
+		rankings.setMnemonic(KeyEvent.VK_N); 
+		menuBar.add(rankings);
+			
+		JMenuItem rankingpersonal = new JMenuItem("Ranking personal");
+		rankingpersonal.setMnemonic(KeyEvent.VK_P);
+		rankingpersonal.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_P, ActionEvent.ALT_MASK));
+		rankingpersonal.setActionCommand(CMD_BTN_RANKINGPERSONAL);
+		rankingpersonal.addActionListener(this);
+		rankings.add(rankingpersonal);
+		
+		JMenuItem rankinggeneral = new JMenuItem("Ranking principal");
+		rankinggeneral.setMnemonic(KeyEvent.VK_G);
+		rankinggeneral.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_G, ActionEvent.ALT_MASK));
+		rankinggeneral.setActionCommand(CMD_BTN_RANKINGPRINCIPAL);
+		rankinggeneral.addActionListener(this);
+		rankings.add(rankinggeneral);
+        
         JMenu reset = new JMenu("Resetear");
         reset.setMnemonic(KeyEvent.VK_R);
         reset.getAccessibleContext().setAccessibleDescription(
@@ -305,37 +257,31 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				
 				break;
 			
-//			case CMD_BTN_SUBIRSERIE:
-//				
-//				frmInternalSubirSerie subirserie = new frmInternalSubirSerie();
-//				desktop.add(subirserie);
-//				subirserie.setVisible(true);
-//				break;
-//				
-//			case CMD_BTN_VALORARPELI:
-//				frmInternalValorar valorarpeli = new frmInternalValorar(true);
-//				desktop.add(valorarpeli);
-//				valorarpeli.setVisible(true);
-//				break;
-//				
-//			case CMD_BTN_VALORARSERIE:
-//				frmInternalValorar valorarserie = new frmInternalValorar(false);
-//				desktop.add(valorarserie);
-//				valorarserie.setVisible(true);
-//				break;
-//				
-//			case CMD_BTN_COMENTARPELI:
-//				frmInternalComentar comentarpeli = new frmInternalComentar();
-//				desktop.add(comentarpeli);
-//				comentarpeli.setVisible(true);
-//				break;
-//			
-//			case CMD_BTN_COMENTARSERIE:
-//				frmInternalComentar comentarserie = new frmInternalComentar();
-//				desktop.add(comentarserie);
-//				comentarserie.setVisible(true);
-//				break;
+			case CMD_BTN_RANKINGPERSONAL:
+							
+				frmRankingPersonal RankingPersonal = new frmRankingPersonal();
+				this.setVisible(true);
+				RankingPersonal.setVisible(true);
+				desktop.add(RankingPersonal);
+			        try {
+			        	RankingPersonal.setSelected(true);
+			        }  catch (java.beans.PropertyVetoException e1) {}
 				
+				break;
+				
+			case CMD_BTN_RANKINGPRINCIPAL:
+				
+				frmRankingPrincipal RankingPrincipal = new frmRankingPrincipal();
+				this.setVisible(true);
+				RankingPrincipal.setVisible(true);
+				RankingPrincipal.setVisible(true);
+				desktop.add(RankingPrincipal);
+			        try {
+			        	RankingPrincipal.setSelected(true);
+			        }  catch (java.beans.PropertyVetoException e1) {}
+				
+				break;
+							
 			case CMD_BTN_CERRARSESION:
 				
 				this.setVisible(false);
@@ -346,54 +292,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				
 			
 				
-//			case CMD_BTN_BUSCARPELI:
-//				
-//				String peliabuscar;
-//				itfProperty b = null;
-//				peliabuscar = buscador.getText();
-//				try 
-//				{
-//					b = clsGestor.buscarPeli(peliabuscar);
-//					frmInternalBuscarPeli buscarpeli = new frmInternalBuscarPeli(b);
-//					desktop.add(buscarpeli);
-//					buscarpeli.setVisible(true);
-//				} 
-//				catch (clsMetrajeNoExistente e1) 
-//				{
-//					JOptionPane.showMessageDialog(null, e1.getMessage());
-//				}
-//				break;
-//				
-//				
-//			case CMD_BTN_BUSCARSERIE:
-//				
-//				String serieabuscar;
-//				itfProperty c = null;
-//				serieabuscar = buscador.getText();
-//				try 
-//				{
-//					c = clsGestor.buscarSerie(serieabuscar);
-//				} 
-//				catch (clsMetrajeNoExistente e1) 
-//				{
-//					JOptionPane.showMessageDialog(null, e1.getMessage());
-//				}
-//				frmInternalBuscarSerie buscarserie = new frmInternalBuscarSerie(c);
-//				desktop.add(buscarserie);
-//				buscarserie.setVisible(true);
-//				break;
-//				
-//			case CMD_BTN_VERPELIS:
-//				frmVerPelis a = new frmVerPelis();
-//				desktop.add(a);
-//				a.setVisible(true);
-//				break;
-//				
-//			case CMD_BTN_VERSERIES:
-//				frmVerSeries z = new frmVerSeries();
-//				desktop.add(z);
-//				z.setVisible(true);
-//				break;
+
 				
 			case "Resetear":
 				int reply = JOptionPane.showConfirmDialog(this, "Si continua se borrarán todos los datos. ¿Desea continuar?", "Resetear", JOptionPane.YES_NO_OPTION);

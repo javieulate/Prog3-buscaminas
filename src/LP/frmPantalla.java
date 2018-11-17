@@ -23,9 +23,15 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Properties;
 
 import javax.swing.border.TitledBorder;
 
@@ -48,8 +54,11 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 
+
 public class frmPantalla extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	private Properties misProperties;
 	private JButton btnIniciarSesion;
 	private JButton btnRegistrarse;
 	private JTextField t1;
@@ -60,6 +69,10 @@ public class frmPantalla extends JFrame implements ActionListener
 	private JTextField corretxt;
 	private JTextField apetxt;
 	private JTextField nomtxt;
+	private int ultimaXVentana = -1;
+	private int ultimaYVentana = -1;
+	private int ultimoAnchoVentana = -1;
+	private int ultimoAltoVentana = -1;
 	JPanel contentPane = new JPanel();
 	/**
 	 * Esta es la pantalla en sí misma, únicamente ella.
@@ -70,6 +83,15 @@ public class frmPantalla extends JFrame implements ActionListener
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 100, 600, 431);
 		setContentPane(VentanaInicial());
+		
+		this.addWindowListener( new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+				clsBaseDeDatos.close();  // Paso 5  //Cerramos la base de datos con la ventana.
+				salvaProperties();  // Paso 6
+			}
+		});
 	}
 	
 	/**
@@ -308,5 +330,40 @@ public class frmPantalla extends JFrame implements ActionListener
 		this.repaint();
 		return contentPane;
 	}
+	
+	public void cargaProperties() {
+		misProperties = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream( new File ( "videoplayer.ini" ));
+			misProperties.loadFromXML( fis );
+			ultimaXVentana = Integer.parseInt( misProperties.getProperty( "ultimaXVentana" ) );
+			ultimaYVentana = Integer.parseInt( misProperties.getProperty( "ultimaYVentana" ) );
+			ultimoAnchoVentana = Integer.parseInt( misProperties.getProperty( "ultimoAnchoVentana" ) );
+			ultimoAltoVentana = Integer.parseInt( misProperties.getProperty( "ultimoAltoVentana" ) );
+			if (ultimoAnchoVentana>0 && ultimoAltoVentana>0) {
+				setSize( ultimoAnchoVentana, ultimoAltoVentana );
+				setLocation( ultimaXVentana, ultimaYVentana );
+			}
+			fis.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void salvaProperties() {
+		PrintStream ps;
+		try {
+			ps = new PrintStream( new File( "videoplayer.ini" ) );
+			misProperties.setProperty( "ultimaXVentana", ""+ getX() );
+			misProperties.setProperty( "ultimaYVentana", ""+ getY() );
+			misProperties.setProperty( "ultimoAnchoVentana", ""+getWidth() );
+			misProperties.setProperty( "ultimoAltoVentana", ""+getHeight() );
+			misProperties.storeToXML( ps, "Video Player Deusto" );
+			ps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
 

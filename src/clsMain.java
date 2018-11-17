@@ -14,6 +14,7 @@ public class clsMain {
 
 		frmPantalla frPantalla = new frmPantalla();
 		frPantalla.setVisible(true);
+		frPantalla.cargaProperties();
 		ArrayList<clsUsuario> listaUsu = new ArrayList<clsUsuario>();
 		clsBaseDeDatos.initBD( "Usuarios.bd" );
 		clsBaseDeDatos.crearTablaBD();

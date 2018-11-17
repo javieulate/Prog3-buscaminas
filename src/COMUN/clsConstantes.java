@@ -34,6 +34,9 @@ public class clsConstantes
 	public static final String CMD_BTN_REGISTRARSE2 = "CMD_BTN_REGISTRARSE2";
 	public static final String CMD_BTN_PRINCIPIANTE = "CMD_BTN_PRINCIPIANTE";
 	
+	public static final String CMD_BTN_RANKINGPERSONAL = "CMD_BTN_RANKINGPERSONAL";
+	public static final String CMD_BTN_RANKINGPRINCIPAL = "CMD_BTN_RANKINGPRINCIPAL";
+	
 
 	public static final String CMD_BTN_CERRARSESION = "CMD_BTN_CERRARSESION";
 
