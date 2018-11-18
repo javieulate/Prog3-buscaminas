@@ -77,10 +77,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	 JDesktopPane desktop;
 	 JInternalFrame subirpunt;
 	
-	 
-	private JList<String> rankingpersonal;
-	private JList<String> rankingabsoluto;
-	 
+	
 	 String newline = "\n";
 	 
 	    static final int desktopWidth = 750;
@@ -95,7 +92,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	public frmMenuPrincipal() 
 	{
 		 desktop = new JDesktopPane();
-		 desktop.setBackground(Color.WHITE);
+		 desktop.setBackground(SystemColor.LIGHT_GRAY);
 		 desktop.setPreferredSize(this.getPreferredSize());
 	     this.setContentPane(desktop);
 		
@@ -115,18 +112,17 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		txtrMenuUsuario.setForeground(Color.BLACK);
 		txtrMenuUsuario.setEditable(false);
 		txtrMenuUsuario.setBounds(450, 20, 309, 48);
-		txtrMenuUsuario.setBackground(SystemColor.text);
+		txtrMenuUsuario.setBackground(Color.LIGHT_GRAY);
 		txtrMenuUsuario.setFont(new Font("Microsoft Tai Le", Font.BOLD, 17));
-		txtrMenuUsuario.setText("Bienvenid@");
-		//		try 
-//		{
-//			txtrMenuUsuario.setText("Bienvenid@, "+clsGestor.NomUsuario());
-//		} 
-//		catch (IOException e1) 
-//		{
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+//		txtrMenuUsuario.setText("Bienvenid@");
+				try 
+		{
+			txtrMenuUsuario.setText("Bienvenid@, "+clsGestor.NomUsuario());
+		} 
+		catch (IOException e1) 
+		{
+			txtrMenuUsuario.setText("Bienvenid@");
+		}
 		desktop.add(txtrMenuUsuario);
 		
 		JLabel label = new JLabel("");
@@ -259,13 +255,20 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 			
 			case CMD_BTN_RANKINGPERSONAL:
 							
-				frmRankingPersonal RankingPersonal = new frmRankingPersonal();
+			frmRankingPersonal RankingPersonal;
+			try {
+				RankingPersonal = new frmRankingPersonal();
 				this.setVisible(true);
 				RankingPersonal.setVisible(true);
 				desktop.add(RankingPersonal);
 			        try {
 			        	RankingPersonal.setSelected(true);
 			        }  catch (java.beans.PropertyVetoException e1) {}
+				
+			} catch (IOException e1) {
+
+				JOptionPane.showMessageDialog(this, "El usuario se acaba de registrar, no hay puntuaciones disponibles.");
+			}
 				
 				break;
 				
@@ -289,15 +292,11 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				frmPantalla vuelta = new frmPantalla();
 				vuelta.setVisible(true);
 				break;
-				
-			
-				
-
-				
+					
 			case "Resetear":
 				int reply = JOptionPane.showConfirmDialog(this, "Si continua se borrarán todos los datos. ¿Desea continuar?", "Resetear", JOptionPane.YES_NO_OPTION);
 		        if (reply == JOptionPane.YES_OPTION) {
-		        	
+		 //TODO falta hacerlo      	
 					JOptionPane.showMessageDialog(this, "Datos reseteados con éxito.");
 		        }
 		        else {}

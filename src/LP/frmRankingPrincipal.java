@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import LD.clsBaseDeDatos;
 import LN.clsGestor;
 import LN.clsUsuario;
 
@@ -43,18 +44,18 @@ public class frmRankingPrincipal extends JInternalFrame implements ActionListene
     		"Apellido",
             "Nombre de usuario",
             "Puntuación"};
-	 Object[][] lista= new Object[10][4];
+	 Object[][] lista= new Object[80][4];
 	 int cont =0;
-//	 ArrayList <clsUsuario>listausuarios= gestor.ListaUsuariosclsUsuarios();
-//	 for(clsUsuario a: listausuarios)
-//	 {
-//		 lista[cont][0]= a.getNombre();
-//		 lista[cont][1]= a.getApellido();
-//		 lista[cont][2]= a.getNomUsuario();
-//		 lista[cont][3]= a.getPuntuacion();
-//		 cont++;
-//	 }
-//	
+	 ArrayList <clsUsuario>listausuarios= clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
+	 for(clsUsuario a: listausuarios)
+	 {
+		 lista[cont][0]= a.getNombre();
+		 lista[cont][1]= a.getApellido();
+		 lista[cont][2]= a.getNomUsuario();
+		 lista[cont][3]= a.getPuntuacion();
+		 cont++;
+	 }
+	
 	
 	final JTable table = new JTable(lista, columnNames);
 	table.setPreferredScrollableViewportSize(new Dimension(500, 70));

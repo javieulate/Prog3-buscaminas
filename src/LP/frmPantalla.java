@@ -88,8 +88,8 @@ public class frmPantalla extends JFrame implements ActionListener
 			@Override
 			public void windowClosing(WindowEvent e) {
 				
-				clsBaseDeDatos.close();  // Paso 5  //Cerramos la base de datos con la ventana.
-				salvaProperties();  // Paso 6
+				clsBaseDeDatos.close();  
+				salvaProperties(); 
 			}
 		});
 	}
@@ -177,6 +177,8 @@ public class frmPantalla extends JFrame implements ActionListener
 		contentPane.add(Buscaminas);
 		ImageIcon im= new ImageIcon("src/imagenes/bombita.jpg");
 	    this.setIconImage(im.getImage());
+	    
+	    this.setBackground(Color.LIGHT_GRAY);
 		
 		btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.setBounds(100, 267, 180, 23);
@@ -334,7 +336,7 @@ public class frmPantalla extends JFrame implements ActionListener
 	public void cargaProperties() {
 		misProperties = new Properties();
 		try {
-			FileInputStream fis = new FileInputStream( new File ( "videoplayer.ini" ));
+			FileInputStream fis = new FileInputStream( new File ( "frmPantalla.ini" ));
 			misProperties.loadFromXML( fis );
 			ultimaXVentana = Integer.parseInt( misProperties.getProperty( "ultimaXVentana" ) );
 			ultimaYVentana = Integer.parseInt( misProperties.getProperty( "ultimaYVentana" ) );
@@ -353,12 +355,12 @@ public class frmPantalla extends JFrame implements ActionListener
 	private void salvaProperties() {
 		PrintStream ps;
 		try {
-			ps = new PrintStream( new File( "videoplayer.ini" ) );
+			ps = new PrintStream( new File( "frmPantalla.ini" ) );
 			misProperties.setProperty( "ultimaXVentana", ""+ getX() );
 			misProperties.setProperty( "ultimaYVentana", ""+ getY() );
 			misProperties.setProperty( "ultimoAnchoVentana", ""+getWidth() );
 			misProperties.setProperty( "ultimoAltoVentana", ""+getHeight() );
-			misProperties.storeToXML( ps, "Video Player Deusto" );
+			misProperties.storeToXML( ps, "Buscaminas Deusto" );
 			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
