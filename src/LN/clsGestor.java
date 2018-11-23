@@ -115,7 +115,7 @@ public class clsGestor {
 		 * @param asunto
 		 * @param cuerpo
 		 */
-		private static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
+		public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
 			   
 		    String remitente = "buscaminas.deusto";   // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
 		    String clave="buscaminas18";

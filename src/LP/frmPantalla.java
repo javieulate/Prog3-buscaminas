@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import javax.swing.border.TitledBorder;
@@ -52,6 +53,8 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+
+import org.omg.CORBA.Environment;
 
 
 
@@ -143,6 +146,8 @@ public class frmPantalla extends JFrame implements ActionListener
 			clsUsuario a = new clsUsuario(nomtxt.getText(), apetxt.getText(), corretxt.getText(), nomusutxt.getText(), contrausutxt.getText());
 			try {
 				clsBaseDeDatos.anyadirFilaATabla(clsBaseDeDatos.getStatement(), a);
+				clsGestor.enviarConGMail(corretxt.getText(), "Bienvenido a BuscaminasDeusto", "¡Gracias! Tu registro en Buscaminas se ha realizado con éxito.");
+				
 			} catch (clsEmailNoValido e1) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, e1.getMessage());
@@ -333,7 +338,7 @@ public class frmPantalla extends JFrame implements ActionListener
 		return contentPane;
 	}
 	
-	public void cargaProperties() {
+	public void cargaProperties() throws InvalidPropertiesFormatException {
 		misProperties = new Properties();
 		try {
 			FileInputStream fis = new FileInputStream( new File ( "frmPantalla.ini" ));

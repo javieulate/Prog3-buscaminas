@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -56,6 +57,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JScrollPane;
 
@@ -65,6 +67,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
@@ -76,7 +79,6 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	 JTextField buscador;
 	 JDesktopPane desktop;
 	 JInternalFrame subirpunt;
-	
 	
 	 String newline = "\n";
 	 
@@ -109,12 +111,12 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		this.setJMenuBar(createMenuBar());
 		
 		JTextArea txtrMenuUsuario = new JTextArea();
-		txtrMenuUsuario.setForeground(Color.BLACK);
+	//	txtrMenuUsuario.setForeground(Color.BLACK);
 		txtrMenuUsuario.setEditable(false);
 		txtrMenuUsuario.setBounds(450, 20, 309, 48);
-		txtrMenuUsuario.setBackground(Color.LIGHT_GRAY);
+	//	txtrMenuUsuario.setBackground(Color.LIGHT_GRAY);
 		txtrMenuUsuario.setFont(new Font("Microsoft Tai Le", Font.BOLD, 17));
-//		txtrMenuUsuario.setText("Bienvenid@");
+	//	txtrMenuUsuario.
 				try 
 		{
 			txtrMenuUsuario.setText("Bienvenid@, "+clsGestor.NomUsuario());
@@ -132,7 +134,6 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		label.setIcon(logo);
 		getContentPane().add(label);
 		
-	
 	}
 	/**
 	 * Este es le método para crear la barra de herramientas que vemos en la parte de arriba de la ventana.
@@ -255,33 +256,35 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 			
 			case CMD_BTN_RANKINGPERSONAL:
 							
-			frmRankingPersonal RankingPersonal;
-			try {
-				RankingPersonal = new frmRankingPersonal();
+//			frmRankingPersonal RankingPersonal;
+//			try {
+//				RankingPersonal = new frmRankingPersonal();
+//				this.setVisible(true);
+//				RankingPersonal.setVisible(true);
+//				desktop.add(RankingPersonal);
+//			        try {
+//			        	RankingPersonal.setSelected(true);
+//			        }  catch (java.beans.PropertyVetoException e1) {}
+//				
+//			} catch (IOException e1) {
+//
+//				JOptionPane.showMessageDialog(this, "El usuario se acaba de registrar, no hay puntuaciones disponibles.");
+//			}
+				frmRankingPersonal rankingpersonal = new frmRankingPersonal();
+				//t.createAndShowGUI();
 				this.setVisible(true);
-				RankingPersonal.setVisible(true);
-				desktop.add(RankingPersonal);
-			        try {
-			        	RankingPersonal.setSelected(true);
-			        }  catch (java.beans.PropertyVetoException e1) {}
-				
-			} catch (IOException e1) {
-
-				JOptionPane.showMessageDialog(this, "El usuario se acaba de registrar, no hay puntuaciones disponibles.");
-			}
+				rankingpersonal.setVisible(true);
+				desktop.add(rankingpersonal);
 				
 				break;
 				
 			case CMD_BTN_RANKINGPRINCIPAL:
 				
-				frmRankingPrincipal RankingPrincipal = new frmRankingPrincipal();
+				frmRankingPrincipal rankingprincipal = new frmRankingPrincipal();
+				//t.createAndShowGUI();
 				this.setVisible(true);
-				RankingPrincipal.setVisible(true);
-				RankingPrincipal.setVisible(true);
-				desktop.add(RankingPrincipal);
-			        try {
-			        	RankingPrincipal.setSelected(true);
-			        }  catch (java.beans.PropertyVetoException e1) {}
+				rankingprincipal.setVisible(true);
+				desktop.add(rankingprincipal);
 				
 				break;
 							
@@ -360,7 +363,6 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	                url = new URI("http://www.uefa.com/");
 	            } catch (URISyntaxException ex) {}
 	            //propiedades de JLabel
-	       //     this.setText("Accede a UEFA.com");
 	            this.setToolTipText( url.toString() );
 	            this.setSize(100, 30);
 	            this.setVisible(true);

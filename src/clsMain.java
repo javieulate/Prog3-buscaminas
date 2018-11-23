@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
 
 import COMUN.clsEmailNoValido;
 import LD.clsBaseDeDatos;
@@ -14,7 +15,12 @@ public class clsMain {
 
 		frmPantalla frPantalla = new frmPantalla();
 		frPantalla.setVisible(true);
-		frPantalla.cargaProperties();
+		try {
+			frPantalla.cargaProperties();
+		} catch (InvalidPropertiesFormatException e) {
+			// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		}
 		ArrayList<clsUsuario> listaUsu = new ArrayList<clsUsuario>();
 		clsBaseDeDatos.initBD( "Usuarios.bd" );
 		clsBaseDeDatos.crearTablaBD();
@@ -23,39 +29,5 @@ public class clsMain {
 			
 			System.out.println(aux.toString());
 		}
-		
-//		clsUsuario a = new clsUsuario("aa", "aa@aa.es", "aa", 0, 0);
-//		clsUsuario b = new clsUsuario("aa", "bb@aa.es", "aa", 0, 0);
-//		
-//		try {
-//			if(clsGestor.validarEmail(a.getMail())){
-//				try {
-//					
-//					clsGestor.altaUsuario( a, listaUsu);
-//					listaUsu.add(a);
-//				} catch (clsUsuarioRepetido e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}					
-//		} catch (clsEmailNoValido e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		
-//		try {
-//			if(clsGestor.validarEmail(b.getMail())){
-//				try {
-//					clsGestor.altaUsuario(b, listaUsu);
-//					listaUsu.add(b);
-//				} catch (clsUsuarioRepetido e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}					
-//		} catch (clsEmailNoValido e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
 	}
 }
