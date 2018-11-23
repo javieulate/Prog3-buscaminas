@@ -58,18 +58,19 @@ public class clsJuegoPrincipiante
 				situacioncasillas[i][j] = 0;
 				// Antes de que se coloquen las minas, las casillas se inicializan con valor 0
 			}
-		int random1, random2;
+		}		int random1, random2;
 		
         for ( int k=0;k<minas;k++)
         	{
             	do{
             		random1=(int)(Math.random()*minas);
             		random2=(int)(Math.random()*minas);
-            	}while(situacioncasillas[random1][random2]!=0);
+            	}while(situacioncasillas[random1][random2]==9);
             	situacioncasillas[random1][random2]=9;
         	}
 		}
-	}
+	
+
 	
 	/*
 	 * Este método se va a ocupar de sumar el valor de 1 a todas aquellas casillas que se encuentren en las 8 casillas que están alrededor 

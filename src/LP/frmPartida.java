@@ -9,7 +9,7 @@ public class frmPartida extends JFrame
 	
 	public frmPartida(){
 		
-		this.setSize(200, 250);
+		this.setSize(220, 270);
 		this.setTitle("Partida Principiante");
 		panelp = new VentanaPrincipiante();
 		add(panelp);
