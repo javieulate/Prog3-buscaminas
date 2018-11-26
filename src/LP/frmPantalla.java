@@ -146,7 +146,7 @@ public class frmPantalla extends JFrame implements ActionListener
 			clsUsuario a = new clsUsuario(nomtxt.getText(), apetxt.getText(), corretxt.getText(), nomusutxt.getText(), contrausutxt.getText());
 			try {
 				clsBaseDeDatos.anyadirFilaATabla(clsBaseDeDatos.getStatement(), a);
-				clsGestor.enviarConGMail(corretxt.getText(), "Bienvenido a BuscaminasDeusto", "¡Gracias! Tu registro en Buscaminas se ha realizado con éxito.");
+				
 				
 			} catch (clsEmailNoValido e1) {
 				// TODO Auto-generated catch block

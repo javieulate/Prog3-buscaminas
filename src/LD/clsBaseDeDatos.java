@@ -118,8 +118,14 @@ public class clsBaseDeDatos
 							"'" + a.getContrasena() + "')";
 					System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 					int val = st.executeUpdate( sentSQL );
-					if (val!=1) return false;  // Se tiene que añadir 1 - error si no
-					return true;
+					if (val!=1) 
+						{
+						return false;
+						}  // Se tiene que añadir 1 - error si no
+					else{
+						clsGestor.enviarConGMail(a.getMail(), "Bienvenido a BuscaminasDeusto", "¡Gracias! Tu registro en Buscaminas se ha realizado con éxito.");
+						return true;
+						}
 				} catch (SQLException e) {
 					e.printStackTrace();
 					return false;

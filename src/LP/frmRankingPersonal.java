@@ -17,6 +17,7 @@ import LN.clsUsuario;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -85,12 +86,17 @@ public class frmRankingPersonal extends JInternalFrame implements ActionListener
 		
 		 ArrayList <clsUsuario>listausuarios = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
 	{
-		 clsUsuario usuariosesion= new clsUsuario();		
-					try {
-						usuariosesion.setNomUsuario(clsGestor.NomUsuario());
-					} catch (IOException e) {
+		 clsUsuario usuariosesion= new clsUsuario();					
+		
+		
+		 try {
+			usuariosesion.setNomUsuario(clsGestor.NomUsuario());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		}
+		
 					
-					}
 					 
 			 for(clsUsuario a: listausuarios)
 			 {

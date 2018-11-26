@@ -111,12 +111,12 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		this.setJMenuBar(createMenuBar());
 		
 		JTextArea txtrMenuUsuario = new JTextArea();
-	//	txtrMenuUsuario.setForeground(Color.BLACK);
+		txtrMenuUsuario.setForeground(Color.BLACK);
 		txtrMenuUsuario.setEditable(false);
-		txtrMenuUsuario.setBounds(450, 20, 309, 48);
-	//	txtrMenuUsuario.setBackground(Color.LIGHT_GRAY);
+		txtrMenuUsuario.setBounds(150, 20, 309, 48);
+		txtrMenuUsuario.setBackground(Color.LIGHT_GRAY);
 		txtrMenuUsuario.setFont(new Font("Microsoft Tai Le", Font.BOLD, 17));
-	//	txtrMenuUsuario.
+		
 				try 
 		{
 			txtrMenuUsuario.setText("Bienvenid@, "+clsGestor.NomUsuario());
@@ -172,7 +172,6 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		ayuda.setMnemonic(KeyEvent.VK_A);
 		menuBar.add(ayuda);
 		
-	
 		URLabel label = new URLabel();
         label.setURL("https://drive.google.com/open?id=18fz2OB2qhgtiEDcL0h9mDG0mb023lVfH");
         label.setLocation(10, 0); 
@@ -238,6 +237,8 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		
 		return menuBar;
 	}
+	
+	
 	/**
 	 * Este es el método que ejecuta dieferentes acciones según lo que sea pulsado en la pantalla.
 	 */
@@ -270,11 +271,19 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 //
 //				JOptionPane.showMessageDialog(this, "El usuario se acaba de registrar, no hay puntuaciones disponibles.");
 //			}
+			try {
+				clsGestor.NomUsuario();
 				frmRankingPersonal rankingpersonal = new frmRankingPersonal();
 				//t.createAndShowGUI();
 				this.setVisible(true);
 				rankingpersonal.setVisible(true);
 				desktop.add(rankingpersonal);
+				rankingpersonal.toFront();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(this, "El usuario se acaba de registrar, no hay puntuaciones disponibles.");
+			}
+				
 				
 				break;
 				
@@ -285,6 +294,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				this.setVisible(true);
 				rankingprincipal.setVisible(true);
 				desktop.add(rankingprincipal);
+				rankingprincipal.toFront();
 				
 				break;
 							
@@ -433,6 +443,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 
 	    }
 	    
+	  
 	    
 }
 
