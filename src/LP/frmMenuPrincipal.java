@@ -249,28 +249,20 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		{
 			case CMD_BTN_PRINCIPIANTE:
 				
+				frmAnuncio window = new frmAnuncio();
+				this.setVisible(true);
+				window.setVisible(true);
+				desktop.add(window);
+				window.toFront();
+//				window.frmReproductorDeVideo.setVisible(true);
 				frmPartida NuevaPartida = new frmPartida();
-				this.setVisible(false);
+				this.setVisible(true);
 				NuevaPartida.setVisible(true);
 				
 				break;
 			
 			case CMD_BTN_RANKINGPERSONAL:
 							
-//			frmRankingPersonal RankingPersonal;
-//			try {
-//				RankingPersonal = new frmRankingPersonal();
-//				this.setVisible(true);
-//				RankingPersonal.setVisible(true);
-//				desktop.add(RankingPersonal);
-//			        try {
-//			        	RankingPersonal.setSelected(true);
-//			        }  catch (java.beans.PropertyVetoException e1) {}
-//				
-//			} catch (IOException e1) {
-//
-//				JOptionPane.showMessageDialog(this, "El usuario se acaba de registrar, no hay puntuaciones disponibles.");
-//			}
 			try {
 				clsGestor.NomUsuario();
 				frmRankingPersonal rankingpersonal = new frmRankingPersonal();

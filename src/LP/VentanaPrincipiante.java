@@ -34,7 +34,7 @@ public class VentanaPrincipiante extends JPanel
 	
 	public VentanaPrincipiante(){
 		PartidaPrincipiante = new clsJuegoPrincipiante();
-		this.setSize(200, 240);
+		this.setSize(220, 270);
 		this.setLayout(null);
 		for (int i = 0; i < numminas; i++){
 			for (int j = 0; j < numminas; j++){
