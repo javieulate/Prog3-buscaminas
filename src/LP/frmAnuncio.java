@@ -27,12 +27,12 @@ import java.io.File;
 import javax.swing.JInternalFrame;
 
 
-public class frmAnuncio extends JInternalFrame{
+public class frmAnuncio extends JInternalFrame implements ActionListener{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 1L;
 	private JFrame frmReproductorDeVideo;
 	private JPanel panelBotones;
 	private JButton btPlay;
@@ -72,13 +72,15 @@ public class frmAnuncio extends JInternalFrame{
     	this.setIconifiable(true); 
         this.setOpaque(true);
         this.toFront();
-		inicializarVLCJ();
+        
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), LIB_VLC);
+		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+		mediaPlayer = new EmbeddedMediaPlayerComponent();
+		
 		initialize();
 		iniciarVideo();
 		frmReproductorDeVideo.setVisible(true);
 	}
-	
-
 	
 	/*
 	 * Inicializa el componente que reproduce los videos
@@ -87,7 +89,6 @@ public class frmAnuncio extends JInternalFrame{
 	
 		internalFrame.setContentPane(mediaPlayer);
 		internalFrame.setVisible(true);
-		
 		estado = Estado.STOP;
 	}
 	
@@ -118,25 +119,6 @@ public class frmAnuncio extends JInternalFrame{
 		}
 	}
 	
-	/*
-	 * Inicializa la libreria VLCJ, cargando las librerías del sistema e instanciando el reproductor
-	 */
-	private void inicializarVLCJ() {
-		
-		cargaLibreria();
-		mediaPlayer = new EmbeddedMediaPlayerComponent();
-	}
-	
-	/*
-	 * Carga la libreria libvlc.dll en la ruta indicada
-	 * Es necesario instalar la aplicación VLC 2.X 
-	 */
-	
-	private void cargaLibreria() {
-		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), LIB_VLC);
-		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
-	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -159,10 +141,24 @@ public class frmAnuncio extends JInternalFrame{
 		});
 		panelBotones.add(btPlay);
 		
+		JButton b = new JButton("Salir");
+		b.setActionCommand("BotonSalir");
+	    b.addActionListener(this);
+	    panelBotones.add(b);
+		
 		internalFrame = new JInternalFrame("");
 		internalFrame.setFrameIcon(null);
 		internalFrame.setBorder(null);
 		frmReproductorDeVideo.getContentPane().add(internalFrame, BorderLayout.CENTER);
 		frmReproductorDeVideo.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		switch(arg0.getActionCommand())
+		{
+			case "BotonSalir": this.dispose();
+					break;
+		}	
 	}
 }
