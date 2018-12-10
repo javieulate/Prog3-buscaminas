@@ -35,6 +35,12 @@ import javax.swing.WindowConstants;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.StreamHandler;
 
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollBar;
@@ -73,26 +79,25 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 
 
+
 public class frmMenuPrincipal extends JFrame implements ActionListener, InternalFrameListener
 {
 	 JTextArea display;
 	 JTextField buscador;
 	 JDesktopPane desktop;
 	 JInternalFrame subirpunt;
-	
-	 String newline = "\n";
-	 
-	    static final int desktopWidth = 750;
-	    static final int desktopHeight = 500;
-
+	 private static Logger logger = Logger.getLogger( frmMenuPrincipal.class.getName() );
+	 String newline = "\n"; 
+	 static final int desktopWidth = 750;
+	 static final int desktopHeight = 500;
 
 	/**
 	 * Con este método creamos la ventana, incluyendo todos los componentes que van a ser
 	 * visualizados.
 	 */
-
 	public frmMenuPrincipal() 
 	{
+		loggeo();
 		 desktop = new JDesktopPane();
 		 desktop.setBackground(SystemColor.LIGHT_GRAY);
 		 desktop.setPreferredSize(this.getPreferredSize());
@@ -254,10 +259,11 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				window.setVisible(true);
 				desktop.add(window);
 				window.toFront();
-//				window.frmReproductorDeVideo.setVisible(true);
+
 				frmPartida NuevaPartida = new frmPartida();
 				this.setVisible(true);
 				NuevaPartida.setVisible(true);
+				logger.log( Level.INFO, "Iniciando partida principiante.");
 				
 				break;
 			
@@ -271,9 +277,10 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				rankingpersonal.setVisible(true);
 				desktop.add(rankingpersonal);
 				rankingpersonal.toFront();
+				logger.log( Level.INFO, "Mostrando ranking personal.");
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(this, "El usuario se acaba de registrar, no hay puntuaciones disponibles.");
+				logger.log( Level.SEVERE, "No hay información disponible para este usuario.", e1 );
 			}
 				
 				
@@ -287,6 +294,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				rankingprincipal.setVisible(true);
 				desktop.add(rankingprincipal);
 				rankingprincipal.toFront();
+				logger.log( Level.INFO, "Mostrando ranking principal.");
 				
 				break;
 							
@@ -296,6 +304,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				clsGestor.CerrarSesion();
 				frmPantalla vuelta = new frmPantalla();
 				vuelta.setVisible(true);
+				logger.log( Level.INFO, "Cerrando sesión.");
 				break;
 					
 			case "Resetear":
@@ -303,6 +312,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		        if (reply == JOptionPane.YES_OPTION) {
 		 //TODO falta hacerlo      	
 					JOptionPane.showMessageDialog(this, "Datos reseteados con éxito.");
+					logger.log( Level.INFO, "Se han borrado los datos de la base de datos.");
 		        }
 		        else {}
 			
@@ -435,7 +445,20 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 
 	    }
 	    
-	  
+	  public static void loggeo(){
+		  logger.setLevel( Level.ALL );  // Cambiando esto se loggean más o menos mensajes
+			// logger.addHandler( consoleHandler );
+			try {
+				// Al logger se le pueden añadir gestores (handler) que además
+				// de a la consola de error saquen a fichero, xml, pantalla...
+				Handler h = new StreamHandler( System.out, new SimpleFormatter() );
+				h.setLevel( Level.FINEST );
+				logger.addHandler( h );  // Saca todos los errores a out
+			//	logger.addHandler( new FileHandler( "frmMenuPrincipal.log.xml") ); // Y también a un xml
+			} catch (Exception e) {
+				logger.log( Level.SEVERE, e.toString(), e );
+			}
+	  }
 	    
 }
 

@@ -4,6 +4,7 @@ import COMUN.clsEmailNoValido;
 import LN.clsGestor;
 import LN.clsUsuario;
 import LN.clsUsuarioRepetido;
+import LP.frmMenuPrincipal;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -19,7 +22,7 @@ public class clsBaseDeDatos
 	// ------------------------------------
 	// VALIDO PARA CUALQUIER BASE DE DATOS
 	// ------------------------------------
-			
+			private static Logger logger = Logger.getLogger(clsBaseDeDatos.class.getName() );
 			private static Connection connection = null; //Gestiona la conexión 
 			private static Statement statement = null; //Gestiona las instrucciones de la base
 
@@ -30,14 +33,15 @@ public class clsBaseDeDatos
 			 */
 			public static Connection initBD( String nombreBD ) {
 				try {
+					frmMenuPrincipal.loggeo();
 				    Class.forName("org.sqlite.JDBC");
 				    connection = DriverManager.getConnection("jdbc:sqlite:" + nombreBD );
 					statement = connection.createStatement();
 					statement.setQueryTimeout(30);  // poner timeout 30 msg
 				    return connection;
 				} catch (ClassNotFoundException | SQLException e) {
-					JOptionPane.showMessageDialog( null, "Error de conexión!! No se ha podido conectar con " + nombreBD , "ERROR", JOptionPane.ERROR_MESSAGE );
-					System.out.println( "Error de conexión!! No se ha podido conectar con " + nombreBD );
+					JOptionPane.showMessageDialog( null, "¡Error de conexión! No se ha podido conectar con " + nombreBD , "ERROR", JOptionPane.ERROR_MESSAGE );
+					logger.log( Level.SEVERE, "¡Error de conexión! No se ha podido conectar con " + nombreBD, e );
 					return null;
 				}
 			}
@@ -83,7 +87,7 @@ public class clsBaseDeDatos
 						", nomUsuario string, contrasena string)");
 				} catch (SQLException e) {
 					// Si hay excepción es que la tabla ya existía (lo cual es correcto)
-				 e.printStackTrace();  
+				logger.log( Level.INFO, "La tabla ya existía.", e);
 				}
 			}
 			
@@ -120,19 +124,22 @@ public class clsBaseDeDatos
 					int val = st.executeUpdate( sentSQL );
 					if (val!=1) 
 						{
+						logger.log( Level.SEVERE, "¡Usuario NO añadido!");
 						return false;
 						}  // Se tiene que añadir 1 - error si no
 					else{
 						clsGestor.enviarConGMail(a.getMail(), "Bienvenido a BuscaminasDeusto", "¡Gracias! Tu registro en Buscaminas se ha realizado con éxito.");
+						logger.log( Level.INFO, "Usuario añadido correctamente.");
 						return true;
 						}
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.log( Level.SEVERE, "Error a la hora de añadir un usuario en el SQL", e);
 					return false;
 				}
 				} 
 				catch (clsEmailNoValido e1) {
-					// TODO Auto-generated catch block
+					
+					logger.log( Level.SEVERE, "El email no es válido.", e1);
 					throw new clsEmailNoValido();
 				}
 			}
@@ -154,7 +161,7 @@ public class clsBaseDeDatos
 					}
 					return false;
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.log( Level.SEVERE, "Error a la hora de chequear el SQL", e);
 					return false;
 				}
 			}
@@ -179,7 +186,7 @@ public class clsBaseDeDatos
 					if (val!=1) return false;  // Se tiene que modificar 1, error si no
 					return true;
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.log( Level.SEVERE, "Error a la hora de modificar usuario en SQL", e);
 					return false;
 				}
 			}
@@ -226,7 +233,7 @@ public class clsBaseDeDatos
 					// else No hay ninguno en la tabla
 					return null;
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.log( Level.SEVERE, "Error a la hora de cargar usuario en el SQL", e);
 					return null;  // Error
 				}
 			}
@@ -257,7 +264,7 @@ public class clsBaseDeDatos
 					}
 					return lista;
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.log( Level.SEVERE, "Error a la hora de cargar varios usuarios en el SQL", e);
 					return null;  // Error
 				}
 			}
@@ -284,10 +291,8 @@ public class clsBaseDeDatos
 					rs.close();
 					return lista;
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.log( Level.SEVERE, "Error a la hora de cargar varios usuarios en el SQL", e);
 					return null;  // Error
 				}
 			}
-			
-
 }
