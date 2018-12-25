@@ -33,7 +33,7 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	 * 
 	 */
 //	private static final long serialVersionUID = 1L;
-	private JFrame frmReproductorDeVideo;
+
 	private JPanel panelBotones;
 	private JButton btPlay;
 	private JInternalFrame internalFrame;
@@ -47,39 +47,25 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	private Estado estado;
 	private File ficheroVideo;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					frmAnuncio window = new frmAnuncio();
-//					window.frmReproductorDeVideo.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the application.
 	 */
 	public frmAnuncio() {
 		this.setResizable(false);
-    	this.setClosable(true);
-    	this.setIconifiable(true); 
+    	this.setClosable(false);
+    	this.setMaximizable(false);
+    	this.setIconifiable(false); 
         this.setOpaque(true);
         this.toFront();
-        
+
         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), LIB_VLC);
 		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 		mediaPlayer = new EmbeddedMediaPlayerComponent();
 		
 		initialize();
 		iniciarVideo();
-		frmReproductorDeVideo.setVisible(true);
+		this.setVisible(true);
 	}
 	
 	/*
@@ -88,6 +74,7 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	private void iniciarVideo() {
 	
 		internalFrame.setContentPane(mediaPlayer);
+		internalFrame.setTitle("Anuncio especial Black Friday LoryMoney.mp4. Reproduzca el anuncio para seguir.");
 		internalFrame.setVisible(true);
 		estado = Estado.STOP;
 	}
@@ -98,9 +85,9 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	private void reproducirVideo() {
 		
 		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\LoryMoney.mp4");
+
 		// El reproductor está parado
 		if (estado == Estado.STOP) {
-			internalFrame.setTitle("Anuncio especial Black Friday "+ficheroVideo.getName()+". Reproduzca el anuncio para seguir.");
 			mediaPlayer.getMediaPlayer().playMedia(ficheroVideo.getAbsolutePath());
 			estado = Estado.PLAY;	
 			btPlay.setText("||");
@@ -124,19 +111,18 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	 */
 	private void initialize() {
 		
-		frmReproductorDeVideo = new JFrame();
-		frmReproductorDeVideo.setTitle("Anuncio");
-		frmReproductorDeVideo.setBounds(100, 100, 550, 300);
-		frmReproductorDeVideo.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+		this.setTitle("Anuncio");
+		this.setBounds(0, 0, 585, 370);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		panelBotones = new JPanel();
-		frmReproductorDeVideo.getContentPane().add(panelBotones, BorderLayout.SOUTH);
+		this.getContentPane().add(panelBotones, BorderLayout.SOUTH);
 		
 		btPlay = new JButton(">");
 		btPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				reproducirVideo();
-				frmReproductorDeVideo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 		});
 		panelBotones.add(btPlay);
@@ -149,16 +135,27 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 		internalFrame = new JInternalFrame("");
 		internalFrame.setFrameIcon(null);
 		internalFrame.setBorder(null);
-		frmReproductorDeVideo.getContentPane().add(internalFrame, BorderLayout.CENTER);
-		frmReproductorDeVideo.setVisible(true);
+		this.getContentPane().add(internalFrame, BorderLayout.CENTER);
+		this.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		switch(arg0.getActionCommand())
 		{
-			case "BotonSalir": this.dispose();
-					break;
+			case "BotonSalir":
+				if (estado == Estado.STOP)
+				{
+					//No hace nada
+				}
+				else
+				{
+					mediaPlayer.getMediaPlayer().stop();
+					estado = Estado.STOP;
+					this.dispose();
+				}
+		
+			break;
 		}	
 	}
 }

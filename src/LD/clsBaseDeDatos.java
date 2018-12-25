@@ -52,8 +52,12 @@ public class clsBaseDeDatos
 				try {
 					statement.close();
 					connection.close();
+					logger.log( Level.INFO, "Cerrando la conexión con la BD " );
+
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.log( Level.SEVERE, "¡Error! No se ha podido cerrar la conexión con la BD", e );
+
+				
 				}
 			}
 			
@@ -87,7 +91,7 @@ public class clsBaseDeDatos
 						", nomUsuario string, contrasena string)");
 				} catch (SQLException e) {
 					// Si hay excepción es que la tabla ya existía (lo cual es correcto)
-				logger.log( Level.INFO, "La tabla ya existía.", e);
+					logger.log( Level.INFO, "La tabla ya existía.", e);
 				}
 			}
 			

@@ -1,27 +1,37 @@
 package LP;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
-public class frmPartida extends JFrame
+public class frmPartida extends JInternalFrame implements ActionListener
 {
 	public VentanaPrincipiante panelp;
+	public frmAnuncio anuncio;
 	
 	public frmPartida(){
-		
-		this.setSize(220, 270);
+
+		this.setSize(210, 270);
 		this.setTitle("Partida Principiante");
 		panelp = new VentanaPrincipiante();
-		JInternalFrame internal = new JInternalFrame("Partida Principiante");
-		internal.add(panelp);
-		internal.pack();
-		internal.setResizable(true);
-		internal.setClosable(true);
-	// Se mete el internal en el JDesktopPane
-		this.add(internal);
-	
-		internal.setVisible(true);
-	//	add(panelp);
+//		anuncio = new frmAnuncio();
+//		this.add(anuncio);
+//		this.setVisible(true);
+//		this.setResizable(false);
+//		this.setClosable(true);
+		
+		this.add(panelp);
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setClosable(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

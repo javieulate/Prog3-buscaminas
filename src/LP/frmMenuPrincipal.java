@@ -88,8 +88,8 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	 JInternalFrame subirpunt;
 	 private static Logger logger = Logger.getLogger( frmMenuPrincipal.class.getName() );
 	 String newline = "\n"; 
-	 static final int desktopWidth = 750;
-	 static final int desktopHeight = 500;
+	 static final int desktopWidth = 600;
+	 static final int desktopHeight = 431;
 
 	/**
 	 * Con este método creamos la ventana, incluyendo todos los componentes que van a ser
@@ -111,7 +111,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 			    clsGestor.CerrarSesion();;
 			  }
 			});
-		this.setBounds(100, 100, 600, 431);
+		this.setBounds(100, 100, desktopWidth, desktopHeight);
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar(createMenuBar());
 		
@@ -254,16 +254,20 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		{
 			case CMD_BTN_PRINCIPIANTE:
 				
+				frmPartida NuevaPartida = new frmPartida();
+				this.setVisible(true);
+				NuevaPartida.setVisible(true);
+				desktop.add(NuevaPartida);
+				NuevaPartida.toFront();
+				logger.log( Level.INFO, "Iniciando partida principiante.");
+				
 				frmAnuncio window = new frmAnuncio();
 				this.setVisible(true);
 				window.setVisible(true);
 				desktop.add(window);
 				window.toFront();
 
-				frmPartida NuevaPartida = new frmPartida();
-				this.setVisible(true);
-				NuevaPartida.setVisible(true);
-				logger.log( Level.INFO, "Iniciando partida principiante.");
+				
 				
 				break;
 			
@@ -310,6 +314,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 			case "Resetear":
 				int reply = JOptionPane.showConfirmDialog(this, "Si continua se borrarán todos los datos. ¿Desea continuar?", "Resetear", JOptionPane.YES_NO_OPTION);
 		        if (reply == JOptionPane.YES_OPTION) {
+		        	
 		 //TODO falta hacerlo      	
 					JOptionPane.showMessageDialog(this, "Datos reseteados con éxito.");
 					logger.log( Level.INFO, "Se han borrado los datos de la base de datos.");

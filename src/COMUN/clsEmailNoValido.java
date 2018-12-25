@@ -1,5 +1,7 @@
 package COMUN;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Esta es una clase en la que vamos a tratar una excepción que puede ser causada en nuestra aplicación.
@@ -14,14 +16,14 @@ public class clsEmailNoValido extends Exception
 	 * Este es el mensaje que va a avisar al usuario que ya existe el elemento que quiere dar de alta.
 	 */
 	private final String MENSAJE= "La dirección de correo electrónico introducida no es correcta.";
-	
+	private static Logger logger = Logger.getLogger(clsEmailNoValido.class.getName() );
 	/**
 	 * Este es el método que manda el mensaje.
 	 */
 	@Override
 	public String getMessage() 
 	{
-		// TODO Auto-generated method stub
+		logger.log( Level.INFO, MENSAJE);
 		return MENSAJE;
 	}
 	/**

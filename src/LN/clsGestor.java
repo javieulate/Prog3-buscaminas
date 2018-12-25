@@ -24,9 +24,8 @@ import LD.clsBaseDeDatos;
 import LD.clsDatos;
 import LD.itfDatos;
 
-public class clsGestor {
-	
-	
+public class clsGestor 
+{
 	
 	/**
 	 * Método en el que se recoge todo la lista de usuarios de tipo clsUsuario.
@@ -35,9 +34,7 @@ public class clsGestor {
 	public static ArrayList<clsUsuario> ListaUsuariosclsUsuarios()
 	{
 		ArrayList<clsUsuario>listausuarios = new ArrayList<clsUsuario>();
-		
-		listausuarios = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
-		
+		listausuarios = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());	
 		return listausuarios;
 	}	
 		
@@ -73,6 +70,7 @@ public class clsGestor {
 		  if(pattern.matcher(email).matches()==true)
 		  {
 			  return pattern.matcher(email).matches();
+			  
 		  }
 		  else
 		  {
