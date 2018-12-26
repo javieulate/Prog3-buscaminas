@@ -33,6 +33,9 @@ public class clsConstantes
 	public static final String CMD_BTN_INICIAR_SESION2 = "CMD_BTN_INICIAR_SESION2";
 	public static final String CMD_BTN_REGISTRARSE2 = "CMD_BTN_REGISTRARSE2";
 	public static final String CMD_BTN_PRINCIPIANTE = "CMD_BTN_PRINCIPIANTE";
+	public static final String CMD_BTN_AMATEUR = "CMD_BTN_AMATEUR";
+	public static final String CMD_BTN_EXPERTO = "CMD_BTN_EXPERTO";
+
 	
 	public static final String CMD_BTN_RANKINGPERSONAL = "CMD_BTN_RANKINGPERSONAL";
 	public static final String CMD_BTN_RANKINGPRINCIPAL = "CMD_BTN_RANKINGPRINCIPAL";

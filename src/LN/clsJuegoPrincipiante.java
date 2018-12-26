@@ -5,12 +5,13 @@ import LP.VentanaPrincipiante;
 public class clsJuegoPrincipiante 
 {
 	private int casillasbuenas;
-	private int minas = 10;
+	private int minas;
 	// Cada casilla tendrá un valor, dependiendo del número de minas que tenga a su alrededor o si, en su defecto, se trata de una mina.
 	
 	int situacioncasillas[][];
 	
-	public clsJuegoPrincipiante(){
+	public clsJuegoPrincipiante(int numminas){
+		minas = numminas;
 		casillasbuenas = 0;
 		situacioncasillas = new int [minas][minas]; 
 		PartidaPrincipiante();
@@ -60,7 +61,20 @@ public class clsJuegoPrincipiante
 			}
 		}		int random1, random2;
 		
-        for ( int k=0;k<minas;k++)
+		int minasX = 0;
+		if(minas == 10)
+		{
+			minasX = minas;
+		}
+		if(minas == 20)
+		{
+			minasX = 2*minas;
+		}
+		if(minas == 30)
+		{
+			minasX = 3*minas;
+		}
+        for ( int k=0;k<minasX;k++)
         	{
             	do{
             		random1=(int)(Math.random()*minas);

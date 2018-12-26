@@ -13,11 +13,11 @@ import LN.clsJuegoPrincipiante;
 
 public class VentanaPrincipiante extends JPanel 
 {
-	int numminas = 10;
+	int numminas;
 	int casillasbuenas;
 	public JLabel JLabelP;
 	private JButton botonesCasillaP [][];
-	private boolean pulsada [][] = new boolean [numminas][numminas];
+	private boolean pulsada [][];
 	clsJuegoPrincipiante PartidaPrincipiante;
 	
 	private String imagenesbotones[] = {"src/imagenes/0.PNG",
@@ -32,9 +32,23 @@ public class VentanaPrincipiante extends JPanel
 								"src/imagenes/9.PNG"};
 	private ImageIcon[] imagenes = new ImageIcon[10];
 	
-	public VentanaPrincipiante(){
-		PartidaPrincipiante = new clsJuegoPrincipiante();
-		this.setSize(220, 270);
+	public VentanaPrincipiante(int minas){
+		numminas = minas;
+		pulsada = new boolean [numminas][numminas];
+		PartidaPrincipiante = new clsJuegoPrincipiante(numminas);
+		if(minas == 10)
+		{
+			this.setSize(numminas*20, numminas*20+20);
+		}
+		if(minas == 20)
+		{
+			this.setSize(numminas*20, numminas*20+20);
+		}
+		if(minas == 30)
+		{
+			this.setSize(numminas*20, numminas*20+20);
+		}
+		
 		this.setLayout(null);
 		for (int i = 0; i < numminas; i++){
 			for (int j = 0; j < numminas; j++){
@@ -101,7 +115,7 @@ public class VentanaPrincipiante extends JPanel
 			else{
 				casillasbuenas++;
 				PartidaPrincipiante.setCasillasbuenas(casillasbuenas);
-				if (casillasbuenas==90){
+				if (casillasbuenas==(numminas*numminas - numminas)){
 					DestaparBotonP();
 					JOptionPane.showMessageDialog(null, "Has ganado!");
 				}

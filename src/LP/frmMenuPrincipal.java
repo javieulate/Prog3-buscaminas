@@ -163,6 +163,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		amateur.setMnemonic(KeyEvent.VK_A);
 		amateur.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_A, ActionEvent.ALT_MASK));
+		amateur.setActionCommand(CMD_BTN_AMATEUR);
 		amateur.addActionListener(this);
 		nivel.add(amateur);
 		
@@ -170,6 +171,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		experto.setMnemonic(KeyEvent.VK_E);
 		experto.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_E, ActionEvent.ALT_MASK));
+		experto.setActionCommand(CMD_BTN_EXPERTO);
 		experto.addActionListener(this);
 		nivel.add(experto);
 		
@@ -254,23 +256,50 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		{
 			case CMD_BTN_PRINCIPIANTE:
 				
-				frmPartida NuevaPartida = new frmPartida();
+				frmPartida NuevaPartida = new frmPartida(1);
 				this.setVisible(true);
 				NuevaPartida.setVisible(true);
 				desktop.add(NuevaPartida);
 				NuevaPartida.toFront();
 				logger.log( Level.INFO, "Iniciando partida principiante.");
 				
-				frmAnuncio window = new frmAnuncio();
+				frmAnuncio AnPrincipiante = new frmAnuncio();
 				this.setVisible(true);
-				window.setVisible(true);
-				desktop.add(window);
-				window.toFront();
-
-				
-				
+				AnPrincipiante.setVisible(true);
+				desktop.add(AnPrincipiante);
+				AnPrincipiante.toFront();
 				break;
 			
+			case CMD_BTN_AMATEUR:
+				frmPartida NuevaPartidaAmateur = new frmPartida(2);
+				this.setVisible(true);
+				NuevaPartidaAmateur.setVisible(true);
+				desktop.add(NuevaPartidaAmateur);
+				NuevaPartidaAmateur.toFront();
+				logger.log( Level.INFO, "Iniciando partida Amateur.");
+				
+				frmAnuncio AnAmateur = new frmAnuncio();
+				this.setVisible(true);
+				AnAmateur.setVisible(true);
+				desktop.add(AnAmateur);
+				AnAmateur.toFront();
+				break;
+				
+			case CMD_BTN_EXPERTO:
+				frmPartida NuevaPartidaExperto = new frmPartida(3);
+				this.setVisible(true);
+				NuevaPartidaExperto.setVisible(true);
+				desktop.add(NuevaPartidaExperto);
+				NuevaPartidaExperto.toFront();
+				logger.log( Level.INFO, "Iniciando partida Amateur.");
+				
+				frmAnuncio AnExperto = new frmAnuncio();
+				this.setVisible(true);
+				AnExperto.setVisible(true);
+				desktop.add(AnExperto);
+				AnExperto.toFront();
+				break;
+				
 			case CMD_BTN_RANKINGPERSONAL:
 							
 			try {

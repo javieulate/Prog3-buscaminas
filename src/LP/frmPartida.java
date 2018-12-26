@@ -11,21 +11,46 @@ public class frmPartida extends JInternalFrame implements ActionListener
 	public VentanaPrincipiante panelp;
 	public frmAnuncio anuncio;
 	
-	public frmPartida(){
-
-		this.setSize(210, 270);
-		this.setTitle("Partida Principiante");
-		panelp = new VentanaPrincipiante();
-//		anuncio = new frmAnuncio();
-//		this.add(anuncio);
-//		this.setVisible(true);
-//		this.setResizable(false);
-//		this.setClosable(true);
-		
-		this.add(panelp);
-		this.setVisible(true);
-		this.setResizable(false);
-		this.setClosable(true);
+	public frmPartida(int tipo)
+	{
+		if(tipo == 1)
+		{
+			panelp = new VentanaPrincipiante(10);
+			this.setSize(panelp.getWidth(), panelp.getHeight()+20);
+			this.setTitle("Partida Principiante");
+//			anuncio = new frmAnuncio();
+//			this.add(anuncio);
+//			this.setVisible(true);
+//			this.setResizable(false);
+//			this.setClosable(true);			
+			this.add(panelp);
+			this.pack();
+			this.setVisible(true);
+			this.setResizable(false);
+			this.setClosable(true);
+		}
+		if(tipo == 2)
+		{
+			panelp = new VentanaPrincipiante(20);
+			this.setSize(panelp.getWidth(), panelp.getHeight()+20);
+			this.setTitle("Partida Amateur");
+			this.add(panelp);
+			this.setVisible(true);
+			this.pack();
+			this.setResizable(false);
+			this.setClosable(true);
+		}
+		if(tipo == 3)
+		{
+			panelp = new VentanaPrincipiante(30);
+			this.setSize(panelp.getWidth(), panelp.getHeight()+20);
+			this.setTitle("Partida Experto");
+			this.add(panelp);
+			this.setVisible(true);
+			this.setResizable(false);
+			this.setClosable(true);
+		}
+	
 	}
 
 	@Override
