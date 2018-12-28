@@ -1,29 +1,47 @@
 package LP;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 
 public class frmPartida extends JInternalFrame implements ActionListener
 {
 	public VentanaPrincipiante panelp;
 	public frmAnuncio anuncio;
+	public JLabel cronometro;
+	// Valores para guardar los minutos y segundos de cada partida.
+	public int imin=0, iseg=0;
+	public enum Dificultad {PRINCIPIANTE, AMATEUR, EXPERTO};
+	public Dificultad dificultad;
+	Thread hilo;
 	
 	public frmPartida(int tipo)
 	{
+		this.setLayout(new BorderLayout());
+		cronometro = new JLabel("00:00");
+		cronometro.setFont( new Font( Font.DIALOG, Font.BOLD, 25 ) );
+	    cronometro.setHorizontalAlignment( JLabel.CENTER );
+	    cronometro.setForeground( Color.RED );
+	    cronometro.setBackground( Color.BLACK );
+	    cronometro.setOpaque( true );
+	    cronometro.setSize(75, 50);
+	    cronometro.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+	    this.add(cronometro, BorderLayout.NORTH);
+	    
 		if(tipo == 1)
 		{
+			dificultad = Dificultad.PRINCIPIANTE;
 			panelp = new VentanaPrincipiante(10);
 			this.setSize(panelp.getWidth(), panelp.getHeight()+20);
 			this.setTitle("Partida Principiante");
-//			anuncio = new frmAnuncio();
-//			this.add(anuncio);
-//			this.setVisible(true);
-//			this.setResizable(false);
-//			this.setClosable(true);			
-			this.add(panelp);
+			this.add(panelp, BorderLayout.CENTER);
 			this.pack();
 			this.setVisible(true);
 			this.setResizable(false);
@@ -31,10 +49,11 @@ public class frmPartida extends JInternalFrame implements ActionListener
 		}
 		if(tipo == 2)
 		{
+			dificultad = Dificultad.AMATEUR;
 			panelp = new VentanaPrincipiante(20);
 			this.setSize(panelp.getWidth(), panelp.getHeight()+20);
 			this.setTitle("Partida Amateur");
-			this.add(panelp);
+			this.add(panelp, BorderLayout.CENTER);
 			this.setVisible(true);
 			this.pack();
 			this.setResizable(false);
@@ -42,21 +61,57 @@ public class frmPartida extends JInternalFrame implements ActionListener
 		}
 		if(tipo == 3)
 		{
+			dificultad = Dificultad.EXPERTO;
 			panelp = new VentanaPrincipiante(30);
 			this.setSize(panelp.getWidth(), panelp.getHeight()+20);
 			this.setTitle("Partida Experto");
-			this.add(panelp);
+			this.add(panelp, BorderLayout.CENTER);
 			this.setVisible(true);
 			this.setResizable(false);
 			this.setClosable(true);
 		}
+		
+		hilo = new Thread (new Runnable(){
+
+			@Override
+			public void run() 
+			{
+				Integer minutos = 0, segundos = 0;
+				String min = "", seg = "";
+				try
+				{
+					while(!(panelp.partidaAcabada))
+					{
+						Thread.sleep(1000);
+						segundos ++;
+						if(segundos == 60)
+						{
+							minutos ++;
+							segundos = 0;
+						}
+						
+						if( minutos < 10 ) min = "0" + minutos;
+			            else min = minutos.toString();
+			            if( segundos < 10 ) seg = "0" + segundos;
+			            else seg = segundos.toString();
+			            
+			            cronometro.setText(min + ":" + seg);
+					}
+				}
+				catch(Exception e){}
+				cronometro.setText(min+":"+seg);
+				imin = Integer.parseInt(min);
+				iseg = Integer.parseInt(seg);
+			}
+			
+		});
+		hilo.start();
 	
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent arg0) 
+	{
 	}
 }
 

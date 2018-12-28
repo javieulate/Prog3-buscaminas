@@ -131,8 +131,6 @@ public class frmPantalla extends JFrame implements ActionListener
 				this.setVisible(false);
 				frmMenuPrincipal frame = new frmMenuPrincipal();
 				frame.setVisible(true);
-//				clsHilo repeticion = new clsHilo();
-//				repeticion.start();
 			} 
 			catch (clsUsuarioNoRegistrado e1)
 			{

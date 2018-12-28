@@ -256,24 +256,30 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		{
 			case CMD_BTN_PRINCIPIANTE:
 				
-				frmPartida NuevaPartida = new frmPartida(1);
-				this.setVisible(true);
-				NuevaPartida.setVisible(true);
-				desktop.add(NuevaPartida);
-				NuevaPartida.toFront();
-				logger.log( Level.INFO, "Iniciando partida principiante.");
-				
 				frmAnuncio AnPrincipiante = new frmAnuncio();
 				this.setVisible(true);
 				AnPrincipiante.setVisible(true);
 				desktop.add(AnPrincipiante);
 				AnPrincipiante.toFront();
+				
+				AnPrincipiante.b.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent arg0) 
+					{
+						frmPartida NuevaPartida = new frmPartida(1);
+						NuevaPartida.setVisible(true);
+						desktop.add(NuevaPartida);
+						NuevaPartida.toFront();
+						logger.log( Level.INFO, "Iniciando partida principiante.");
+						setSize(NuevaPartida.getSize());
+					}
+				});
 				break;
 			
 			case CMD_BTN_AMATEUR:
 				frmPartida NuevaPartidaAmateur = new frmPartida(2);
 				this.setVisible(true);
-				NuevaPartidaAmateur.setVisible(true);
+				NuevaPartidaAmateur .setVisible(true);
 				desktop.add(NuevaPartidaAmateur);
 				NuevaPartidaAmateur.toFront();
 				logger.log( Level.INFO, "Iniciando partida Amateur.");
@@ -283,6 +289,8 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				AnAmateur.setVisible(true);
 				desktop.add(AnAmateur);
 				AnAmateur.toFront();
+				
+				setSize(NuevaPartidaAmateur.getSize());
 				break;
 				
 			case CMD_BTN_EXPERTO:
@@ -298,6 +306,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				AnExperto.setVisible(true);
 				desktop.add(AnExperto);
 				AnExperto.toFront();
+				setSize(NuevaPartidaExperto.getSize());
 				break;
 				
 			case CMD_BTN_RANKINGPERSONAL:

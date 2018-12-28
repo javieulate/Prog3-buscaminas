@@ -36,6 +36,7 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 
 	private JPanel panelBotones;
 	private JButton btPlay;
+	public JButton b;
 	private JInternalFrame internalFrame;
 	
 	// Componente que permite gestionar los ficheros de video
@@ -127,7 +128,7 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 		});
 		panelBotones.add(btPlay);
 		
-		JButton b = new JButton("Salir");
+		b = new JButton("Salir");
 		b.setActionCommand("BotonSalir");
 	    b.addActionListener(this);
 	    panelBotones.add(b);

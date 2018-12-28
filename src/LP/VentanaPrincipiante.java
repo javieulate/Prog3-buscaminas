@@ -19,6 +19,7 @@ public class VentanaPrincipiante extends JPanel
 	private JButton botonesCasillaP [][];
 	private boolean pulsada [][];
 	clsJuegoPrincipiante PartidaPrincipiante;
+	public boolean partidaAcabada;
 	
 	private String imagenesbotones[] = {"src/imagenes/0.PNG",
 								"src/imagenes/1.PNG",
@@ -33,20 +34,21 @@ public class VentanaPrincipiante extends JPanel
 	private ImageIcon[] imagenes = new ImageIcon[10];
 	
 	public VentanaPrincipiante(int minas){
+		partidaAcabada = false;
 		numminas = minas;
 		pulsada = new boolean [numminas][numminas];
 		PartidaPrincipiante = new clsJuegoPrincipiante(numminas);
 		if(minas == 10)
 		{
-			this.setSize(numminas*20, numminas*20+20);
+			this.setSize(numminas*20, numminas*20+40);
 		}
 		if(minas == 20)
 		{
-			this.setSize(numminas*20, numminas*20+20);
+			this.setSize(numminas*20, numminas*20+40);
 		}
 		if(minas == 30)
 		{
-			this.setSize(numminas*20, numminas*20+20);
+			this.setSize(numminas*20, numminas*20+40);
 		}
 		
 		this.setLayout(null);
@@ -99,6 +101,8 @@ public class VentanaPrincipiante extends JPanel
 		}
 	}
 	
+	// RECURSIVIDAD al llamar el método PulsarBotonP al método PulsarBotonP2 y este, a su vez, volver a llamar a PulsarBotonP intentando llegar
+	// caso base
 	public void PulsarBotonP(int i, int j){
 		PulsarBotonP2(i, j);
 		VisualizarCasillasP();
@@ -111,6 +115,7 @@ public class VentanaPrincipiante extends JPanel
 			if(PartidaPrincipiante.getSituacioncasillas(i, j) == 9){
 				DestaparBotonP();
 				JOptionPane.showMessageDialog(null, "Lo siento, has perdido");
+				partidaAcabada = true;
 			}
 			else{
 				casillasbuenas++;
@@ -118,6 +123,7 @@ public class VentanaPrincipiante extends JPanel
 				if (casillasbuenas==(numminas*numminas - numminas)){
 					DestaparBotonP();
 					JOptionPane.showMessageDialog(null, "Has ganado!");
+					partidaAcabada = true;
 				}
 			}
 			//Si no es bomba y no hay bombas cerca, pone las casillas visibles.
@@ -184,4 +190,5 @@ public class VentanaPrincipiante extends JPanel
 			}
 		}
 	}
+
 }
