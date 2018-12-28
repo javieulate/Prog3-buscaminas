@@ -126,7 +126,7 @@ public class frmPantalla extends JFrame implements ActionListener
 		case CMD_BTN_INICIAR_SESION2:
 			try 
 			{
-				clsGestor.ComprobarUsuario(t1.getText(), t2.getText());
+				clsGestor.ComprobarUsuario(t1.getText(), t2.getText(), t3.getText());
 				clsGestor.IniciarSesion(t1.getText(), t2.getText());
 				this.setVisible(false);
 				frmMenuPrincipal frame = new frmMenuPrincipal();

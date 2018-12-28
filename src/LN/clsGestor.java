@@ -44,14 +44,14 @@ public class clsGestor
 	 * @param correoelec correo del usuario a buscar
 	 * @throws clsUsuarioNoRegistrado excepción que salta si no existe
 	 */
-	public static void ComprobarUsuario(String nomusuario, String correoelec) throws clsUsuarioNoRegistrado
+	public static void ComprobarUsuario(String nomusuario, String correoelec, String contrasena) throws clsUsuarioNoRegistrado
 		{
 			boolean marca = true;
 			ArrayList<clsUsuario>listausuarios = ListaUsuariosclsUsuarios();
 			
 			for (clsUsuario aux : listausuarios) 
 			{
-				if(aux.getMail().toUpperCase().equals(correoelec.toUpperCase()) && aux.getNomUsuario().toUpperCase().equals(nomusuario.toUpperCase()))
+				if(aux.getMail().toUpperCase().equals(correoelec.toUpperCase()) & aux.getNomUsuario().toUpperCase().equals(nomusuario.toUpperCase())&aux.getContrasena().toUpperCase().equals(contrasena.toUpperCase()))
 				{
 					marca = false;
 				}

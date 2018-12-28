@@ -156,7 +156,7 @@ public class clsBaseDeDatos
 			public static boolean chequearYaEnTabla( Statement st, clsUsuario a ) {
 				try {
 					String sentSQL = "select * from fichero_usuarios " +
-							"where (nomUsuario = '" + a.getNomUsuario() + "' or mail = '" + a.getMail() + "' or contrasena = '" + a.getContrasena() + "'  )";
+							"where (nomUsuario = '" + a.getNomUsuario() + "' and mail = '" + a.getMail() + "' and contrasena = '" + a.getContrasena() + "'  )";
 					System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 					ResultSet rs = st.executeQuery( sentSQL );
 					if (rs.next()) {  // Normalmente se recorre con un while, pero aquí solo hay que ver si ya existe
