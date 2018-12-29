@@ -7,12 +7,18 @@ import LN.clsGestor;
 import LN.clsUsuario;
 import LN.clsUsuarioRepetido;
 import LP.frmPantalla;
+import sun.audio.*;
 
+import java.io.*;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class clsMain {
 
 	public static void main(String[] args) {
 
+		 
 		frmPantalla frPantalla = new frmPantalla();
 		frPantalla.setVisible(true);
 		try {
@@ -29,5 +35,18 @@ public class clsMain {
 			
 			System.out.println(aux.toString());
 		}
+		play();
+		
 	}
+	
+	public static void play() {
+		try { File file = new File("song.wav");
+		Clip clip = AudioSystem.getClip(); 
+		clip.open(AudioSystem.getAudioInputStream(file));
+		clip.start(); 
+		Thread.sleep(clip.getMicrosecondLength()); }
+		catch (Exception e) { 
+			System.err.println(e.getMessage());
+			}
+		}
 }

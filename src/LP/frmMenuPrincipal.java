@@ -1,4 +1,5 @@
 package LP;
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -272,6 +273,8 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 						NuevaPartida.toFront();
 						logger.log( Level.INFO, "Iniciando partida principiante.");
 						setSize(NuevaPartida.getSize());
+						
+						
 					}
 				});
 				break;
@@ -291,6 +294,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				AnAmateur.toFront();
 				
 				setSize(NuevaPartidaAmateur.getSize());
+				
 				break;
 				
 			case CMD_BTN_EXPERTO:

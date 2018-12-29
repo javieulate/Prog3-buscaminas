@@ -1,5 +1,7 @@
 package LP;
 
+
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -21,6 +23,9 @@ public class frmPartida extends JInternalFrame implements ActionListener
 	public enum Dificultad {PRINCIPIANTE, AMATEUR, EXPERTO};
 	public Dificultad dificultad;
 	Thread hilo;
+	
+	
+	
 	
 	public frmPartida(int tipo)
 	{
@@ -46,6 +51,8 @@ public class frmPartida extends JInternalFrame implements ActionListener
 			this.setVisible(true);
 			this.setResizable(false);
 			this.setClosable(true);
+			 
+			
 		}
 		if(tipo == 2)
 		{
@@ -58,6 +65,7 @@ public class frmPartida extends JInternalFrame implements ActionListener
 			this.pack();
 			this.setResizable(false);
 			this.setClosable(true);
+			
 		}
 		if(tipo == 3)
 		{
