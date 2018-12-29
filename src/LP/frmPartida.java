@@ -27,7 +27,7 @@ public class frmPartida extends JInternalFrame implements ActionListener
 	
 	
 	
-	public frmPartida(int tipo)
+	public frmPartida(int tipo, int width, int height)
 	{
 		this.setLayout(new BorderLayout());
 		cronometro = new JLabel("00:00");

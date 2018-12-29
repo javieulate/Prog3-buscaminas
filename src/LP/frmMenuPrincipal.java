@@ -262,55 +262,68 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				AnPrincipiante.setVisible(true);
 				desktop.add(AnPrincipiante);
 				AnPrincipiante.toFront();
+				setSize(585, 370);
 				
 				AnPrincipiante.b.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent arg0) 
 					{
-						frmPartida NuevaPartida = new frmPartida(1);
+						frmPartida NuevaPartida = new frmPartida(1, desktopWidth, desktopHeight);
 						NuevaPartida.setVisible(true);
 						desktop.add(NuevaPartida);
 						NuevaPartida.toFront();
 						logger.log( Level.INFO, "Iniciando partida principiante.");
-						setSize(NuevaPartida.getSize());
-						
-						
+						setSize(NuevaPartida.getWidth()+16, NuevaPartida.getHeight()+61);
 					}
 				});
+				
 				break;
 			
 			case CMD_BTN_AMATEUR:
-				frmPartida NuevaPartidaAmateur = new frmPartida(2);
-				this.setVisible(true);
-				NuevaPartidaAmateur .setVisible(true);
-				desktop.add(NuevaPartidaAmateur);
-				NuevaPartidaAmateur.toFront();
-				logger.log( Level.INFO, "Iniciando partida Amateur.");
 				
 				frmAnuncio AnAmateur = new frmAnuncio();
 				this.setVisible(true);
 				AnAmateur.setVisible(true);
 				desktop.add(AnAmateur);
 				AnAmateur.toFront();
+				setSize(585, 370);
 				
-				setSize(NuevaPartidaAmateur.getSize());
-				
+				AnAmateur.b.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						frmPartida NuevaPartidaAmateur = new frmPartida(2, desktopWidth, desktopHeight);
+						NuevaPartidaAmateur.setVisible(true);
+						desktop.add(NuevaPartidaAmateur);
+						NuevaPartidaAmateur.toFront();
+						logger.log( Level.INFO, "Iniciando partida Amateur.");
+						setSize(NuevaPartidaAmateur.getWidth()+25, NuevaPartidaAmateur.getHeight()+);
+					}
+					
+				});
 				break;
 				
 			case CMD_BTN_EXPERTO:
-				frmPartida NuevaPartidaExperto = new frmPartida(3);
-				this.setVisible(true);
-				NuevaPartidaExperto.setVisible(true);
-				desktop.add(NuevaPartidaExperto);
-				NuevaPartidaExperto.toFront();
-				logger.log( Level.INFO, "Iniciando partida Amateur.");
-				
 				frmAnuncio AnExperto = new frmAnuncio();
 				this.setVisible(true);
 				AnExperto.setVisible(true);
 				desktop.add(AnExperto);
 				AnExperto.toFront();
-				setSize(NuevaPartidaExperto.getSize());
+				setSize(585, 370);
+				
+				AnExperto.b.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						frmPartida NuevaPartidaExperto = new frmPartida(3, desktopWidth, desktopHeight);
+						NuevaPartidaExperto.setVisible(true);
+						desktop.add(NuevaPartidaExperto);
+						NuevaPartidaExperto.toFront();
+						logger.log( Level.INFO, "Iniciando partida Amateur.");
+						setSize(NuevaPartidaExperto.getWidth()+48, NuevaPartidaExperto.getHeight()+183);
+					}
+					
+				});
 				break;
 				
 			case CMD_BTN_RANKINGPERSONAL:
