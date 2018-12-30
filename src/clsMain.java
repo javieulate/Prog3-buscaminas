@@ -13,12 +13,22 @@ import java.io.*;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class clsMain {
 
 	public static void main(String[] args) {
-
-		 
+//
+//		try{
+//			
+//				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+//		}
+//			catch (InstantiationException | IllegalAccessException
+//					| UnsupportedLookAndFeelException | ClassNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		frmPantalla frPantalla = new frmPantalla();
 		frPantalla.setVisible(true);
 		try {

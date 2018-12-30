@@ -92,6 +92,9 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	 JPanel contentPane = new JPanel();
 	 static final int desktopWidth = 600;
 	 static final int desktopHeight = 431;
+	 frmAnuncio AnPrincipiante;
+	 frmAnuncio AnAmateur;
+	 frmAnuncio AnExperto;
 
 	/**
 	 * Con este método creamos la ventana, incluyendo todos los componentes que van a ser
@@ -100,22 +103,28 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	public frmMenuPrincipal() 
 	{
 		loggeo();
-		 desktop = new JDesktopPane();
-		 desktop.setBackground(SystemColor.LIGHT_GRAY);
-		 desktop.setPreferredSize(this.getPreferredSize());
-	     this.setContentPane(desktop);
-		
-		 
+		desktop = new JDesktopPane();
+		desktop.setBackground(SystemColor.LIGHT_GRAY);
+		desktop.setPreferredSize(this.getPreferredSize());
+		this.setContentPane(VentanaInicial());
+		repaint();
 		this.setTitle("Menu Principal");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(100, 100, desktopWidth, desktopHeight);
+		this.setLocationRelativeTo(null);
 		this.addWindowListener(new WindowAdapter(){
 			  public void windowClosing(WindowEvent we){
 			    clsGestor.CerrarSesion();;
 			  }
 			});
-		this.setBounds(100, 100, desktopWidth, desktopHeight);
-		this.setLocationRelativeTo(null);
+	}
+	
+	public JDesktopPane VentanaInicial()
+	{
+		desktop.removeAll();
+		
 		this.setJMenuBar(createMenuBar());
+		this.setSize(desktopWidth, desktopHeight);
 		
 		JTextArea txtrMenuUsuario = new JTextArea();
 		txtrMenuUsuario.setForeground(Color.BLACK);
@@ -124,7 +133,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		txtrMenuUsuario.setBackground(Color.LIGHT_GRAY);
 		txtrMenuUsuario.setFont(new Font("Microsoft Tai Le", Font.BOLD, 17));
 		
-				try 
+		try 
 		{
 			txtrMenuUsuario.setText("Bienvenid@, "+clsGestor.NomUsuario());
 		} 
@@ -139,9 +148,12 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		ImageIcon logo= new ImageIcon("src/imagenes/buscaminas.png");
 		desktop.setLayout(null);
 		label.setIcon(logo);
-		getContentPane().add(label);
+		desktop.add(label);
 		
+		this.repaint();
+		return desktop;
 	}
+
 	/**
 	 * Este es le método para crear la barra de herramientas que vemos en la parte de arriba de la ventana.
 	 * @return barra de herramientas creada.
@@ -258,8 +270,9 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		{
 			case CMD_BTN_PRINCIPIANTE:
 				
-				desktop.removeAll();
-				frmAnuncio AnPrincipiante = new frmAnuncio();
+				setContentPane(VentanaInicial());
+				contentPane.revalidate();
+				AnPrincipiante = new frmAnuncio();
 				this.setVisible(true);
 				AnPrincipiante.setVisible(true);
 				desktop.add(AnPrincipiante);
@@ -270,28 +283,30 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 					@Override
 					public void actionPerformed(ActionEvent arg0) 
 					{
-						desktop.removeAll();
 						frmPartida NuevaPartida = new frmPartida(1);
 						setSize(NuevaPartida.getWidth(), NuevaPartida.getHeight());
 						setContentPane(NuevaPartida);
+						desktop.removeAll();
+						repaint();
 						desktop.revalidate();
 						NuevaPartida.setVisible(true);
 						logger.log( Level.INFO, "Iniciando partida principiante.");
-						repaint();
 					}
 				});
 				
 				break;
 			
 			case CMD_BTN_AMATEUR:
-							
-				frmAnuncio AnAmateur = new frmAnuncio();
+						
+				setContentPane(VentanaInicial());
+				contentPane.revalidate();
+				AnAmateur = new frmAnuncio();
 				this.setVisible(true);
 				AnAmateur.setVisible(true);
 				desktop.add(AnAmateur);
 				AnAmateur.toFront();
+				
 				AnAmateur.b.addActionListener(new ActionListener(){
-
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						desktop.removeAll();
@@ -309,13 +324,15 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				
 			case CMD_BTN_EXPERTO:
 				
+				setContentPane(VentanaInicial());
+				contentPane.revalidate();
 				frmAnuncio AnExperto = new frmAnuncio();
 				this.setVisible(true);
 				AnExperto.setVisible(true);
 				desktop.add(AnExperto);
 				AnExperto.toFront();
-				AnExperto.b.addActionListener(new ActionListener(){
 				
+				AnExperto.b.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						desktop.removeAll();
@@ -334,6 +351,8 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 			case CMD_BTN_RANKINGPERSONAL:
 							
 			try {
+				setContentPane(VentanaInicial());
+				contentPane.revalidate();
 				clsGestor.NomUsuario();
 				frmRankingPersonal rankingpersonal = new frmRankingPersonal();
 				//t.createAndShowGUI();
@@ -341,6 +360,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				rankingpersonal.setVisible(true);
 				desktop.add(rankingpersonal);
 				rankingpersonal.toFront();
+				repaint();
 				logger.log( Level.INFO, "Mostrando ranking personal.");
 			} catch (IOException e1) {
 				JOptionPane.showMessageDialog(this, "El usuario se acaba de registrar, no hay puntuaciones disponibles.");
@@ -352,6 +372,8 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				
 			case CMD_BTN_RANKINGPRINCIPAL:
 				
+				setContentPane(VentanaInicial());
+				contentPane.revalidate();
 				frmRankingPrincipal rankingprincipal = new frmRankingPrincipal();
 				//t.createAndShowGUI();
 				this.setVisible(true);

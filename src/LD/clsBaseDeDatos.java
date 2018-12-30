@@ -95,6 +95,17 @@ public class clsBaseDeDatos
 				}
 			}
 			
+			public static void clearTablaBDPartidas(){
+				if(statement == null) return;
+				try{
+					statement.executeUpdate("create table if not exists partida_usuarios "+
+						"(nomUsuario string, dificultad string, puntuación string, tiempo time)");
+				} catch (SQLException e){
+					logger.log(Level.INFO, "La tabla ya existía", e);
+				}
+				
+			}
+			
 			//A PARTIR DE AQUÍ LOS MÉTODOS DE LA BASE DE DATOS
 			
 			/** Añade un fichero multimedia a la tabla FICHERO_MULTIMEDIA de BD, 

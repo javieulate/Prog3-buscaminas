@@ -23,10 +23,13 @@ public class frmPartida extends JPanel implements ActionListener
 	public frmAnuncio anuncio;
 	public JLabel cronometro;
 	// Valores para guardar los minutos y segundos de cada partida.
-	public int imin=0, iseg=0;
+	public int ihora=0, imin=0, iseg=0;
 	public enum Dificultad {PRINCIPIANTE, AMATEUR, EXPERTO};
 	public Dificultad dificultad;
+	public int casillasAcertadas;
+	
 	Thread hilo;
+
 	
 	
 	
@@ -35,7 +38,7 @@ public class frmPartida extends JPanel implements ActionListener
 	{
 		
 		this.setLayout(new BorderLayout());
-		cronometro = new JLabel("00:00");
+		cronometro = new JLabel("00:00:00");
 		cronometro.setFont( new Font( Font.DIALOG, Font.BOLD, 25 ) );
 	    cronometro.setHorizontalAlignment( JLabel.CENTER );
 	    cronometro.setForeground( Color.RED );
@@ -74,8 +77,8 @@ public class frmPartida extends JPanel implements ActionListener
 			@Override
 			public void run() 
 			{
-				Integer minutos = 0, segundos = 0;
-				String min = "", seg = "";
+				Integer horas = 0, minutos = 0, segundos = 0;
+				String hora = "", min = "", seg = "";
 				try
 				{
 					while(!(panelp.partidaAcabada))
@@ -86,20 +89,30 @@ public class frmPartida extends JPanel implements ActionListener
 						{
 							minutos ++;
 							segundos = 0;
+							if(minutos == 60)
+							{
+								horas++;
+								minutos = 0;
+							}
 						}
 						
+						if(horas < 10) hora = "0" + horas;
+						else hora = horas.toString();
 						if( minutos < 10 ) min = "0" + minutos;
 			            else min = minutos.toString();
 			            if( segundos < 10 ) seg = "0" + segundos;
 			            else seg = segundos.toString();
 			            
-			            cronometro.setText(min + ":" + seg);
+			            cronometro.setText(hora + ":" + min + ":" + seg);
 					}
 				}
 				catch(Exception e){}
-				cronometro.setText(min+":"+seg);
-				imin = Integer.parseInt(min);
-				iseg = Integer.parseInt(seg);
+				cronometro.setText(hora + ":" + min + ":" + seg);
+				
+				ihora = horas;
+				imin = minutos;
+				iseg = segundos;
+				casillasAcertadas = panelp.casillasbuenas;
 			}
 			
 		});
@@ -110,6 +123,7 @@ public class frmPartida extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
+		
 	}
 }
 
