@@ -2,6 +2,7 @@ package LP;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Statement;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -9,7 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import COMUN.clsConstantes.enFicDatos;
+import LD.clsBaseDeDatos;
 import LN.clsJuegoPrincipiante;
+import LN.clsUsuario;
 
 public class VentanaPrincipiante extends JPanel 
 {
@@ -20,6 +24,9 @@ public class VentanaPrincipiante extends JPanel
 	private boolean pulsada [][];
 	clsJuegoPrincipiante PartidaPrincipiante;
 	public boolean partidaAcabada;
+	clsUsuario usu1 = new clsUsuario();
+	clsUsuario usu2 = new clsUsuario();
+	int punanterior;
 	
 	private String imagenesbotones[] = {"src/imagenes/0.PNG",
 								"src/imagenes/1.PNG",
@@ -114,14 +121,19 @@ public class VentanaPrincipiante extends JPanel
 			// Si en la casilla pulsada se encuentra una bomba
 			if(PartidaPrincipiante.getSituacioncasillas(i, j) == 9){
 				DestaparBotonP();
+				usuario();				
+				actualizarPuntos();
 				JOptionPane.showMessageDialog(null, "Lo siento, has perdido");
 				partidaAcabada = true;
+				
 			}
 			else{
 				casillasbuenas++;
 				PartidaPrincipiante.setCasillasbuenas(casillasbuenas);
 				if (casillasbuenas==(numminas*numminas - numminas)){
 					DestaparBotonP();
+					usuario();
+					actualizarPuntos();					
 					JOptionPane.showMessageDialog(null, "Has ganado!");
 					partidaAcabada = true;
 				}
@@ -189,6 +201,17 @@ public class VentanaPrincipiante extends JPanel
 				this.remove(botonesCasillaP[i][j]);
 			}
 		}
+	}
+	
+	public void usuario(){
+	
+		usu2=clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
+		usu1=clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
+	}
+	public void actualizarPuntos(){
+		punanterior=usu1.getPuntuacion();
+		usu1.setPuntuacion(casillasbuenas+punanterior);
+		clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
 	}
 
 }

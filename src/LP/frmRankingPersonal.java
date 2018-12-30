@@ -131,4 +131,9 @@ public class frmRankingPersonal extends JInternalFrame implements ActionListener
             return false;
         }
     }
+//    public void usuario(){
+//    	
+//		usu=clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
+//		usu1=clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
+//	}
 }

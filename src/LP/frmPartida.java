@@ -13,6 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import LD.clsBaseDeDatos;
+import LN.clsUsuario;
+
 public class frmPartida extends JPanel implements ActionListener
 {
 	/**
@@ -27,6 +30,9 @@ public class frmPartida extends JPanel implements ActionListener
 	public enum Dificultad {PRINCIPIANTE, AMATEUR, EXPERTO};
 	public Dificultad dificultad;
 	public int casillasAcertadas;
+	clsUsuario usu1 = new clsUsuario();
+	clsUsuario usu2 = new clsUsuario();
+	int punanterior;
 	
 	Thread hilo;
 
@@ -117,6 +123,8 @@ public class frmPartida extends JPanel implements ActionListener
 			
 		});
 		hilo.start();
+//		usuario();
+//		actualizarPuntos();
 	
 	}
 
@@ -125,6 +133,17 @@ public class frmPartida extends JPanel implements ActionListener
 	{
 		
 	}
+	
+//	public void usuario(){
+//		
+//		usu2=clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
+//		usu1=clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
+//	}
+//	public void actualizarPuntos(){
+//		punanterior=usu1.getPuntuacion();
+//		usu1.setPuntuacion(casillasAcertadas+punanterior);
+//		clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
+//	}
 }
 
 //JFrame v = new JFrame("Prueba JInternalFrame");

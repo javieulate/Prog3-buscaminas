@@ -6,6 +6,10 @@ import LN.clsUsuario;
 import LN.clsUsuarioRepetido;
 import LP.frmMenuPrincipal;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,6 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
+
+
 
 public class clsBaseDeDatos 
 {
@@ -88,7 +94,7 @@ public class clsBaseDeDatos
 				try {
 					statement.executeUpdate("create table if not exists fichero_usuarios " +
 						"(nombre string, apellido string, mail string" +
-						", nomUsuario string, contrasena string)");
+						", nomUsuario string, contrasena string, puntuacion int)");
 				} catch (SQLException e) {
 					// Si hay excepción es que la tabla ya existía (lo cual es correcto)
 					logger.log( Level.INFO, "La tabla ya existía.", e);
@@ -134,7 +140,8 @@ public class clsBaseDeDatos
 							"'" + a.getApellido() + "', " +
 							"'" + a.getMail() + "', " +
 							"'" + a.getNomUsuario() + "', " +
-							"'" + a.getContrasena() + "')";
+							"'" + a.getContrasena() + "',"+
+							"'" + a.getPuntuacion() + "')";
 					System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 					int val = st.executeUpdate( sentSQL );
 					if (val!=1) 
@@ -188,13 +195,14 @@ public class clsBaseDeDatos
 			 * @param st	Sentencia ya abierta de Base de Datos (con la estructura de tabla correspondiente al usuario)
 			 * @return	true si la modificación es correcta, false en caso contrario
 			 */
-			public boolean modificarFilaEnTabla( Statement st, clsUsuario a ) {
+			public static boolean modificarFilaEnTabla( Statement st, clsUsuario a ) {
 				try {
 					String sentSQL = "update fichero_usuarios set " +
 							"nombre = '" + a.getNombre() + "', " +
 							"apellido = '" + a.getApellido() + "', " +
 							"mail = '" + a.getMail() + "', " +
-							"contrasena = '" + a.getContrasena() + "' " +
+							"contrasena = '" + a.getContrasena() + "', " +
+							"puntuacion = '" + a.getPuntuacion() + "' " +
 							"where (nomUsuario = '" + a.getNomUsuario() + "')";
 					System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 					int val = st.executeUpdate( sentSQL );
@@ -231,8 +239,8 @@ public class clsBaseDeDatos
 
 			public static clsUsuario cargarDeTabla2( Statement st, String nomUsuario, String mail, String contrasena ) {
 				try {
-					String sentSQL = "select * from fichero_multimedia " +
-							"where (nomUsuario = '" + nomUsuario + "' and mail = '" + mail + "' and mail = '" + contrasena + "' )";
+					String sentSQL = "select * from fichero_usuarios " +
+							"where (nomUsuario = '" + nomUsuario + "' and mail = '" + mail + "' and contrasena = '" + contrasena + "' )";
 					System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 					ResultSet rs = st.executeQuery( sentSQL );
 					if (rs.next()) {  // Normalmente se recorre con un while, pero aquí solo hay que ver si ya existe
@@ -242,6 +250,8 @@ public class clsBaseDeDatos
 						u.contrasena= rs.getString( "contrasena" );
 						u.mail = rs.getString( "mail" );
 						u.nomUsuario = rs.getString("nomUsuario");
+						u.puntuacion = rs.getInt("puntuacion");
+						
 						rs.close();
 						return u;
 					}
@@ -299,6 +309,7 @@ public class clsBaseDeDatos
 						u.contrasena= rs.getString( "contrasena" );
 						u.mail = rs.getString( "mail" );
 						u.nomUsuario = rs.getString("nomUsuario");
+						u.puntuacion = rs.getInt("puntuacion");
 						
 						lista.add( u );
 						counter++;
@@ -310,4 +321,76 @@ public class clsBaseDeDatos
 					return null;  // Error
 				}
 			}
+		
+			
+			
+			
+			
+			
+			
+			
+			public static ArrayList<clsUsuario> leerDeFicheroSerializado( String nomFic ) {
+				ArrayList<clsUsuario> ret = new ArrayList<clsUsuario>();
+				ObjectInputStream ois = null;
+				try {
+					ois = new ObjectInputStream( new FileInputStream(nomFic) );
+					while (true) {
+						// Lectura hasta final de fichero (excepciÃ³n)
+						// Tb a veces se graba un null al final y se usa ese null para acabar
+						clsUsuario u = (clsUsuario) ois.readObject();
+						ret.add( u );
+					}
+				} catch (EOFException e) {  // FileNotFound, IO, EOF, classcast
+					// Ok - final de bucle
+				} catch (Exception e) {  // FileNotFound, IO, EOF, classcast
+					e.printStackTrace();
+				} finally {
+					if (ois!=null)
+						try {
+							ois.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+				}
+				return ret;
+			}	
+			
+			public static clsUsuario leerDeFicheroSerializado2( String nomFic ) {
+				clsUsuario ret = null;
+				ObjectInputStream ois = null;
+				try {
+					ois = new ObjectInputStream( new FileInputStream(nomFic) );
+					while (true) {
+						// Lectura hasta final de fichero (excepciÃ³n)
+						// Tb a veces se graba un null al final y se usa ese null para acabar
+						ret = (clsUsuario) ois.readObject();
+			
+					}
+				} catch (EOFException e) {  // FileNotFound, IO, EOF, classcast
+					// Ok - final de bucle
+				} catch (Exception e) {  // FileNotFound, IO, EOF, classcast
+					e.printStackTrace();
+				} finally {
+					if (ois!=null)
+						try {
+							ois.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+				}
+				return ret;
+			}	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 }
