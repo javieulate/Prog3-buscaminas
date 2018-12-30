@@ -10,11 +10,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class frmPartida extends JInternalFrame implements ActionListener
+public class frmPartida extends JPanel implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public VentanaPrincipiante panelp;
 	public frmAnuncio anuncio;
 	public JLabel cronometro;
@@ -27,8 +31,9 @@ public class frmPartida extends JInternalFrame implements ActionListener
 	
 	
 	
-	public frmPartida(int tipo, int width, int height)
+	public frmPartida(int tipo)
 	{
+		
 		this.setLayout(new BorderLayout());
 		cronometro = new JLabel("00:00");
 		cronometro.setFont( new Font( Font.DIALOG, Font.BOLD, 25 ) );
@@ -44,39 +49,24 @@ public class frmPartida extends JInternalFrame implements ActionListener
 		{
 			dificultad = Dificultad.PRINCIPIANTE;
 			panelp = new VentanaPrincipiante(10);
-			this.setSize(panelp.getWidth(), panelp.getHeight()+20);
-			this.setTitle("Partida Principiante");
+			this.setSize(panelp.getWidth()+13, panelp.getHeight()+cronometro.getHeight()+47);
 			this.add(panelp, BorderLayout.CENTER);
-			this.pack();
-			this.setVisible(true);
-			this.setResizable(false);
-			this.setClosable(true);
-			 
-			
 		}
 		if(tipo == 2)
 		{
 			dificultad = Dificultad.AMATEUR;
 			panelp = new VentanaPrincipiante(20);
-			this.setSize(panelp.getWidth(), panelp.getHeight()+20);
-			this.setTitle("Partida Amateur");
+			this.setSize(panelp.getWidth()+13, panelp.getHeight()+cronometro.getHeight()+47);
 			this.add(panelp, BorderLayout.CENTER);
-			this.setVisible(true);
-			this.pack();
-			this.setResizable(false);
-			this.setClosable(true);
 			
 		}
 		if(tipo == 3)
 		{
 			dificultad = Dificultad.EXPERTO;
 			panelp = new VentanaPrincipiante(30);
-			this.setSize(panelp.getWidth(), panelp.getHeight()+20);
-			this.setTitle("Partida Experto");
+			this.setSize(panelp.getWidth()+13, panelp.getHeight()+cronometro.getHeight()+47);
 			this.add(panelp, BorderLayout.CENTER);
 			this.setVisible(true);
-			this.setResizable(false);
-			this.setClosable(true);
 		}
 		
 		hilo = new Thread (new Runnable(){
