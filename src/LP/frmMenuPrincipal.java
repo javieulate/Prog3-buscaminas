@@ -259,6 +259,17 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		return menuBar;
 	}
 	
+	public void NuevaPartida(int tipo)
+	{
+		desktop.removeAll();
+		frmPartida NuevaPartida = new frmPartida(tipo);
+		setSize(NuevaPartida.getWidth(), NuevaPartida.getHeight());
+		setContentPane(NuevaPartida);
+		desktop.revalidate();
+		NuevaPartida.setVisible(true);
+		logger.log( Level.INFO, "Iniciando partida.");
+		repaint();
+	}
 	
 	/**
 	 * Este es el método que ejecuta dieferentes acciones según lo que sea pulsado en la pantalla.
@@ -270,82 +281,85 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		{
 			case CMD_BTN_PRINCIPIANTE:
 				
-				setContentPane(VentanaInicial());
-				contentPane.revalidate();
-				AnPrincipiante = new frmAnuncio();
-				this.setVisible(true);
-				AnPrincipiante.setVisible(true);
-				desktop.add(AnPrincipiante);
-				desktop.revalidate();
-				AnPrincipiante.toFront();
+				if(clsGestor.ComprobarVidas())
+				{
+					NuevaPartida(1);
+				}
+				else
+				{
+					setContentPane(VentanaInicial());
+					contentPane.revalidate();
+					AnPrincipiante = new frmAnuncio();
+					this.setVisible(true);
+					AnPrincipiante.setVisible(true);
+					desktop.add(AnPrincipiante);
+					desktop.revalidate();
+					AnPrincipiante.toFront();
+					
+					AnPrincipiante.b.addActionListener(new ActionListener(){
+						@Override
+						public void actionPerformed(ActionEvent arg0) 
+						{
+							NuevaPartida(1);
+						}
+					});
+				}
 				
-				AnPrincipiante.b.addActionListener(new ActionListener(){
-					@Override
-					public void actionPerformed(ActionEvent arg0) 
-					{
-						frmPartida NuevaPartida = new frmPartida(1);
-						setSize(NuevaPartida.getWidth(), NuevaPartida.getHeight());
-						setContentPane(NuevaPartida);
-						desktop.removeAll();
-						repaint();
-						desktop.revalidate();
-						NuevaPartida.setVisible(true);
-						logger.log( Level.INFO, "Iniciando partida principiante.");
-					}
-				});
 				
 				break;
 			
 			case CMD_BTN_AMATEUR:
 						
-				setContentPane(VentanaInicial());
-				contentPane.revalidate();
-				AnAmateur = new frmAnuncio();
-				this.setVisible(true);
-				AnAmateur.setVisible(true);
-				desktop.add(AnAmateur);
-				AnAmateur.toFront();
-				
-				AnAmateur.b.addActionListener(new ActionListener(){
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						desktop.removeAll();
-						frmPartida NuevaPartidaAmateur = new frmPartida(2);
-						setSize(NuevaPartidaAmateur.getWidth(), NuevaPartidaAmateur.getHeight());
-						setContentPane(NuevaPartidaAmateur);
-						desktop.revalidate();
-						NuevaPartidaAmateur.setVisible(true);
-						logger.log( Level.INFO, "Iniciando partida Amateur.");
-						repaint();
-					}
+				if(clsGestor.ComprobarVidas())
+				{
+					NuevaPartida(2);
+				}
+				else
+				{
+					setContentPane(VentanaInicial());
+					contentPane.revalidate();
+					AnAmateur = new frmAnuncio();
+					this.setVisible(true);
+					AnAmateur.setVisible(true);
+					desktop.add(AnAmateur);
+					AnAmateur.toFront();
 					
-				});
+					AnAmateur.b.addActionListener(new ActionListener(){
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							NuevaPartida(2);
+						}
+						
+					});
+				}
+				
 				break;
 				
 			case CMD_BTN_EXPERTO:
 				
-				setContentPane(VentanaInicial());
-				contentPane.revalidate();
-				frmAnuncio AnExperto = new frmAnuncio();
-				this.setVisible(true);
-				AnExperto.setVisible(true);
-				desktop.add(AnExperto);
-				AnExperto.toFront();
-				
-				AnExperto.b.addActionListener(new ActionListener(){
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						desktop.removeAll();
-						frmPartida NuevaPartidaExperto = new frmPartida(3);
-						setSize(NuevaPartidaExperto.getWidth(), NuevaPartidaExperto.getHeight());
-						setContentPane(NuevaPartidaExperto);
-						desktop.revalidate();
-						NuevaPartidaExperto.setVisible(true);
-						logger.log( Level.INFO, "Iniciando partida Amateur.");
-						repaint();
-					}
+				if(clsGestor.ComprobarVidas())
+				{
+					NuevaPartida(3);
+				}
+				else
+				{
+					setContentPane(VentanaInicial());
+					contentPane.revalidate();
+					frmAnuncio AnExperto = new frmAnuncio();
+					this.setVisible(true);
+					AnExperto.setVisible(true);
+					desktop.add(AnExperto);
+					AnExperto.toFront();
 					
-				});
+					AnExperto.b.addActionListener(new ActionListener(){
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							NuevaPartida(3);
+						}
+						
+					});
+				}
+				
 				break;
 				
 			case CMD_BTN_RANKINGPERSONAL:

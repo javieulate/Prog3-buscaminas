@@ -48,6 +48,8 @@ public class clsUsuario implements Serializable, itfProperty {
 		this.mail = mail;
 		this.nomUsuario = nomUsuario;
 		this.contrasena = contrasena;
+		this.puntuacion = 0;
+		this.numeroVidas = 5;
 	}
 
 	

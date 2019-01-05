@@ -144,7 +144,7 @@ public class frmPantalla extends JFrame implements ActionListener
 			clsUsuario a = new clsUsuario(nomtxt.getText(), apetxt.getText(), corretxt.getText(), nomusutxt.getText(), contrausutxt.getText());
 			try {
 				clsBaseDeDatos.anyadirFilaATabla(clsBaseDeDatos.getStatement(), a);
-				
+				clsGestor.IniciarSesion(nomusutxt.getText(), corretxt.getText());
 				
 			} catch (clsEmailNoValido e1) {
 				// TODO Auto-generated catch block

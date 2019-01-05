@@ -94,7 +94,7 @@ public class clsBaseDeDatos
 				try {
 					statement.executeUpdate("create table if not exists fichero_usuarios " +
 						"(nombre string, apellido string, mail string" +
-						", nomUsuario string, contrasena string, puntuacion int)");
+						", nomUsuario string, contrasena string, puntuacion int, numvidas int)");
 				} catch (SQLException e) {
 					// Si hay excepción es que la tabla ya existía (lo cual es correcto)
 					logger.log( Level.INFO, "La tabla ya existía.", e);
@@ -141,7 +141,8 @@ public class clsBaseDeDatos
 							"'" + a.getMail() + "', " +
 							"'" + a.getNomUsuario() + "', " +
 							"'" + a.getContrasena() + "',"+
-							"'" + a.getPuntuacion() + "')";
+							"'" + a.getPuntuacion() + "',"+
+							"'" + a.getNumeroVidas() + "')";
 					System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 					int val = st.executeUpdate( sentSQL );
 					if (val!=1) 
@@ -202,7 +203,8 @@ public class clsBaseDeDatos
 							"apellido = '" + a.getApellido() + "', " +
 							"mail = '" + a.getMail() + "', " +
 							"contrasena = '" + a.getContrasena() + "', " +
-							"puntuacion = '" + a.getPuntuacion() + "' " +
+							"puntuacion = '" + a.getPuntuacion() + "', " +
+							"numvidas = '" + a.getNumeroVidas() + "' " +
 							"where (nomUsuario = '" + a.getNomUsuario() + "')";
 					System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 					int val = st.executeUpdate( sentSQL );
@@ -251,6 +253,7 @@ public class clsBaseDeDatos
 						u.mail = rs.getString( "mail" );
 						u.nomUsuario = rs.getString("nomUsuario");
 						u.puntuacion = rs.getInt("puntuacion");
+						u.numeroVidas = rs.getInt("numvidas");
 						
 						rs.close();
 						return u;
@@ -310,6 +313,7 @@ public class clsBaseDeDatos
 						u.mail = rs.getString( "mail" );
 						u.nomUsuario = rs.getString("nomUsuario");
 						u.puntuacion = rs.getInt("puntuacion");
+						u.numeroVidas = rs.getInt("numvidas");
 						
 						lista.add( u );
 						counter++;

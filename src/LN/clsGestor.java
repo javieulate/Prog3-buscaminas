@@ -26,7 +26,7 @@ import LD.itfDatos;
 
 public class clsGestor 
 {
-	
+	public static String ficherosesion = ".\\data\\sesion.dat";
 	/**
 	 * Método en el que se recoge todo la lista de usuarios de tipo clsUsuario.
 	 * @return
@@ -144,6 +144,22 @@ public class clsGestor
 		    catch (MessagingException me) {
 		        me.printStackTrace();   //Si se produce un error
 		    }
+		}
+		
+		public static boolean ComprobarVidas()
+		{
+			boolean vidas = true;
+			
+			clsUsuario UsuSesion = new clsUsuario();
+			clsUsuario UsuSesion2 = new clsUsuario();
+			UsuSesion = clsBaseDeDatos.leerDeFicheroSerializado2(ficherosesion);
+			UsuSesion2 = clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), UsuSesion.getNomUsuario(), UsuSesion.getMail(), UsuSesion.getContrasena());
+			
+			if(UsuSesion2.getNumeroVidas() == 0)
+			{
+				vidas = false;
+			}
+			return vidas;
 		}
 		
 		

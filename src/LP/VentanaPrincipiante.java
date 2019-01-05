@@ -27,6 +27,9 @@ public class VentanaPrincipiante extends JPanel
 	clsUsuario usu1 = new clsUsuario();
 	clsUsuario usu2 = new clsUsuario();
 	int punanterior;
+	private JLabel labelD;
+	private String NumCasillas;
+	
 	
 	private String imagenesbotones[] = {"src/imagenes/0.PNG",
 								"src/imagenes/1.PNG",
@@ -47,14 +50,17 @@ public class VentanaPrincipiante extends JPanel
 		PartidaPrincipiante = new clsJuegoPrincipiante(numminas);
 		if(minas == 10)
 		{
+			NumCasillas = " de 90";
 			this.setSize(numminas*20, numminas*20+40);
 		}
 		if(minas == 20)
 		{
+			NumCasillas = " de 360";
 			this.setSize(numminas*20, numminas*20+40);
 		}
 		if(minas == 30)
 		{
+			NumCasillas = " de 810";
 			this.setSize(numminas*20, numminas*20+40);
 		}
 		
@@ -67,6 +73,9 @@ public class VentanaPrincipiante extends JPanel
 		casillasbuenas = PartidaPrincipiante.getCasillasbuenas();
 		
 		botonesCasillaP  = new JButton [numminas][numminas];
+		labelD = new JLabel();
+		labelD.setBounds(15, 15, 60, 15);
+		this.add(labelD);
 		AsignarBotonesP();
 		GestionEventosP();
 	}
@@ -137,6 +146,7 @@ public class VentanaPrincipiante extends JPanel
 					JOptionPane.showMessageDialog(null, "Has ganado!");
 					partidaAcabada = true;
 				}
+				 labelD.setText(casillasbuenas+NumCasillas);
 			}
 			//Si no es bomba y no hay bombas cerca, pone las casillas visibles.
 			if(PartidaPrincipiante.getSituacioncasillas(i, j) == 0){

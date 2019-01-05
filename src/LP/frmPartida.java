@@ -33,6 +33,7 @@ public class frmPartida extends JPanel implements ActionListener
 	clsUsuario usu1 = new clsUsuario();
 	clsUsuario usu2 = new clsUsuario();
 	int punanterior;
+	int numvidas;
 	
 	Thread hilo;
 
@@ -113,18 +114,22 @@ public class frmPartida extends JPanel implements ActionListener
 					}
 				}
 				catch(Exception e){}
+				
 				cronometro.setText(hora + ":" + min + ":" + seg);
 				
 				ihora = horas;
 				imin = minutos;
 				iseg = segundos;
 				casillasAcertadas = panelp.casillasbuenas;
+				usuario();
+				actualizarPuntos();
+				vidas(casillasAcertadas);
+				clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
 			}
 			
 		});
 		hilo.start();
-//		usuario();
-//		actualizarPuntos();
+		
 	
 	}
 
@@ -134,16 +139,52 @@ public class frmPartida extends JPanel implements ActionListener
 		
 	}
 	
-//	public void usuario(){
-//		
-//		usu2=clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
-//		usu1=clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
-//	}
-//	public void actualizarPuntos(){
-//		punanterior=usu1.getPuntuacion();
-//		usu1.setPuntuacion(casillasAcertadas+punanterior);
-//		clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
-//	}
+	public void vidas(int aciertos)
+	{
+		if(casillasAcertadas == 90)
+		{
+			// Se suman 5 vidas si se gana la partida en principiante
+			numvidas = usu1.getNumeroVidas();
+			usu1.setNumeroVidas(numvidas + 5);
+		}
+		
+		if(casillasAcertadas == 360)
+		{
+			// Se suman 10 vidas si se gana la partida en amateur
+			numvidas = usu1.getNumeroVidas();
+			usu1.setNumeroVidas(numvidas + 10);
+		}
+		
+		if(casillasAcertadas == 810)
+		{
+			// Se suman 15 vidas si se gana la partida en experto
+			numvidas = usu1.getNumeroVidas();
+			usu1.setNumeroVidas(numvidas + 15);
+		}
+		else
+		{
+			numvidas = usu1.getNumeroVidas();
+			if(numvidas > 0)
+			{
+				usu1.setNumeroVidas(numvidas - 1);
+			}
+			else{
+				
+			}
+		}
+		
+	}
+	
+	public void usuario(){
+		
+		usu2 = clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
+		usu1 = clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
+	}
+	public void actualizarPuntos(){
+		punanterior = usu1.getPuntuacion();
+		usu1.setPuntuacion(casillasAcertadas+punanterior);
+		
+	}
 }
 
 //JFrame v = new JFrame("Prueba JInternalFrame");
