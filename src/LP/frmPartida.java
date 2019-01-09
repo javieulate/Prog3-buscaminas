@@ -34,6 +34,7 @@ public class frmPartida extends JPanel implements ActionListener
 	clsUsuario usu2 = new clsUsuario();
 	int punanterior;
 	int numvidas;
+	int puntuacion;
 	
 	Thread hilo;
 
@@ -122,7 +123,6 @@ public class frmPartida extends JPanel implements ActionListener
 				iseg = segundos;
 				casillasAcertadas = panelp.casillasbuenas;
 				usuario();
-				actualizarPuntos();
 				vidas(casillasAcertadas);
 				clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
 			}
@@ -145,21 +145,30 @@ public class frmPartida extends JPanel implements ActionListener
 		{
 			// Se suman 5 vidas si se gana la partida en principiante
 			numvidas = usu1.getNumeroVidas();
+			puntuacion = usu1.getPuntuacion();
+			
 			usu1.setNumeroVidas(numvidas + 5);
+			usu1.setPuntuacion(puntuacion + 1);
 		}
 		
 		if(casillasAcertadas == 360)
 		{
 			// Se suman 10 vidas si se gana la partida en amateur
 			numvidas = usu1.getNumeroVidas();
+			puntuacion = usu1.getPuntuacion();
+			
 			usu1.setNumeroVidas(numvidas + 10);
+			usu1.setPuntuacion(puntuacion + 3);
 		}
 		
 		if(casillasAcertadas == 810)
 		{
 			// Se suman 15 vidas si se gana la partida en experto
 			numvidas = usu1.getNumeroVidas();
+			puntuacion = usu1.getPuntuacion();
+			
 			usu1.setNumeroVidas(numvidas + 15);
+			usu1.setPuntuacion(puntuacion + 9);
 		}
 		else
 		{
@@ -179,11 +188,6 @@ public class frmPartida extends JPanel implements ActionListener
 		
 		usu2 = clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
 		usu1 = clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
-	}
-	public void actualizarPuntos(){
-		punanterior = usu1.getPuntuacion();
-		usu1.setPuntuacion(casillasAcertadas+punanterior);
-		
 	}
 }
 
