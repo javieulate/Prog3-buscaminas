@@ -327,11 +327,39 @@ public class clsBaseDeDatos
 			}
 		
 			
-			
-			
-			
-			
-			
+			// Método que se utiliza para lograr una lista de usuarios ordenada por la puntuación, con el objeto de tener una 
+			// tabla ordenada en la lista de ranking general.
+			public static ArrayList<clsUsuario> cargarOrdenadosPorPuntuacion(Statement st)
+			{
+				try {
+					ArrayList<clsUsuario> listaOrdenada = new ArrayList<clsUsuario>();
+					String sentSQL = "select * from fichero_usuarios order by puntuacion desc";
+					System.out.println(sentSQL);
+					ResultSet rs = st.executeQuery( sentSQL );
+					int counter = 0;
+					while(rs.next())
+					{
+						System.out.println("cargarVAriosDeTabla2: " + counter);
+						clsUsuario u = new clsUsuario();
+						u.nombre = rs.getString( "nombre" );
+						u.apellido = rs.getString( "apellido" );
+						u.contrasena= rs.getString( "contrasena" );
+						u.mail = rs.getString( "mail" );
+						u.nomUsuario = rs.getString("nomUsuario");
+						u.puntuacion = rs.getInt("puntuacion");
+						u.numeroVidas = rs.getInt("numvidas");
+						
+						listaOrdenada.add( u );
+						counter++;
+					}
+					rs.close();
+					return listaOrdenada;
+				}catch (SQLException e) {
+					logger.log( Level.SEVERE, "Error a la hora de cargar varios usuarios en el SQL", e);
+					return null;  // Error
+				}
+				
+			}
 			
 			public static ArrayList<clsUsuario> leerDeFicheroSerializado( String nomFic ) {
 				ArrayList<clsUsuario> ret = new ArrayList<clsUsuario>();

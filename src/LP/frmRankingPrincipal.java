@@ -82,9 +82,8 @@ public class frmRankingPrincipal extends JInternalFrame implements ActionListene
 		 int cont =0;
 		
 		
-		 ArrayList <clsUsuario>listausuarios = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
-	{
-		 
+		 ArrayList <clsUsuario>listausuarios = clsBaseDeDatos.cargarOrdenadosPorPuntuacion(clsBaseDeDatos.getStatement());
+		 {
 			 for(clsUsuario a: listausuarios)
 			 {
 				 
@@ -93,7 +92,6 @@ public class frmRankingPrincipal extends JInternalFrame implements ActionListene
 					 lista[cont][2]= a.getNomUsuario();
 					 lista[cont][3]= a.getPuntuacion();
 					 cont++; 
-			 
 			 }
 	}
 

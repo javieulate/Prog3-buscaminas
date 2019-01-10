@@ -14,12 +14,20 @@ import LD.clsBaseDeDatos;
 public class clsUsuarioTest {
 	
 	 clsUsuario usuario1;
-	 ArrayList ListaUsuarios;
+	 ArrayList<clsUsuario> ListaUsuarios;
 	 
 	@Before
 	public void setUp()
 	{
 		usuario1 = new clsUsuario("a", "a", "a@gmail.com", "a", "a");
+		ListaUsuarios = new ArrayList<clsUsuario>();
+		clsBaseDeDatos.initBD( "Usuarios.bd" );
+		clsBaseDeDatos.crearTablaBD();
+	}
+
+	@Test
+	public void test() 
+	{
 		try 
 		{
 			clsBaseDeDatos.anyadirFilaATabla(clsBaseDeDatos.getStatement(), usuario1);
@@ -28,17 +36,9 @@ public class clsUsuarioTest {
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	@After
-	public void tearDown() throws Exception 
-	{
-	}
-
-	@Test
-	public void test() 
-	{
 		
+		ListaUsuarios = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
+		assertEquals(ListaUsuarios.size(), 1);
 	}
 
 }

@@ -38,10 +38,6 @@ public class frmPartida extends JPanel implements ActionListener
 	
 	Thread hilo;
 
-	
-	
-	
-	
 	public frmPartida(int tipo)
 	{
 		
@@ -144,6 +140,7 @@ public class frmPartida extends JPanel implements ActionListener
 		if(casillasAcertadas == 90)
 		{
 			// Se suman 5 vidas si se gana la partida en principiante
+			// Y se suma 1 punto a la puntuación del ranking general
 			numvidas = usu1.getNumeroVidas();
 			puntuacion = usu1.getPuntuacion();
 			
@@ -154,6 +151,7 @@ public class frmPartida extends JPanel implements ActionListener
 		if(casillasAcertadas == 360)
 		{
 			// Se suman 10 vidas si se gana la partida en amateur
+			// Y se suman 3 puntos a la puntuación del ranking general
 			numvidas = usu1.getNumeroVidas();
 			puntuacion = usu1.getPuntuacion();
 			
@@ -164,6 +162,7 @@ public class frmPartida extends JPanel implements ActionListener
 		if(casillasAcertadas == 810)
 		{
 			// Se suman 15 vidas si se gana la partida en experto
+			// Y se suman 9 puntos a la puntuación del ranking general
 			numvidas = usu1.getNumeroVidas();
 			puntuacion = usu1.getPuntuacion();
 			
@@ -191,36 +190,3 @@ public class frmPartida extends JPanel implements ActionListener
 	}
 }
 
-//JFrame v = new JFrame("Prueba JInternalFrame");
-//JDesktopPane dp = new JDesktopPane();
-//v.getContentPane().add(dp);
-//
-//// Se construye el panel que ira dentro del JInternalFrame
-//JPanel p = new JPanel();
-//p.setLayout(new FlowLayout());
-//p.add (new JLabel("Una etiqueta"));
-//p.add (new JTextField(10));
-//
-//// Se construye el JInternalFrame
-//JInternalFrame internal = new JInternalFrame("Un Internal Frame");
-//internal.add(p);
-//
-//// Es importante darle tamaño -pack()- al JInternalFrame,
-//// porque si no, tendrá tamaño 0,0 y no lo veremos.
-//internal.pack();
-//
-//// Por defecto el JInternalFrame no es redimensionable ni
-//// tiene el botón de cerrar, así que se lo ponemos.
-//internal.setResizable(true);
-//internal.setClosable(true);
-//
-//// Se mete el internal en el JDesktopPane
-//dp.add(internal);
-//
-//// Se visualiza todo.
-//v.setSize(500,500);
-//v.setVisible(true);
-//v.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//
-//// Se visualiza el JInternalFrame 
-//internal.setVisible(true);

@@ -17,15 +17,16 @@ import LN.clsUsuario;
 
 public class VentanaPrincipiante extends JPanel 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int numminas;
 	int casillasbuenas;
-	public JLabel JLabelP;
 	private JButton botonesCasillaP [][];
 	private boolean pulsada [][];
 	clsJuegoPrincipiante PartidaPrincipiante;
 	public boolean partidaAcabada;
-	clsUsuario usu1 = new clsUsuario();
-	clsUsuario usu2 = new clsUsuario();
 	int punanterior;
 	private JLabel labelD;
 	private String NumCasillas;
@@ -74,7 +75,7 @@ public class VentanaPrincipiante extends JPanel
 		
 		botonesCasillaP  = new JButton [numminas][numminas];
 		labelD = new JLabel();
-		labelD.setBounds(15, 15, 60, 15);
+		labelD.setBounds(15, 15, 80, 15);
 		this.add(labelD);
 		AsignarBotonesP();
 		GestionEventosP();
@@ -130,8 +131,8 @@ public class VentanaPrincipiante extends JPanel
 			// Si en la casilla pulsada se encuentra una bomba
 			if(PartidaPrincipiante.getSituacioncasillas(i, j) == 9){
 				DestaparBotonP();
-				usuario();				
-				actualizarPuntos();
+//				usuario();				
+//				actualizarPuntos();
 				JOptionPane.showMessageDialog(null, "Lo siento, has perdido");
 				partidaAcabada = true;
 				
@@ -141,8 +142,8 @@ public class VentanaPrincipiante extends JPanel
 				PartidaPrincipiante.setCasillasbuenas(casillasbuenas);
 				if (casillasbuenas==(numminas*numminas - numminas)){
 					DestaparBotonP();
-					usuario();
-					actualizarPuntos();					
+//					usuario();
+//					actualizarPuntos();					
 					JOptionPane.showMessageDialog(null, "Has ganado!");
 					partidaAcabada = true;
 				}
@@ -213,15 +214,15 @@ public class VentanaPrincipiante extends JPanel
 		}
 	}
 	
-	public void usuario(){
-	
-		usu2=clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
-		usu1=clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
-	}
-	public void actualizarPuntos(){
-		punanterior=usu1.getPuntuacion();
-		usu1.setPuntuacion(casillasbuenas+punanterior);
-		clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
-	}
+//	public void usuario(){
+//	
+//		usu2=clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
+//		usu1=clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
+//	}
+//	public void actualizarPuntos(){
+//		punanterior=usu1.getPuntuacion();
+//		usu1.setPuntuacion(casillasbuenas+punanterior);
+//		clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
+//	}
 
 }
