@@ -1,9 +1,8 @@
 package LP;
 
-
-
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 
@@ -18,6 +17,7 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 
 
 public class frmAnuncio extends JInternalFrame implements ActionListener{
@@ -38,6 +39,7 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	private JButton btPlay;
 	public JButton b;
 	private JInternalFrame internalFrame;
+	public JLabel cuentatras;
 	
 	// Componente que permite gestionar los ficheros de video
 	private EmbeddedMediaPlayerComponent mediaPlayer;
@@ -47,19 +49,31 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	private enum Estado {PLAY, PAUSE, STOP};
 	private Estado estado;
 	private File ficheroVideo;
-
+	Thread hilo;
 
 	/**
 	 * Create the application.
 	 */
-	public frmAnuncio() {
+	public frmAnuncio() 
+	{
 		this.setResizable(false);
     	this.setClosable(false);
     	this.setMaximizable(false);
     	this.setIconifiable(false); 
-        this.setOpaque(true);
+        this.setOpaque(false);
         this.toFront();
-
+        cuentatras = new JLabel("5");
+		cuentatras.setFont( new Font( Font.DIALOG, Font.BOLD, 25 ) );
+	    cuentatras.setHorizontalAlignment( JLabel.CENTER );
+	    cuentatras.setForeground( Color.RED );
+	    cuentatras.setBackground(Color.BLACK);
+	    cuentatras.setOpaque(true);
+	    cuentatras.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+	//    cuentatras.setBounds(530, 23, 26, 50);
+	    
+	//    this.add(cuentatras);
+        
+        
         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), LIB_VLC);
 		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 		mediaPlayer = new EmbeddedMediaPlayerComponent();
@@ -67,6 +81,56 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 		initialize();
 		iniciarVideo();
 		this.setVisible(true);
+		
+		hilo = new Thread (new Runnable(){
+			
+			Integer segundos = 5;
+			String seg = "5";
+			int count=0; //Sirve para hacerlo más real. Solo hay 0,1 segundos de desviación entre la cuenta atrás y al parar el vídeo.
+			//Si no implementamos este contador, si quedan 3 segundos para la cuenta atrás y lo paramos en el segundo 2,95;
+			//la cuenta atrás bajaría hasta los dos segundos. Con count esto no pasa, bajaría hasta el 2,9 (redondeado, 3).
+			boolean ejecutar=true;
+			@Override
+			public void run() 
+			{
+				while(ejecutar)
+				{
+					if(estado ==Estado.PLAY)
+					{
+						try {
+							Thread.sleep(100);
+							count++;
+								if(count==10)
+								{
+								segundos --;
+								count=0;
+								}
+								b.setText(segundos + " segundos");
+								if(segundos == 0)
+								{
+									ejecutar=false;
+									b.setEnabled(true);
+									b.setText("Omitir anuncio");
+								}
+								seg= segundos.toString();
+								cuentatras.setText(seg);
+								cuentatras.setOpaque(true);
+							} catch (InterruptedException e) {
+								
+							}
+						cuentatras.setText(seg);
+						cuentatras.setOpaque(true);
+					}
+					else{
+						cuentatras.setText(seg);
+						cuentatras.setOpaque(true);
+					}
+				}
+			}			
+	});
+		hilo.start();
+		
+		
 	}
 	
 	/*
@@ -128,8 +192,9 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 		});
 		panelBotones.add(btPlay);
 		
-		b = new JButton("Salir");
+		b = new JButton("5 segundos");
 		b.setActionCommand("BotonSalir");
+		b.setEnabled(false);
 	    b.addActionListener(this);
 	    panelBotones.add(b);
 		
@@ -145,18 +210,16 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 		switch(arg0.getActionCommand())
 		{
 			case "BotonSalir":
-				if (estado == Estado.STOP)
-				{
-					//No hace nada
-				}
-				else
-				{
+				
+					b.setEnabled(true);
 					mediaPlayer.getMediaPlayer().stop();
 					estado = Estado.STOP;
 					this.dispose();
-				}
+				
 		
 			break;
 		}	
 	}
+	
+	
 }
