@@ -2,6 +2,7 @@ package LD;
 
 import COMUN.clsEmailNoValido;
 import LN.clsGestor;
+import LN.clsPartidaUsuario;
 import LN.clsUsuario;
 import LN.clsUsuarioRepetido;
 import LP.frmMenuPrincipal;
@@ -31,6 +32,8 @@ public class clsBaseDeDatos
 			private static Logger logger = Logger.getLogger(clsBaseDeDatos.class.getName() );
 			private static Connection connection = null; //Gestiona la conexión 
 			private static Statement statement = null; //Gestiona las instrucciones de la base
+			static clsUsuario usuariosesion= new clsUsuario();
+			
 
 			/** Inicializa una BD SQLITE y devuelve una conexión con ella. Debe llamarse a este 
 			 * método antes que ningún otro, y debe devolver no null para poder seguir trabajando con la BD.
@@ -101,11 +104,11 @@ public class clsBaseDeDatos
 				}
 			}
 			
-			public static void clearTablaBDPartidas(){
+			public static void crearTablaBDPartidas(){
 				if(statement == null) return;
 				try{
 					statement.executeUpdate("create table if not exists partida_usuarios "+
-						"(nomUsuario string, dificultad string, puntuación string, tiempo time)");
+						"(nomUsuario string, dificultad string, puntuacion int, tiempo string)");
 				} catch (SQLException e){
 					logger.log(Level.INFO, "La tabla ya existía", e);
 				}
@@ -416,6 +419,68 @@ public class clsBaseDeDatos
 			
 			
 			
+			public static boolean anyadirFilaATablaPuntuacion( Statement st, clsUsuario a, String dnom, int casillasAcertadas, String horacompleta) 
+			{				
+				
+				try {
+					String sentSQL = "insert into partida_usuarios values(" +
+							"'" + a.getNomUsuario() + "', " +
+							"'" + dnom + "',"+
+							"'" + casillasAcertadas + "',"+
+							"'" + horacompleta + "')";
+					System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
+					int val = st.executeUpdate( sentSQL );
+					if (val!=1) 
+						{
+						logger.log( Level.SEVERE, "¡Puntuación NO añadida!");
+						return false;
+						}  // Se tiene que añadir 1 - error si no
+					else{
+						logger.log( Level.INFO, "Puntuación añadida correctamente.");
+						return true;
+						}
+				} catch (SQLException e) {
+					logger.log( Level.SEVERE, "Error a la hora de añadir una puntuacion en el SQL", e);
+					return false;
+				}
+				} 
+			
+			
+			public static ArrayList<clsPartidaUsuario> cargarOrdenadosPorPuntuacion2(Statement st)
+			{
+				try {
+					usuariosesion.setNomUsuario(clsGestor.NomUsuario());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+				//	e.printStackTrace();
+				}
+				try {
+					ArrayList<clsPartidaUsuario> listaOrdenada = new ArrayList<clsPartidaUsuario>();
+					String sentSQL = "select * from partida_usuarios where (nomUsuario = '" + usuariosesion.nomUsuario + "')"+
+					"order by puntuacion desc";
+					System.out.println(sentSQL);
+					ResultSet rs = st.executeQuery( sentSQL );
+					int counter = 0;
+					while(rs.next())
+					{
+						System.out.println("cargarVAriosDeTabla2: " + counter);
+						clsPartidaUsuario u = new clsPartidaUsuario();
+						u.nomUsuario = rs.getString( "nomUsuario" );
+						u.dificultad = rs.getString("dificultad");
+						u.puntuacion = rs.getInt("puntuacion");
+						u.tiempo = rs.getString("tiempo");
+						
+						listaOrdenada.add( u );
+						counter++;
+					}
+					rs.close();
+					return listaOrdenada;
+				}catch (SQLException e) {
+					logger.log( Level.SEVERE, "Error a la hora de cargar varios usuarios en el SQL", e);
+					return null;  // Error
+				}
+				
+			}
 			
 			
 			
@@ -425,4 +490,16 @@ public class clsBaseDeDatos
 			
 			
 			
+			
+			
+			
+				
 }
+			
+			
+			
+			
+			
+			
+			
+			

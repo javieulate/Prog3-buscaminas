@@ -30,6 +30,7 @@ public class frmPartida extends JPanel implements ActionListener
 	public enum Dificultad {PRINCIPIANTE, AMATEUR, EXPERTO};
 	public Dificultad dificultad;
 	public int casillasAcertadas;
+	public String dnom;
 	clsUsuario usu1 = new clsUsuario();
 	clsUsuario usu2 = new clsUsuario();
 	int punanterior;
@@ -58,6 +59,7 @@ public class frmPartida extends JPanel implements ActionListener
 			panelp = new VentanaPrincipiante(10);
 			this.setSize(panelp.getWidth()+13, panelp.getHeight()+cronometro.getHeight()+47);
 			this.add(panelp, BorderLayout.CENTER);
+			dnom="PRINCIPIANTE";
 		}
 		if(tipo == 2)
 		{
@@ -65,6 +67,7 @@ public class frmPartida extends JPanel implements ActionListener
 			panelp = new VentanaPrincipiante(20);
 			this.setSize(panelp.getWidth()+13, panelp.getHeight()+cronometro.getHeight()+47);
 			this.add(panelp, BorderLayout.CENTER);
+			dnom="AMATEUR";
 			
 		}
 		if(tipo == 3)
@@ -74,6 +77,7 @@ public class frmPartida extends JPanel implements ActionListener
 			this.setSize(panelp.getWidth()+13, panelp.getHeight()+cronometro.getHeight()+47);
 			this.add(panelp, BorderLayout.CENTER);
 			this.setVisible(true);
+			dnom="EXPERTO";
 		}
 		
 		hilo = new Thread (new Runnable(){
@@ -120,7 +124,9 @@ public class frmPartida extends JPanel implements ActionListener
 				casillasAcertadas = panelp.casillasbuenas;
 				usuario();
 				vidas(casillasAcertadas);
+				String horacompleta=hora+";"+minutos+";"+segundos;
 				clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
+				clsBaseDeDatos.anyadirFilaATablaPuntuacion(clsBaseDeDatos.getStatement(), usu1,dnom,casillasAcertadas,horacompleta);
 			}
 			
 		});

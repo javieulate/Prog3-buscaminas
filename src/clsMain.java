@@ -40,6 +40,8 @@ public class clsMain {
 		ArrayList<clsUsuario> listaUsu = new ArrayList<clsUsuario>();
 		clsBaseDeDatos.initBD( "Usuarios.bd" );
 		clsBaseDeDatos.crearTablaBD();
+//		clsBaseDeDatos.initBD("Partidas.bd");
+		clsBaseDeDatos.crearTablaBDPartidas();
 		listaUsu = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
 		for (clsUsuario aux : listaUsu) {
 			

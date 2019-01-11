@@ -13,6 +13,7 @@ import javax.swing.table.AbstractTableModel;
 
 import LD.clsBaseDeDatos;
 import LN.clsGestor;
+import LN.clsPartidaUsuario;
 import LN.clsUsuario;
 
 import java.awt.BorderLayout;
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 
 public class frmRankingPersonal extends JInternalFrame implements ActionListener {
     private boolean DEBUG = false;
+//    clsUsuario usu2 = new clsUsuario();
+//    clsUsuario usu1 = new clsUsuario();
 
     public frmRankingPersonal()  {
 
@@ -76,15 +79,15 @@ public class frmRankingPersonal extends JInternalFrame implements ActionListener
 	} 
     
     class MyTableModel extends AbstractTableModel  {
-        private String[] columnNames = {"Nombre",
-	            						"Apellido",
-	            						"Nombre de usuario",
-        								"Puntuación"};
+        private String[] columnNames = {"Nombre de usuario",
+	            						"Dificultad",
+	            						"Puntuacion",
+        								"Tiempo"};
         Object[][] lista= new Object[80][4];
 		 int cont =0;
 		
 		
-		 ArrayList <clsUsuario>listausuarios = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
+		 ArrayList <clsPartidaUsuario>listapartidas = clsBaseDeDatos.cargarOrdenadosPorPuntuacion2(clsBaseDeDatos.getStatement());
 	{
 		 clsUsuario usuariosesion= new clsUsuario();					
 		
@@ -98,14 +101,14 @@ public class frmRankingPersonal extends JInternalFrame implements ActionListener
 		
 					
 					 
-			 for(clsUsuario a: listausuarios)
+			 for(clsPartidaUsuario a: listapartidas)
 			 {
 				 if (a.getNomUsuario().equals((usuariosesion).getNomUsuario()))
 				 {
-					 lista[cont][0]= a.getNombre();
-					 lista[cont][1]= a.getApellido();
-					 lista[cont][2]= a.getNomUsuario();
-					 lista[cont][3]= a.getPuntuacion();
+					 lista[cont][0]= a.getNomUsuario();
+					 lista[cont][1]= a.getDificultad();
+					 lista[cont][2]= a.getPuntuacion();
+					 lista[cont][3]= a.getTiempo();
 					 cont++; 
 				 }	 
 			 }
@@ -133,7 +136,7 @@ public class frmRankingPersonal extends JInternalFrame implements ActionListener
     }
 //    public void usuario(){
 //    	
-//		usu=clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
+//		usu2=clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
 //		usu1=clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
 //	}
 }
