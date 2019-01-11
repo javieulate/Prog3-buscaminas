@@ -92,7 +92,7 @@ public class frmPantalla extends JFrame implements ActionListener
 			public void windowClosing(WindowEvent e) {
 				
 				clsBaseDeDatos.close();  
-				salvaProperties(); 
+				salvaProperties();
 			}
 		});
 	}
@@ -336,11 +336,13 @@ public class frmPantalla extends JFrame implements ActionListener
 		return contentPane;
 	}
 	
-	public void cargaProperties() throws InvalidPropertiesFormatException {
+	
+	public void cargaProperties() {
 		misProperties = new Properties();
 		try {
 			FileInputStream fis = new FileInputStream( new File ( "frmPantalla.ini" ));
 			misProperties.loadFromXML( fis );
+			
 			ultimaXVentana = Integer.parseInt( misProperties.getProperty( "ultimaXVentana" ) );
 			ultimaYVentana = Integer.parseInt( misProperties.getProperty( "ultimaYVentana" ) );
 			ultimoAnchoVentana = Integer.parseInt( misProperties.getProperty( "ultimoAnchoVentana" ) );
@@ -351,7 +353,7 @@ public class frmPantalla extends JFrame implements ActionListener
 			}
 			fis.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 	
@@ -366,9 +368,9 @@ public class frmPantalla extends JFrame implements ActionListener
 			misProperties.storeToXML( ps, "Buscaminas Deusto" );
 			ps.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 	
+	
 }
-

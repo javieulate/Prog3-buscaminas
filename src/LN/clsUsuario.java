@@ -18,10 +18,10 @@ public class clsUsuario implements Serializable, itfProperty {
 	
 	@Override
 	public String toString() {
-		return "clsUsuario [nombre=" + nombre + ", apellido=" + apellido
-				+ ", mail=" + mail + ", nomUsuario=" + nomUsuario
-				+ ", contrasena=" + contrasena + ", numeroVidas=" + numeroVidas
-				+ ", puntuacion=" + puntuacion + "]";
+		return  nombre + " " + apellido
+				+ ". Email " + mail + ". Usuario: " + nomUsuario
+				+ ", contraseña: " + contrasena + ". Número de vidas= " + numeroVidas
+				+ ", puntuación= " + puntuacion + ".";
 	}
 
 	public clsUsuario(){
@@ -180,9 +180,7 @@ public class clsUsuario implements Serializable, itfProperty {
 				
 			default : throw new clsPropertyException(propiedad);
 		}	
-		return retorno;
-		
-		
+		return retorno;	
 	}
 
 	@Override

@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.StreamHandler;
 
 import COMUN.clsEmailNoValido;
 import LD.clsBaseDeDatos;
@@ -18,6 +24,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class clsMain {
 
+	
+		private static Logger logger = Logger.getLogger( clsMain.class.getName() );
+	
 	public static void main(String[] args) {
 //
 //		try{
@@ -29,36 +38,39 @@ public class clsMain {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
+		logger.setLevel( Level.ALL );  
+		try {
+		
+			Handler h = new StreamHandler( System.out, new SimpleFormatter() );
+			h.setLevel( Level.FINEST );
+			logger.addHandler( h );  // Saca todos los errores a out
+			logger.addHandler( new FileHandler( "clsMain.log.xml") ); 
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, e.toString(), e );
+		}
+		
 		frmPantalla frPantalla = new frmPantalla();
 		frPantalla.setVisible(true);
-		try {
-			frPantalla.cargaProperties();
-		} catch (InvalidPropertiesFormatException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		}
+		logger.log( Level.INFO, "Ejecutando programa. ");
+		
+		frPantalla.cargaProperties();
+		
 		ArrayList<clsUsuario> listaUsu = new ArrayList<clsUsuario>();
 		clsBaseDeDatos.initBD( "Usuarios.bd" );
 		clsBaseDeDatos.crearTablaBD();
 //		clsBaseDeDatos.initBD("Partidas.bd");
 		clsBaseDeDatos.crearTablaBDPartidas();
 		listaUsu = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
+		logger.log( Level.INFO, "Usuarios registrados en la base de datos");
+		int cont =1;
 		for (clsUsuario aux : listaUsu) {
 			
-			System.out.println(aux.toString());
+			System.out.println(cont+". " +aux.toString());
+			logger.log( Level.FINER, cont+". " +aux.toString());
+			cont++;
 		}
-//		play();
 		
 	}
 	
-//	public static void play() {
-//		try { File file = new File("song.wav");
-//		Clip clip = AudioSystem.getClip(); 
-//		clip.open(AudioSystem.getAudioInputStream(file));
-//		clip.start(); 
-//		Thread.sleep(clip.getMicrosecondLength()); }
-//		catch (Exception e) { 
-//			System.err.println(e.getMessage());
-//			}
-//		}
+	
 }

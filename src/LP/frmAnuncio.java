@@ -27,13 +27,12 @@ import java.io.File;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
-
 public class frmAnuncio extends JInternalFrame implements ActionListener{
 
 	/**
 	 * 
 	 */
-//	private static final long serialVersionUID = 1L;
+
 
 	private JPanel panelBotones;
 	private JButton btPlay;
@@ -128,9 +127,7 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 				}
 			}			
 	});
-		hilo.start();
-		
-		
+		hilo.start();	
 	}
 	
 	/*
@@ -139,7 +136,6 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	private void iniciarVideo() {
 	
 		internalFrame.setContentPane(mediaPlayer);
-		internalFrame.setTitle("Anuncio especial Black Friday LoryMoney.mp4. Reproduzca el anuncio para seguir.");
 		internalFrame.setVisible(true);
 		estado = Estado.STOP;
 	}
@@ -149,8 +145,59 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	 */
 	private void reproducirVideo() {
 		
+		
+		int random = (int) (Math.random() * 10) + 1;
+		if(random==1)
+		{
 		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\LoryMoney.mp4");
-
+		internalFrame.setTitle("Anuncio especial de Black Friday de Lory Money. Reproduzca el anuncio para seguir.");
+		}
+		if(random==2)
+		{
+		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\Damn.mp4");
+		internalFrame.setTitle("Anuncio especial Estrella Damn. Reproduzca el anuncio para seguir.");
+		}
+		if(random==3)
+		{
+		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\Giratoria.mp4");
+		internalFrame.setTitle("Anuncio especial de Mixta. Reproduzca el anuncio para seguir.");
+		}
+		if(random==4)
+		{
+		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\Mixta.mp4");
+		internalFrame.setTitle("Anuncio especial de Mixta. Reproduzca el anuncio para seguir.");
+		}
+		if(random==5)
+		{
+		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\888.mp4");
+		internalFrame.setTitle("Anuncio especial de apuestas 888. Reproduzca el anuncio para seguir.");
+		}
+		if(random==6)
+		{
+		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\Pagafantas.mp4");
+		internalFrame.setTitle("Anuncio especial de Fanta. Reproduzca el anuncio para seguir.");
+		}
+		if(random==7)
+		{
+		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\Trina.mp4");
+		internalFrame.setTitle("Anuncio especial de Trina. Reproduzca el anuncio para seguir.");
+		}
+		if(random==8)
+		{
+		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\Piojo.mp4");
+		internalFrame.setTitle("Anuncio especial de OTC. Reproduzca el anuncio para seguir.");
+		}
+		if(random==9)
+		{
+		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\Famosa.mp4");
+		internalFrame.setTitle("Anuncio especial de Las Muñecas de Famosa. Reproduzca el anuncio para seguir.");
+		}
+		if(random==10)
+		{
+		ficheroVideo= new File("C:\\Users\\ALUMNO\\workspace\\Prog3-buscaminas\\anuncio\\Kelly.mp4");
+		internalFrame.setTitle("Anuncio especial de Lelly Kelly. Reproduzca el anuncio para seguir.");
+		}
+		
 		// El reproductor está parado
 		if (estado == Estado.STOP) {
 			mediaPlayer.getMediaPlayer().playMedia(ficheroVideo.getAbsolutePath());
@@ -209,17 +256,12 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		switch(arg0.getActionCommand())
 		{
-			case "BotonSalir":
-				
+			case "BotonSalir":			
 					b.setEnabled(true);
 					mediaPlayer.getMediaPlayer().stop();
 					estado = Estado.STOP;
-					this.dispose();
-				
-		
+					this.dispose();	
 			break;
 		}	
 	}
-	
-	
 }

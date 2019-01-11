@@ -80,6 +80,7 @@ public class frmPartida extends JPanel implements ActionListener
 			dnom="EXPERTO";
 		}
 		
+		
 		hilo = new Thread (new Runnable(){
 
 			@Override

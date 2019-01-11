@@ -10,6 +10,8 @@ import java.awt.Image;
 import java.awt.Rectangle;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -267,9 +269,12 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		setContentPane(NuevaPartida);
 		desktop.revalidate();
 		NuevaPartida.setVisible(true);
+		
 		logger.log( Level.INFO, "Iniciando partida.");
 		repaint();
 	}
+	
+	
 	
 	/**
 	 * Este es el método que ejecuta dieferentes acciones según lo que sea pulsado en la pantalla.
