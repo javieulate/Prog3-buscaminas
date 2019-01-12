@@ -29,17 +29,17 @@ public class clsBaseDeDatos
 	// ------------------------------------
 	// VALIDO PARA CUALQUIER BASE DE DATOS
 	// ------------------------------------
-			private static Logger logger = Logger.getLogger(clsBaseDeDatos.class.getName() );
-			private static Connection connection = null; //Gestiona la conexión 
-			private static Statement statement = null; //Gestiona las instrucciones de la base
-			static clsUsuario usuariosesion= new clsUsuario();
+		private static Logger logger = Logger.getLogger(clsBaseDeDatos.class.getName() );
+		private static Connection connection = null; //Gestiona la conexión 
+		private static Statement statement = null; //Gestiona las instrucciones de la base
+		static clsUsuario usuariosesion= new clsUsuario();
 			
 
-			/** Inicializa una BD SQLITE y devuelve una conexión con ella. Debe llamarse a este 
-			 * método antes que ningún otro, y debe devolver no null para poder seguir trabajando con la BD.
-			 * @param nombreBD	Nombre de fichero de la base de datos
-			 * @return	Conexión con la base de datos indicada. Si hay algún error, se devuelve null
-			 */
+		/** Inicializa una BD SQLITE y devuelve una conexión con ella. Debe llamarse a este 
+		 * método antes que ningún otro, y debe devolver no null para poder seguir trabajando con la BD.
+		 * @param nombreBD	Nombre de fichero de la base de datos
+		 * @return	Conexión con la base de datos indicada. Si hay algún error, se devuelve null
+		 */
 			public static Connection initBD( String nombreBD ) {
 				try {
 					frmMenuPrincipal.loggeo();
