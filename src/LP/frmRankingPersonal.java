@@ -3,6 +3,7 @@ package LP;
 
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -29,9 +30,13 @@ import java.util.ArrayList;
 
 public class frmRankingPersonal extends JInternalFrame implements ActionListener {
     private boolean DEBUG = false;
+    public JComboBox jc_mod;
+    public String [] listaJC = {"Todas", "Principiante", "Amateur", "Experto"};
+    public int tipoJC = 0;
 
     public frmRankingPersonal()  {
 
+    	
     	this.setResizable(false);
     	this.setClosable(true);
     	this.setIconifiable(true);
@@ -40,29 +45,47 @@ public class frmRankingPersonal extends JInternalFrame implements ActionListener
         this.setTitle("Lista de las 10 puntuaciones máximas del usuario");
         this.setOpaque(true);
         this.toFront();
+        
+    	panelPuntuaciones();
+    	
+    }
+    
+    public JPanel panelPuntuaciones()
+    {
+    	this.getContentPane().removeAll();
+    	
         JPanel ranking_personal = new JPanel(new BorderLayout());
         ranking_personal.setOpaque(true);
         ranking_personal.setLayout(new BorderLayout());
         this.setContentPane(ranking_personal);
-        JPanel PanelSur= new JPanel(new FlowLayout());
-        this.getContentPane().add(PanelSur,BorderLayout.SOUTH);
         
+        JPanel PanelSur= new JPanel(new FlowLayout());
+        ranking_personal.add(PanelSur,BorderLayout.SOUTH);
+        JPanel PanelNorte = new JPanel(new FlowLayout());
+        ranking_personal.add(PanelNorte, BorderLayout.NORTH);
+        
+        JButton b = new JButton("Salir");
+    	b.setActionCommand("BotonSalir");
+    	b.addActionListener(this);
+    	PanelSur.add(b);
+    	
+    	jc_mod = new JComboBox(listaJC);
+    	jc_mod.setActionCommand("JComboBox");
+    	jc_mod.setSelectedItem(listaJC[tipoJC]);
+    	jc_mod.addActionListener(this);
+    	PanelNorte.add(jc_mod);
     	
         JTable table = new JTable(new MyTableModel());
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         table.setOpaque(true);
 
-        //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
 
-        //Add the scroll pane to this panel.
         add(scrollPane);
         
-        JButton b = new JButton("Salir");
-    	b.setActionCommand("BotonSalir");
-    	b.addActionListener(this);
-    	PanelSur.add(b);
+        repaint();
+        return ranking_personal;
     }
 
 
@@ -72,6 +95,32 @@ public class frmRankingPersonal extends JInternalFrame implements ActionListener
 		{
 			case "BotonSalir": this.dispose();
 					break;
+			case "JComboBox" :
+				if(jc_mod.getSelectedItem().equals("Todas"))
+				{
+					tipoJC = 0;
+					this.setContentPane(panelPuntuaciones());
+					this.getContentPane().revalidate();
+				}
+				if(jc_mod.getSelectedItem().equals("Principiante"))
+				{
+					tipoJC = 1;
+					this.setContentPane(panelPuntuaciones());
+					this.getContentPane().revalidate();
+				}
+				if(jc_mod.getSelectedItem().equals("Amateur"))
+				{
+					tipoJC = 2;
+					this.setContentPane(panelPuntuaciones());
+					this.getContentPane().revalidate();
+				}
+				if(jc_mod.getSelectedItem().equals("Experto"))
+				{
+					tipoJC = 3;
+					this.setContentPane(panelPuntuaciones());
+					this.getContentPane().revalidate();
+				}
+				break;
 		}
 		
 	} 
@@ -85,7 +134,7 @@ public class frmRankingPersonal extends JInternalFrame implements ActionListener
 		 int cont =0;
 		
 		
-		 ArrayList <clsPartidaUsuario>listapartidas = clsBaseDeDatos.cargarOrdenadosPorPuntuacion2(clsBaseDeDatos.getStatement());
+		 ArrayList <clsPartidaUsuario>listapartidas = clsBaseDeDatos.cargarOrdenadosPorPuntuacion3(clsBaseDeDatos.getStatement(), tipoJC);
 	{
 		 clsUsuario usuariosesion= new clsUsuario();					
 		

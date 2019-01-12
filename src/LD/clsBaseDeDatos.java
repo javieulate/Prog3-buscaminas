@@ -440,7 +440,62 @@ public class clsBaseDeDatos
 					return false;
 				}
 			} 
-			
+			public static ArrayList<clsPartidaUsuario> cargarOrdenadosPorPuntuacion3(Statement st, int tipo)
+			{
+				try {
+					usuariosesion.setNomUsuario(clsGestor.NomUsuario());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+				//	e.printStackTrace();
+				}
+				try {
+					ArrayList<clsPartidaUsuario> listaOrdenada = new ArrayList<clsPartidaUsuario>();
+					String sentSQL = "";
+					if(tipo == 0)
+					{
+						sentSQL = "select * from partida_usuarios where (nomUsuario = '" + usuariosesion.nomUsuario + "')"+
+								"order by puntuacion desc";
+					}
+					else if(tipo == 1)
+//					WHERE O.COD_OFERTA=A.COD_OFERTA AND A.NUM_SOCIO=S.NUM_SOCIO 
+					{
+						sentSQL = "select * from partida_usuarios where (nomUsuario = '" + usuariosesion.nomUsuario + "' and"
+								+ " dificultad = 'PRINCIPIANTE') order by puntuacion desc";
+					}
+					else if(tipo == 2)
+					{
+						sentSQL = "select * from partida_usuarios where (nomUsuario = '" + usuariosesion.nomUsuario + "' and"
+								+ " dificultad = 'AMATEUR') order by puntuacion desc";
+					}
+					else if(tipo == 3)
+					{
+						sentSQL = "select * from partida_usuarios where (nomUsuario = '" + usuariosesion.nomUsuario + "' and"
+								+ " dificultad = 'EXPERTO') order by puntuacion desc";
+					}
+					System.out.println(sentSQL);
+					System.out.println(tipo);
+					ResultSet rs = st.executeQuery( sentSQL );
+					int counter = 0;
+					while(rs.next())
+					{
+						System.out.println("cargarVAriosDeTabla2: " + counter);
+						clsPartidaUsuario u = new clsPartidaUsuario();
+						u.nomUsuario = rs.getString( "nomUsuario" );
+						u.dificultad = rs.getString("dificultad");
+						u.puntuacion = rs.getInt("puntuacion");
+						u.tiempo = rs.getString("tiempo");
+						
+						listaOrdenada.add( u );
+						counter++;
+					}
+					rs.close();
+					return listaOrdenada;
+				}catch (SQLException e) {
+					logger.log( Level.SEVERE, "Error a la hora de cargar varios usuarios en el SQL", e);
+					return null;  // Error
+				}
+				
+			}
 			
 			public static ArrayList<clsPartidaUsuario> cargarOrdenadosPorPuntuacion2(Statement st)
 			{

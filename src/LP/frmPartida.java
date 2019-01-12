@@ -119,13 +119,10 @@ public class frmPartida extends JPanel implements ActionListener
 				
 				cronometro.setText(hora + ":" + min + ":" + seg);
 				
-				ihora = horas;
-				imin = minutos;
-				iseg = segundos;
 				casillasAcertadas = panelp.casillasbuenas;
 				usuario();
 				vidas(casillasAcertadas);
-				String horacompleta=hora+";"+minutos+";"+segundos;
+				String horacompleta = hora + ":" + min + ":" + seg;
 				clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
 				clsBaseDeDatos.anyadirFilaATablaPuntuacion(clsBaseDeDatos.getStatement(), usu1,dnom,casillasAcertadas,horacompleta);
 			}
