@@ -1,7 +1,6 @@
 package LP;
 
 
-import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import LD.clsBaseDeDatos;
+import LN.clsAudio;
 import LN.clsUsuario;
 
 public class frmPartida extends JPanel implements ActionListener
@@ -119,7 +119,9 @@ public class frmPartida extends JPanel implements ActionListener
 				
 				cronometro.setText(hora + ":" + min + ":" + seg);
 				
+				
 				casillasAcertadas = panelp.casillasbuenas;
+//				clsAudio.pararAudio();
 				usuario();
 				vidas(casillasAcertadas);
 				String horacompleta = hora + ":" + min + ":" + seg;

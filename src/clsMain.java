@@ -69,8 +69,5 @@ public class clsMain {
 			logger.log( Level.FINER, cont+". " +aux.toString());
 			cont++;
 		}
-		
 	}
-	
-	
 }

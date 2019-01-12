@@ -34,6 +34,7 @@ import javax.swing.KeyStroke;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import java.awt.Color;
@@ -52,6 +53,7 @@ import javax.swing.JList;
 import COMUN.clsElementoRepetido;
 import COMUN.clsUsuarioNoRegistrado;
 import LD.clsBaseDeDatos;
+import LN.clsAudio;
 import LN.clsGestor;
 import LN.clsUsuario;
 import LN.itfProperty;
@@ -75,6 +77,7 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -303,6 +306,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				if(clsGestor.ComprobarVidas())
 				{
 					NuevaPartida(1);
+//					clsAudio.play();
 				}
 				else
 				{
@@ -321,6 +325,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 						public void actionPerformed(ActionEvent arg0) 
 						{
 							NuevaPartida(1);
+//							clsAudio.play();
 						}
 					});
 				}
@@ -333,6 +338,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				if(clsGestor.ComprobarVidas())
 				{
 					NuevaPartida(2);
+//					clsAudio.play();
 				}
 				else
 				{
@@ -349,6 +355,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							NuevaPartida(2);
+//							clsAudio.play();
 						}
 						
 					});
@@ -361,6 +368,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				if(clsGestor.ComprobarVidas())
 				{
 					NuevaPartida(3);
+//					clsAudio.play();
 				}
 				else
 				{
@@ -377,6 +385,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							NuevaPartida(3);
+//							clsAudio.play();
 						}
 						
 					});
