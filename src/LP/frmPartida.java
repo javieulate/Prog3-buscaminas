@@ -183,9 +183,7 @@ public class frmPartida extends JPanel implements ActionListener
 			{
 				usu1.setNumeroVidas(numvidas - 1);
 			}
-			else{
-				
-			}
+			else{}
 		}
 		
 	}

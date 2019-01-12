@@ -29,8 +29,6 @@ import java.util.ArrayList;
 
 public class frmRankingPersonal extends JInternalFrame implements ActionListener {
     private boolean DEBUG = false;
-//    clsUsuario usu2 = new clsUsuario();
-//    clsUsuario usu1 = new clsUsuario();
 
     public frmRankingPersonal()  {
 

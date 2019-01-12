@@ -29,17 +29,17 @@ public class clsBaseDeDatos
 	// ------------------------------------
 	// VALIDO PARA CUALQUIER BASE DE DATOS
 	// ------------------------------------
-		private static Logger logger = Logger.getLogger(clsBaseDeDatos.class.getName() );
-		private static Connection connection = null; //Gestiona la conexión 
-		private static Statement statement = null; //Gestiona las instrucciones de la base
-		static clsUsuario usuariosesion= new clsUsuario();
+			private static Logger logger = Logger.getLogger(clsBaseDeDatos.class.getName() );
+			private static Connection connection = null; //Gestiona la conexión 
+			private static Statement statement = null; //Gestiona las instrucciones de la base
+			static clsUsuario usuariosesion= new clsUsuario();
 			
 
-		/** Inicializa una BD SQLITE y devuelve una conexión con ella. Debe llamarse a este 
-		 * método antes que ningún otro, y debe devolver no null para poder seguir trabajando con la BD.
-		 * @param nombreBD	Nombre de fichero de la base de datos
-		 * @return	Conexión con la base de datos indicada. Si hay algún error, se devuelve null
-		 */
+			/** Inicializa una BD SQLITE y devuelve una conexión con ella. Debe llamarse a este 
+			 * método antes que ningún otro, y debe devolver no null para poder seguir trabajando con la BD.
+			 * @param nombreBD	Nombre de fichero de la base de datos
+			 * @return	Conexión con la base de datos indicada. Si hay algún error, se devuelve null
+			 */
 			public static Connection initBD( String nombreBD ) {
 				try {
 					frmMenuPrincipal.loggeo();
@@ -99,7 +99,7 @@ public class clsBaseDeDatos
 						"(nombre string, apellido string, mail string" +
 						", nomUsuario string, contrasena string, puntuacion int, numvidas int)");
 				} catch (SQLException e) {
-					// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+					
 					logger.log( Level.INFO, "La tabla ya existía.", e);
 				}
 			}
@@ -415,13 +415,9 @@ public class clsBaseDeDatos
 				}
 				return ret;
 			}	
-			
-			
-			
-			
+					
 			public static boolean anyadirFilaATablaPuntuacion( Statement st, clsUsuario a, String dnom, int casillasAcertadas, String horacompleta) 
-			{				
-				
+			{							
 				try {
 					String sentSQL = "insert into partida_usuarios values(" +
 							"'" + a.getNomUsuario() + "', " +
@@ -443,7 +439,7 @@ public class clsBaseDeDatos
 					logger.log( Level.SEVERE, "Error a la hora de añadir una puntuacion en el SQL", e);
 					return false;
 				}
-				} 
+			} 
 			
 			
 			public static ArrayList<clsPartidaUsuario> cargarOrdenadosPorPuntuacion2(Statement st)
@@ -478,28 +474,42 @@ public class clsBaseDeDatos
 				}catch (SQLException e) {
 					logger.log( Level.SEVERE, "Error a la hora de cargar varios usuarios en el SQL", e);
 					return null;  // Error
+				}				
+			}			
+			
+			public static void borrarregistros(Statement st)
+			{
+				try {
+					usuariosesion.setNomUsuario(clsGestor.NomUsuario());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+				//	e.printStackTrace();
 				}
-				
-			}
+				try {
+					
+					String sentSQL = "delete from partida_usuarios where (nomUsuario = '" + usuariosesion.nomUsuario + "')";
+					System.out.println(sentSQL);
+					ResultSet rs = st.executeQuery( sentSQL );					
+					rs.close();
+					
+				}catch (SQLException e) {	}				
+			}		
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-				
-}
-			
-			
-			
-			
-			
-			
-			
-			
+			public static void borrarusuarios(Statement st)
+			{
+				try {
+					usuariosesion.setNomUsuario(clsGestor.NomUsuario());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+				//	e.printStackTrace();
+				}
+				try {
+					
+					String sentSQL = "delete from fichero_usuarios where (nomUsuario = '" + usuariosesion.nomUsuario + "')";
+					System.out.println(sentSQL);
+					ResultSet rs = st.executeQuery( sentSQL );					
+					rs.close();
+					
+				}catch (SQLException e) {	}				
+			}	
+}	

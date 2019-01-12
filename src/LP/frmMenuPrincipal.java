@@ -51,6 +51,7 @@ import javax.swing.JList;
 
 import COMUN.clsElementoRepetido;
 import COMUN.clsUsuarioNoRegistrado;
+import LD.clsBaseDeDatos;
 import LN.clsGestor;
 import LN.clsUsuario;
 import LN.itfProperty;
@@ -241,7 +242,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
         reset.getAccessibleContext().setAccessibleDescription(
                 "Resetear los datos");
         menuBar.add(reset);
-        JMenuItem res = new JMenuItem("Resetear", KeyEvent.VK_R);
+        JMenuItem res = new JMenuItem("Resetear puntuaciones", KeyEvent.VK_R);
         res.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_R, ActionEvent.ALT_MASK));
         res.getAccessibleContext().setAccessibleDescription(
@@ -253,10 +254,23 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		JMenu mnCuenta = new JMenu("Cuenta");
 		menuBar.add(mnCuenta);
 		
-		JMenuItem mntmCerrarSesion = new JMenuItem("Cerrar Sesión");
+		JMenuItem mntmCerrarSesion = new JMenuItem("Cerrar Sesión", KeyEvent.VK_C);
+		res.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_C, ActionEvent.ALT_MASK));
+        res.getAccessibleContext().setAccessibleDescription(
+                "Cerrar la sesión.");
 		mnCuenta.add(mntmCerrarSesion);
 		mntmCerrarSesion.setActionCommand(CMD_BTN_CERRARSESION);
 		mntmCerrarSesion.addActionListener(this);
+		
+		JMenuItem mntmBorrarUsuario = new JMenuItem("Borrar Usuario", KeyEvent.VK_B);
+		res.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_B, ActionEvent.ALT_MASK));
+        res.getAccessibleContext().setAccessibleDescription(
+                "Borrar usuario.");
+		mnCuenta.add(mntmBorrarUsuario);
+		mntmBorrarUsuario.setActionCommand(CMD_BTN_BORRARUSUARIO);
+		mntmBorrarUsuario.addActionListener(this);
 		
 		return menuBar;
 	}
@@ -300,6 +314,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 					desktop.add(AnPrincipiante);
 					desktop.revalidate();
 					AnPrincipiante.toFront();
+					logger.log( Level.INFO, "Iniciando anuncio aleatorio.");
 					
 					AnPrincipiante.b.addActionListener(new ActionListener(){
 						@Override
@@ -328,6 +343,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 					AnAmateur.setVisible(true);
 					desktop.add(AnAmateur);
 					AnAmateur.toFront();
+					logger.log( Level.INFO, "Iniciando anuncio aleatorio.");
 					
 					AnAmateur.b.addActionListener(new ActionListener(){
 						@Override
@@ -355,7 +371,8 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 					AnExperto.setVisible(true);
 					desktop.add(AnExperto);
 					AnExperto.toFront();
-					
+					logger.log( Level.INFO, "Iniciando anuncio aleatorio.");
+
 					AnExperto.b.addActionListener(new ActionListener(){
 						@Override
 						public void actionPerformed(ActionEvent arg0) {
@@ -412,11 +429,57 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				logger.log( Level.INFO, "Cerrando sesión.");
 				break;
 					
-			case "Resetear":
-				int reply = JOptionPane.showConfirmDialog(this, "Si continua se borrarán todos los datos. ¿Desea continuar?", "Resetear", JOptionPane.YES_NO_OPTION);
+			case CMD_BTN_BORRARUSUARIO:
+				
+				int reply = JOptionPane.showConfirmDialog(this, "Si continua se eliminará tu cuenta de usuario. ¿Desea continuar?", "Eliminar", JOptionPane.YES_NO_OPTION);
 		        if (reply == JOptionPane.YES_OPTION) {
+		        	String nomUsuario="";
+		        	try {
+		        		nomUsuario = clsGestor.NomUsuario();
+		        		ArrayList<clsUsuario>listaususarios = clsGestor.ListaUsuariosclsUsuarios();
+		        		for (clsUsuario aux: listaususarios)
+		        		{
+		        			if(nomUsuario.equals(aux.getNomUsuario()))
+		        			{
+		        				clsBaseDeDatos.borrarusuarios(clsBaseDeDatos.getStatement());
+		        				this.setVisible(false);
+		        				frmPantalla vuelta2 = new frmPantalla();
+		        				vuelta2.setVisible(true);
+		        				logger.log( Level.INFO, "Eliminando usuario.");
+		        			}
+		        		}
+		        	} catch (IOException e1) {
+						JOptionPane.showMessageDialog(this, "No hay información disponible para este usuario.");
+						logger.log( Level.SEVERE, "No hay información disponible para este usuario.", e1 );
+					}
+		        	JOptionPane.showMessageDialog(this, "Usuario "+ nomUsuario + " eliminado con éxito.");
+					logger.log( Level.INFO, "Se han borrado los datos de la base de datos.");
+			
+		        }
+		        else{}
+				break;	
+			case "Resetear":
+				int reply2 = JOptionPane.showConfirmDialog(this, "Si continua se borrarán todas tus puntuaciones. ¿Desea continuar?", "Resetear", JOptionPane.YES_NO_OPTION);
+		        if (reply2 == JOptionPane.YES_OPTION) {
 		        	
-		 //TODO falta hacerlo      	
+		        	try {
+		        		String nomUsuario = clsGestor.NomUsuario();
+		        		ArrayList<clsUsuario>listaususarios = clsGestor.ListaUsuariosclsUsuarios();
+		        		for (clsUsuario aux: listaususarios)
+		        		{
+		        			if(nomUsuario.equals(aux.getNomUsuario()))
+		        			{
+		        				aux.setPuntuacion(0);
+		        				aux.setNumeroVidas(5);
+		        				clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), aux);
+		        				clsBaseDeDatos.borrarregistros(clsBaseDeDatos.getStatement());
+		        			}
+		        		}
+					} catch (IOException e1) {
+						JOptionPane.showMessageDialog(this, "No hay información disponible para este usuario.");
+						logger.log( Level.SEVERE, "No hay información disponible para este usuario.", e1 );
+					}
+		   	
 					JOptionPane.showMessageDialog(this, "Datos reseteados con éxito.");
 					logger.log( Level.INFO, "Se han borrado los datos de la base de datos.");
 		        }

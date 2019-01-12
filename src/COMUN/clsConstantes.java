@@ -42,7 +42,7 @@ public class clsConstantes
 	
 
 	public static final String CMD_BTN_CERRARSESION = "CMD_BTN_CERRARSESION";
-
+	public static final String CMD_BTN_BORRARUSUARIO = "CMD_BTN_BORRARUSUARIO";
 
 	public static final String CMD_BTN_ACTUALIZARLISTAS = "CMD_BTN_ACTUALIZARLISTAS";
 	public static final String CMD_BTN_ATRAS = "CMD_BTN_ATRAS";

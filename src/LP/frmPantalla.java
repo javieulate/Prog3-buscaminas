@@ -77,6 +77,7 @@ public class frmPantalla extends JFrame implements ActionListener
 	private int ultimoAnchoVentana = -1;
 	private int ultimoAltoVentana = -1;
 	JPanel contentPane = new JPanel();
+	
 	/**
 	 * Esta es la pantalla en sí misma, únicamente ella.
 	 */
@@ -96,6 +97,7 @@ public class frmPantalla extends JFrame implements ActionListener
 			}
 		});
 	}
+
 	
 	/**
 	 * Este es el método que organiza los diferentes eventos que se dan en nuestra pantalla inicial.
@@ -145,6 +147,7 @@ public class frmPantalla extends JFrame implements ActionListener
 			try {
 				clsBaseDeDatos.anyadirFilaATabla(clsBaseDeDatos.getStatement(), a);
 				clsGestor.IniciarSesion(nomusutxt.getText(), corretxt.getText());
+				
 				
 			} catch (clsEmailNoValido e1) {
 				// TODO Auto-generated catch block
