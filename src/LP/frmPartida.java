@@ -6,7 +6,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +42,7 @@ public class frmPartida extends JPanel implements ActionListener
 	int punanterior;
 	int numvidas;
 	int puntuacion;
+	boolean reproducir;
 	
 	Thread hilo;
 
@@ -60,6 +67,25 @@ public class frmPartida extends JPanel implements ActionListener
 			this.setSize(panelp.getWidth()+13, panelp.getHeight()+cronometro.getHeight()+47);
 			this.add(panelp, BorderLayout.CENTER);
 			dnom="PRINCIPIANTE";
+			clsAudio.play();
+			
+			
+			
+			
+			
+//			try {
+//				
+//				music(reproducir=true);
+//			} catch (LineUnavailableException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (UnsupportedAudioFileException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		if(tipo == 2)
 		{
@@ -68,6 +94,21 @@ public class frmPartida extends JPanel implements ActionListener
 			this.setSize(panelp.getWidth()+13, panelp.getHeight()+cronometro.getHeight()+47);
 			this.add(panelp, BorderLayout.CENTER);
 			dnom="AMATEUR";
+			
+			
+			reproducir=true;
+			try {
+				music(reproducir);
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		if(tipo == 3)
@@ -78,6 +119,22 @@ public class frmPartida extends JPanel implements ActionListener
 			this.add(panelp, BorderLayout.CENTER);
 			this.setVisible(true);
 			dnom="EXPERTO";
+			
+			
+			
+			reproducir=true;
+			try {
+				music(reproducir);
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
@@ -121,12 +178,46 @@ public class frmPartida extends JPanel implements ActionListener
 				
 				
 				casillasAcertadas = panelp.casillasbuenas;
-//				clsAudio.pararAudio();
+				clsAudio.pararAudio();
+				
+//				try {
+//					reproducir=false;
+//					music(reproducir);
+//				} catch (LineUnavailableException | IOException
+//						| UnsupportedAudioFileException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				
+				
+				
+				
+				
 				usuario();
 				vidas(casillasAcertadas);
 				String horacompleta = hora + ":" + min + ":" + seg;
 				clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
 				clsBaseDeDatos.anyadirFilaATablaPuntuacion(clsBaseDeDatos.getStatement(), usu1,dnom,casillasAcertadas,horacompleta);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			}
 			
 		});
@@ -192,5 +283,38 @@ public class frmPartida extends JPanel implements ActionListener
 		usu2 = clsBaseDeDatos.leerDeFicheroSerializado2(".\\data\\sesion.dat");
 		usu1 = clsBaseDeDatos.cargarDeTabla2(clsBaseDeDatos.getStatement(), usu2.getNomUsuario(), usu2.getMail(), usu2.getContrasena());
 	}
+	
+	
+	
+	
+	
+	public static void music(boolean reproducir) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+		File file = new File("song.wav");
+		Clip clip = AudioSystem.getClip();
+		clip.open(AudioSystem.getAudioInputStream(file));
+		
+		
+		clip.start();
+		
+		
+//		if(clip.isOpen()&&reproducir==false)
+//		clip.stop();
+//		clip.close();		
+		
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
