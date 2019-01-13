@@ -95,20 +95,8 @@ public class frmPartida extends JPanel implements ActionListener
 			this.add(panelp, BorderLayout.CENTER);
 			dnom="AMATEUR";
 			
+			clsAudio.play();
 			
-			reproducir=true;
-			try {
-				music(reproducir);
-			} catch (LineUnavailableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (UnsupportedAudioFileException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
 		}
 		if(tipo == 3)
@@ -120,21 +108,9 @@ public class frmPartida extends JPanel implements ActionListener
 			this.setVisible(true);
 			dnom="EXPERTO";
 			
+			clsAudio.play();
 			
 			
-			reproducir=true;
-			try {
-				music(reproducir);
-			} catch (LineUnavailableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (UnsupportedAudioFileException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 		
