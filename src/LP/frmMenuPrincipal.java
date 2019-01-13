@@ -39,6 +39,7 @@ import javax.swing.WindowConstants;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -76,6 +77,8 @@ import javax.swing.JScrollPane;
 import java.awt.SystemColor;
 import java.awt.Font;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
@@ -101,6 +104,12 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 	 frmAnuncio AnPrincipiante;
 	 frmAnuncio AnAmateur;
 	 frmAnuncio AnExperto;
+	 private int ultimaXVentana = -1;
+	 private int ultimaYVentana = -1;
+	 private String ficProperties = "Properties.ini";
+	 private File nomFic;
+	 private Properties misProperties;
+	 
 
 	/**
 	 * Con este método creamos la ventana, incluyendo todos los componentes que van a ser
@@ -117,10 +126,11 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		this.setTitle("Menu Principal");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, desktopWidth, desktopHeight);
-		this.setLocationRelativeTo(null);
+		cargaProperties();
 		this.addWindowListener(new WindowAdapter(){
 			  public void windowClosing(WindowEvent we){
-			    clsGestor.CerrarSesion();;
+			    clsGestor.CerrarSesion();
+			    salvaProperties();
 			  }
 			});
 	}
@@ -303,6 +313,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		{
 			case CMD_BTN_PRINCIPIANTE:
 				
+				salvaProperties();
 				if(clsGestor.ComprobarVidas())
 				{
 					NuevaPartida(1);
@@ -335,6 +346,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 			
 			case CMD_BTN_AMATEUR:
 						
+				salvaProperties();
 				if(clsGestor.ComprobarVidas())
 				{
 					NuevaPartida(2);
@@ -365,6 +377,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				
 			case CMD_BTN_EXPERTO:
 				
+				salvaProperties();
 				if(clsGestor.ComprobarVidas())
 				{
 					NuevaPartida(3);
@@ -394,7 +407,8 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				break;
 				
 			case CMD_BTN_RANKINGPERSONAL:
-							
+				
+				salvaProperties();
 			try {
 				setContentPane(VentanaInicial());
 				contentPane.revalidate();
@@ -417,6 +431,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				
 			case CMD_BTN_RANKINGPRINCIPAL:
 				
+				salvaProperties();
 				setContentPane(VentanaInicial());
 				contentPane.revalidate();
 				frmRankingPrincipal rankingprincipal = new frmRankingPrincipal();
@@ -430,7 +445,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				break;
 							
 			case CMD_BTN_CERRARSESION:
-				
+				salvaProperties();
 				this.setVisible(false);
 				clsGestor.CerrarSesion();
 				frmPantalla vuelta = new frmPantalla();
@@ -439,7 +454,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				break;
 					
 			case CMD_BTN_BORRARUSUARIO:
-				
+				salvaProperties();
 				int reply = JOptionPane.showConfirmDialog(this, "Si continua se eliminará tu cuenta de usuario. ¿Desea continuar?", "Eliminar", JOptionPane.YES_NO_OPTION);
 		        if (reply == JOptionPane.YES_OPTION) {
 		        	String nomUsuario="";
@@ -637,6 +652,32 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 				logger.log( Level.SEVERE, e.toString(), e );
 			}
 	  }
+	  
+		public void cargaProperties() {
+			misProperties = new Properties();
+			try {
+				FileInputStream fis = new FileInputStream( new File ( ficProperties));
+				misProperties.loadFromXML( fis );
+				
+				ultimaXVentana = Integer.parseInt( misProperties.getProperty( "ultimaXVentana" ) );
+				ultimaYVentana = Integer.parseInt( misProperties.getProperty( "ultimaYVentana" ) );
+				setLocation( ultimaXVentana, ultimaYVentana );
+				fis.close();
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		private void salvaProperties() {
+			misProperties = new Properties();
+			try {
+				misProperties.setProperty( "ultimaXVentana", ""+ getLocation().x );
+				misProperties.setProperty( "ultimaYVentana", ""+ getLocation().y );
+				misProperties.storeToXML( new FileOutputStream(new java.io.File(ficProperties)), "Buscaminas Deusto" );
+			} catch (Exception e) {
+				
+			}
+		}
 	    
 }
 

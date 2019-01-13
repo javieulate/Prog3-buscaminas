@@ -28,6 +28,9 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -74,9 +77,9 @@ public class frmPantalla extends JFrame implements ActionListener
 	private JTextField nomtxt;
 	private int ultimaXVentana = -1;
 	private int ultimaYVentana = -1;
-	private int ultimoAnchoVentana = -1;
-	private int ultimoAltoVentana = -1;
 	JPanel contentPane = new JPanel();
+	private String ficProperties = "Properties.ini";
+	private File nomFic;
 	
 	/**
 	 * Esta es la pantalla en sí misma, únicamente ella.
@@ -87,7 +90,7 @@ public class frmPantalla extends JFrame implements ActionListener
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 100, 600, 431);
 		setContentPane(VentanaInicial());
-		
+		cargaProperties();
 		this.addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -109,19 +112,25 @@ public class frmPantalla extends JFrame implements ActionListener
 		{
 		
 		case CMD_BTN_ATRAS:
+			salvaProperties();
 			setContentPane(VentanaInicial());
+			cargaProperties();
 			contentPane.revalidate();
 			break;
 			
 		case CMD_BTN_INICIAR_SESION :
 //			http://www.chuidiang.org/index.php?title=El_hilo_de_awt
+			salvaProperties();
 			setContentPane(IniciarSesion());
+			cargaProperties();
 			contentPane.revalidate();
 			break;
 			
 		case CMD_BTN_REGISTRARSE:
 	
+			salvaProperties();
 			setContentPane(Registrarse());
+			cargaProperties();
 			contentPane.revalidate();
 			break;
 
@@ -131,6 +140,7 @@ public class frmPantalla extends JFrame implements ActionListener
 				clsGestor.ComprobarUsuario(t1.getText(), t2.getText(), t3.getText());
 				clsGestor.IniciarSesion(t1.getText(), t2.getText());
 				this.setVisible(false);
+				salvaProperties();
 				frmMenuPrincipal frame = new frmMenuPrincipal();
 				frame.setVisible(true);
 			} 
@@ -157,6 +167,7 @@ public class frmPantalla extends JFrame implements ActionListener
 				JOptionPane.showMessageDialog(null, e1.getMessage());
 			}
 			this.setVisible(false);
+			salvaProperties();
 			frmMenuPrincipal frame = new frmMenuPrincipal();
 			frame.setVisible(true);
 			break;
@@ -173,7 +184,7 @@ public class frmPantalla extends JFrame implements ActionListener
 	{
 		contentPane.removeAll();
 		
-		setLocationRelativeTo(null);
+//		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
 		
 		JLabel Buscaminas = new JLabel("");
@@ -211,7 +222,7 @@ public class frmPantalla extends JFrame implements ActionListener
 	public JPanel IniciarSesion()
 	{
 		contentPane.removeAll();
-		
+	
 		JLabel Buscaminas = new JLabel("");
 		ImageIcon logo= new ImageIcon("src/imagenes/buscaminas.png");
 		Image image = logo.getImage(); 
@@ -223,7 +234,7 @@ public class frmPantalla extends JFrame implements ActionListener
 		
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
-		setLocationRelativeTo(null);
+//		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
 		
 		JLabel i1 = new JLabel("Nombre de Usuario:");
@@ -343,17 +354,12 @@ public class frmPantalla extends JFrame implements ActionListener
 	public void cargaProperties() {
 		misProperties = new Properties();
 		try {
-			FileInputStream fis = new FileInputStream( new File ( "frmPantalla.ini" ));
+			FileInputStream fis = new FileInputStream( new File ( ficProperties));
 			misProperties.loadFromXML( fis );
 			
 			ultimaXVentana = Integer.parseInt( misProperties.getProperty( "ultimaXVentana" ) );
 			ultimaYVentana = Integer.parseInt( misProperties.getProperty( "ultimaYVentana" ) );
-			ultimoAnchoVentana = Integer.parseInt( misProperties.getProperty( "ultimoAnchoVentana" ) );
-			ultimoAltoVentana = Integer.parseInt( misProperties.getProperty( "ultimoAltoVentana" ) );
-			if (ultimoAnchoVentana>0 && ultimoAltoVentana>0) {
-				setSize( ultimoAnchoVentana, ultimoAltoVentana );
-				setLocation( ultimaXVentana, ultimaYVentana );
-			}
+			setLocation( ultimaXVentana, ultimaYVentana );
 			fis.close();
 		} catch (Exception e) {
 			
@@ -361,15 +367,11 @@ public class frmPantalla extends JFrame implements ActionListener
 	}
 	
 	private void salvaProperties() {
-		PrintStream ps;
+		misProperties = new Properties();
 		try {
-			ps = new PrintStream( new File( "frmPantalla.ini" ) );
-			misProperties.setProperty( "ultimaXVentana", ""+ getX() );
-			misProperties.setProperty( "ultimaYVentana", ""+ getY() );
-			misProperties.setProperty( "ultimoAnchoVentana", ""+getWidth() );
-			misProperties.setProperty( "ultimoAltoVentana", ""+getHeight() );
-			misProperties.storeToXML( ps, "Buscaminas Deusto" );
-			ps.close();
+			misProperties.setProperty( "ultimaXVentana", ""+ getLocation().x );
+			misProperties.setProperty( "ultimaYVentana", ""+ getLocation().y );
+			misProperties.storeToXML( new FileOutputStream(new java.io.File(ficProperties)), "Buscaminas Deusto" );
 		} catch (Exception e) {
 			
 		}
