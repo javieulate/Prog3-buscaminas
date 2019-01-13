@@ -133,8 +133,9 @@ public class VentanaPrincipiante extends JPanel
 				DestaparBotonP();
 //				usuario();				
 //				actualizarPuntos();
-				JOptionPane.showMessageDialog(null, "Lo siento, has perdido");
 				partidaAcabada = true;
+				JOptionPane.showMessageDialog(null, "Lo siento, has perdido");
+				
 				
 			}
 			else{
@@ -143,9 +144,10 @@ public class VentanaPrincipiante extends JPanel
 				if (casillasbuenas==(numminas*numminas - numminas)){
 					DestaparBotonP();
 //					usuario();
-//					actualizarPuntos();					
-					JOptionPane.showMessageDialog(null, "Has ganado!");
+//					actualizarPuntos();	
 					partidaAcabada = true;
+					JOptionPane.showMessageDialog(null, "Has ganado!");
+					
 				}
 				 labelD.setText(casillasbuenas+NumCasillas);
 			}

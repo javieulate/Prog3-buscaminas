@@ -121,22 +121,28 @@ public class frmPartida extends JPanel implements ActionListener
 			{
 				Integer horas = 0, minutos = 0, segundos = 0;
 				String hora = "", min = "", seg = "";
+				int count=0;
 				try
 				{
 					while(!(panelp.partidaAcabada))
 					{
-						Thread.sleep(1000);
-						segundos ++;
-						if(segundos == 60)
+						
+						Thread.sleep(100);
+						count++;
+						if(count==10)
 						{
-							minutos ++;
-							segundos = 0;
-							if(minutos == 60)
+							segundos ++;
+							count=0;
+							if(segundos == 60)
 							{
-								horas++;
-								minutos = 0;
+								minutos ++;
+								segundos = 0;
+								if(minutos == 60)
+								{
+									horas++;
+									minutos = 0;
+								}
 							}
-						}
 						
 						if(horas < 10) hora = "0" + horas;
 						else hora = horas.toString();
@@ -146,6 +152,7 @@ public class frmPartida extends JPanel implements ActionListener
 			            else seg = segundos.toString();
 			            
 			            cronometro.setText(hora + ":" + min + ":" + seg);
+						}
 					}
 				}
 				catch(Exception e){}
