@@ -210,7 +210,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 		menuBar.add(ayuda);
 		
 		URLabel label = new URLabel();
-        label.setURL("https://drive.google.com/open?id=18fz2OB2qhgtiEDcL0h9mDG0mb023lVfH");
+        label.setURL("https://drive.google.com/a/opendeusto.es/file/d/1D1zw5P2u_u6e3jUjaKoKkKooaZRm2D8M/view?usp=sharing");
         label.setLocation(10, 0); 
         label.setText("Manual");
         ayuda.add(label);
@@ -424,9 +424,7 @@ public class frmMenuPrincipal extends JFrame implements ActionListener, Internal
 			} catch (IOException e1) {
 				JOptionPane.showMessageDialog(this, "El usuario se acaba de registrar, no hay puntuaciones disponibles.");
 				logger.log( Level.SEVERE, "No hay información disponible para este usuario.", e1 );
-			}
-				
-				
+			}	
 				break;
 				
 			case CMD_BTN_RANKINGPRINCIPAL:
