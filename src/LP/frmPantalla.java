@@ -166,6 +166,10 @@ public class frmPantalla extends JFrame implements ActionListener
 				clsBaseDeDatos.anyadirFilaATabla(clsBaseDeDatos.getStatement(), a);
 				clsGestor.IniciarSesion(nomusutxt.getText(), corretxt.getText());
 				logger.log( Level.INFO, "Registrando usuario.");
+				this.setVisible(false);
+				salvaProperties();
+				frmMenuPrincipal frame = new frmMenuPrincipal();
+				frame.setVisible(true);
 				
 			} catch (clsEmailNoValido e1) {
 				
@@ -174,10 +178,10 @@ public class frmPantalla extends JFrame implements ActionListener
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, e1.getMessage());
 			}
-			this.setVisible(false);
-			salvaProperties();
-			frmMenuPrincipal frame = new frmMenuPrincipal();
-			frame.setVisible(true);
+//			this.setVisible(false);
+//			salvaProperties();
+//			frmMenuPrincipal frame = new frmMenuPrincipal();
+//			frame.setVisible(true);
 			break;
 			}	
 	}
