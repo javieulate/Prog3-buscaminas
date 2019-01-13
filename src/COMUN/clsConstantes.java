@@ -6,13 +6,10 @@ import java.util.ArrayList;
 
 public class clsConstantes 
 {
-
 	public enum enFicDatos
 	{
-
 		FICHEROUSU,
 		FICHEROSESION,
-
 	}
 	
 /**
@@ -36,23 +33,22 @@ public class clsConstantes
 	public static final String CMD_BTN_AMATEUR = "CMD_BTN_AMATEUR";
 	public static final String CMD_BTN_EXPERTO = "CMD_BTN_EXPERTO";
 
-	
 	public static final String CMD_BTN_RANKINGPERSONAL = "CMD_BTN_RANKINGPERSONAL";
 	public static final String CMD_BTN_RANKINGPRINCIPAL = "CMD_BTN_RANKINGPRINCIPAL";
 	
-
+	public static final String CMD_BTN_METAL = "CMD_BTN_METAL";
+	public static final String CMD_BTN_WINDOWS = "CMD_BTN_WINDOWS";
+	
 	public static final String CMD_BTN_CERRARSESION = "CMD_BTN_CERRARSESION";
 	public static final String CMD_BTN_BORRARUSUARIO = "CMD_BTN_BORRARUSUARIO";
 
 	public static final String CMD_BTN_ACTUALIZARLISTAS = "CMD_BTN_ACTUALIZARLISTAS";
 	public static final String CMD_BTN_ATRAS = "CMD_BTN_ATRAS";
 	public static final String CMD_BTN_ATRAS2 = "CMD_BTN_ATRAS2";
-	
 
 	/**
 	 * Este método sirve principalmente para agregar un patrón denominado EMAIL_ADDRESS.
 	 */
 	 public static final String EMAIL_ADDRESS = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-	            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	 
+	            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";	 
 }

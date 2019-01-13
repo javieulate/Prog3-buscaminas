@@ -31,15 +31,7 @@ public class clsUsuario implements Serializable, itfProperty {
 		numeroVidas=5;
 		puntuacion=0;				
 	}
-	
-//	public clsUsuario(String nomUsuario, String mail, String contrasena, int numeroVidas, int puntuacion){
-//		this.nomUsuario=nomUsuario;
-//		this.mail=mail;
-//		this.contrasena=contrasena;
-//		this.numeroVidas=numeroVidas;
-//		this.puntuacion=puntuacion;
-//	}
-	
+		
 	public clsUsuario(String nombre, String apellido, String mail,
 			String nomUsuario, String contrasena) {
 		super();
@@ -51,7 +43,6 @@ public class clsUsuario implements Serializable, itfProperty {
 		this.puntuacion = 0;
 		this.numeroVidas = 5;
 	}
-
 	
 	public String getNombre() {
 		return nombre;
@@ -200,8 +191,6 @@ public class clsUsuario implements Serializable, itfProperty {
 			default : throw new clsPropertyException(propiedad);
 		}	
 		return retorno;
-		
-		
 	}
 
 	@Override

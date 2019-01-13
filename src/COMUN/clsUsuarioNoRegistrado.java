@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import LD.clsBaseDeDatos;
 
-
 /**
  * Esta es una clase en la que vamos a tratar una excepción que puede ser causada en nuestra aplicación.
  * En concreto, se trata de una excepción que salta cuando queremos acceder a la aplicación con datos de 
@@ -27,7 +26,6 @@ public class clsUsuarioNoRegistrado extends Exception
 		@Override
 		public String getMessage() 
 		{
-			// TODO Auto-generated method stub
 			logger.log( Level.INFO, MENSAJE);
 			return MENSAJE;
 		}
@@ -37,7 +35,6 @@ public class clsUsuarioNoRegistrado extends Exception
 		 */
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
 			return MENSAJE;
 		}
 }

@@ -13,6 +13,8 @@ import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 
+import LD.clsBaseDeDatos;
+
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -23,6 +25,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -32,14 +36,12 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	/**
 	 * 
 	 */
-
-
 	private JPanel panelBotones;
 	private JButton btPlay;
 	public JButton b;
 	private JInternalFrame internalFrame;
 	public JLabel cuentatras;
-	
+	private static Logger logger = Logger.getLogger(frmAnuncio.class.getName() );
 	// Componente que permite gestionar los ficheros de video
 	private EmbeddedMediaPlayerComponent mediaPlayer;
 	
@@ -68,11 +70,7 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 	    cuentatras.setBackground(Color.BLACK);
 	    cuentatras.setOpaque(true);
 	    cuentatras.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-	//    cuentatras.setBounds(530, 23, 26, 50);
-	    
-	//    this.add(cuentatras);
-        
-        
+
         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), LIB_VLC);
 		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 		mediaPlayer = new EmbeddedMediaPlayerComponent();
@@ -203,18 +201,22 @@ public class frmAnuncio extends JInternalFrame implements ActionListener{
 			mediaPlayer.getMediaPlayer().playMedia(ficheroVideo.getAbsolutePath());
 			estado = Estado.PLAY;	
 			btPlay.setText("||");
+			logger.log( Level.INFO, "Anuncio parado.");
+			
 		}
 		// El reproductor está pausado
 		else if (estado == Estado.PAUSE) {
 			mediaPlayer.getMediaPlayer().play();
 			estado = Estado.PLAY;
 			btPlay.setText("||");
+			logger.log( Level.INFO, "Anuncio en pausa.");
 		}
 		// El reproductor está reproduciendo
 		else {
 			mediaPlayer.getMediaPlayer().pause();
 			estado = Estado.PAUSE;
 			btPlay.setText(">");
+			logger.log( Level.INFO, "Anuncio en reproducción.");
 		}
 	}
 	

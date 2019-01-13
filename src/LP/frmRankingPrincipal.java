@@ -85,8 +85,7 @@ public class frmRankingPrincipal extends JInternalFrame implements ActionListene
 		 ArrayList <clsUsuario>listausuarios = clsBaseDeDatos.cargarOrdenadosPorPuntuacion(clsBaseDeDatos.getStatement());
 		 {
 			 for(clsUsuario a: listausuarios)
-			 {
-				 
+			 {		 
 					 lista[cont][0]= a.getNombre();
 					 lista[cont][1]= a.getApellido();
 					 lista[cont][2]= a.getNomUsuario();

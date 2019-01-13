@@ -44,6 +44,4 @@ public class clsPartidaUsuario {
 	public void setTiempo(String tiempo) {
 		this.tiempo = tiempo;
 	}
-	
-	
 }

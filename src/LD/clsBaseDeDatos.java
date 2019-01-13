@@ -22,8 +22,6 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-
-
 public class clsBaseDeDatos 
 {
 	// ------------------------------------
@@ -65,8 +63,6 @@ public class clsBaseDeDatos
 
 				} catch (SQLException e) {
 					logger.log( Level.SEVERE, "¡Error! No se ha podido cerrar la conexión con la BD", e );
-
-				
 				}
 			}
 			
@@ -98,6 +94,7 @@ public class clsBaseDeDatos
 					statement.executeUpdate("create table if not exists fichero_usuarios " +
 						"(nombre string, apellido string, mail string" +
 						", nomUsuario string, contrasena string, puntuacion int, numvidas int)");
+					logger.log( Level.INFO, "Creando tabla.");
 				} catch (SQLException e) {
 					
 					logger.log( Level.INFO, "La tabla ya existía.", e);
@@ -109,6 +106,7 @@ public class clsBaseDeDatos
 				try{
 					statement.executeUpdate("create table if not exists partida_usuarios "+
 						"(nomUsuario string, dificultad string, puntuacion int, tiempo string)");
+					logger.log( Level.INFO, "Creando tabla.");
 				} catch (SQLException e){
 					logger.log(Level.INFO, "La tabla ya existía", e);
 				}
@@ -183,8 +181,10 @@ public class clsBaseDeDatos
 					ResultSet rs = st.executeQuery( sentSQL );
 					if (rs.next()) {  // Normalmente se recorre con un while, pero aquí solo hay que ver si ya existe
 						rs.close();
+						logger.log( Level.INFO, "El fichero ya estaba en la tabla.");
 						return true;
 					}
+					logger.log( Level.INFO, "El fichero NO estaba en la tabla.");
 					return false;
 				} catch (SQLException e) {
 					logger.log( Level.SEVERE, "Error a la hora de chequear el SQL", e);
@@ -218,29 +218,6 @@ public class clsBaseDeDatos
 					return false;
 				}
 			}
-			
-			/** Carga un fichero multimedia de la tabla FICHERO_MULTIMEDIA de BD,
-			 * buscando la trayectoria completa del disco como información clave.
-			 * @param st	Sentencia ya abierta de base de datos
-			 */
-//			public void cargarDeTabla( Statement st, String nomUsuario, String mail ) {
-//				try {
-//					String sentSQL = "select * from fichero_usuarios " +
-//							"where (nomUsuario = '" + nomUsuario + "' and mail = '" + mail + "' )";
-//					System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
-//					ResultSet rs = st.executeQuery( sentSQL );
-//					if (rs.next()) {  // Normalmente se recorre con un while, pero aquí solo hay que ver si ya existe
-//						nombre = rs.getString( "nombre" );
-//						apellido = rs.getString( "apellido" );
-//						//mail = rs.getString( "mail" );
-//						contrasena = rs.getString( "contrasena" );
-//						rs.close();
-//					}
-//					// else No hay ninguno en la tabla
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
 
 			public static clsUsuario cargarDeTabla2( Statement st, String nomUsuario, String mail, String contrasena ) {
 				try {
@@ -329,7 +306,6 @@ public class clsBaseDeDatos
 				}
 			}
 		
-			
 			// Método que se utiliza para lograr una lista de usuarios ordenada por la puntuación, con el objeto de tener una 
 			// tabla ordenada en la lista de ranking general.
 			public static ArrayList<clsUsuario> cargarOrdenadosPorPuntuacion(Statement st)
@@ -360,8 +336,7 @@ public class clsBaseDeDatos
 				}catch (SQLException e) {
 					logger.log( Level.SEVERE, "Error a la hora de cargar varios usuarios en el SQL", e);
 					return null;  // Error
-				}
-				
+				}	
 			}
 			
 			public static ArrayList<clsUsuario> leerDeFicheroSerializado( String nomFic ) {
@@ -378,13 +353,13 @@ public class clsBaseDeDatos
 				} catch (EOFException e) {  // FileNotFound, IO, EOF, classcast
 					// Ok - final de bucle
 				} catch (Exception e) {  // FileNotFound, IO, EOF, classcast
-					e.printStackTrace();
+					
 				} finally {
 					if (ois!=null)
 						try {
 							ois.close();
 						} catch (IOException e) {
-							e.printStackTrace();
+							logger.log( Level.SEVERE, "Problemas a la hora de leer el fichero.", e);
 						}
 				}
 				return ret;
@@ -404,13 +379,13 @@ public class clsBaseDeDatos
 				} catch (EOFException e) {  // FileNotFound, IO, EOF, classcast
 					// Ok - final de bucle
 				} catch (Exception e) {  // FileNotFound, IO, EOF, classcast
-					e.printStackTrace();
+					
 				} finally {
 					if (ois!=null)
 						try {
 							ois.close();
 						} catch (IOException e) {
-							e.printStackTrace();
+							logger.log( Level.SEVERE, "Problemas a la hora de leer el fichero.", e);
 						}
 				}
 				return ret;
@@ -537,8 +512,7 @@ public class clsBaseDeDatos
 				try {
 					usuariosesion.setNomUsuario(clsGestor.NomUsuario());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-				//	e.printStackTrace();
+					
 				}
 				try {
 					

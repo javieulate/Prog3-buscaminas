@@ -1,6 +1,5 @@
 package COMUN;
 
-
 public class clsElementoRepetido extends Exception
 {
 	/**
@@ -14,18 +13,14 @@ public class clsElementoRepetido extends Exception
 	@Override
 	public String getMessage() 
 	{
-		// TODO Auto-generated method stub
 		return MENSAJE;
 	}
 	/**
 	 * Este es el método que hace que el mensaje sea apropiado para su presentación.
 	 */
 	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
+	public String toString() 
+	{
 		return MENSAJE;
 	}
 }
-
-
-

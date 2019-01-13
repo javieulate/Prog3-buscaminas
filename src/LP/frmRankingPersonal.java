@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import LD.clsBaseDeDatos;
+import LN.clsAudio;
 import LN.clsGestor;
 import LN.clsPartidaUsuario;
 import LN.clsUsuario;
@@ -27,13 +28,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class frmRankingPersonal extends JInternalFrame implements ActionListener {
     private boolean DEBUG = false;
     public JComboBox jc_mod;
     public String [] listaJC = {"Todas", "Principiante", "Amateur", "Experto"};
     public int tipoJC = 0;
-
+    private static Logger logger = Logger.getLogger(frmRankingPersonal.class.getName() );
+    
     public frmRankingPersonal()  {
 
     	
@@ -101,28 +105,31 @@ public class frmRankingPersonal extends JInternalFrame implements ActionListener
 					tipoJC = 0;
 					this.setContentPane(panelPuntuaciones());
 					this.getContentPane().revalidate();
+					logger.log( Level.INFO, "Mostrando todas las puntuaciones.");
 				}
 				if(jc_mod.getSelectedItem().equals("Principiante"))
 				{
 					tipoJC = 1;
 					this.setContentPane(panelPuntuaciones());
 					this.getContentPane().revalidate();
+					logger.log( Level.INFO, "Mostrando las puntuaciones principiante.");
 				}
 				if(jc_mod.getSelectedItem().equals("Amateur"))
 				{
 					tipoJC = 2;
 					this.setContentPane(panelPuntuaciones());
 					this.getContentPane().revalidate();
+					logger.log( Level.INFO, "Mostrando las puntuaciones amateur.");
 				}
 				if(jc_mod.getSelectedItem().equals("Experto"))
 				{
 					tipoJC = 3;
 					this.setContentPane(panelPuntuaciones());
 					this.getContentPane().revalidate();
+					logger.log( Level.INFO, "Mostrando las puntuaciones experto.");
 				}
 				break;
 		}
-		
 	} 
     
     class MyTableModel extends AbstractTableModel  {

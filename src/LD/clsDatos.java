@@ -23,12 +23,9 @@ import COMUN.clsConstantes.enFicDatos;
  */
 public class clsDatos implements itfDatos 
 {
-	
-
 	ObjectOutputStream oos=null; //Objetos que los convierten a binario.
 	ObjectInputStream ois=null; // 
 	AppendableObjectOutputStream aos=null; //Sirve para crear objetos 
-	
 	
 	/**
 	 * Estas declaraciones delimitan las rutas de destino de cada fichero
@@ -36,10 +33,6 @@ public class clsDatos implements itfDatos
 
 	private final String fic_usuarios = ".\\data\\usu.dat";
 	private final String fic_sesion = ".\\data\\sesion.dat";
-
-	
-
-	
 	
 	/**
 	 * Este método hace referencia al enumerado declarado en COMUN.clsConstantes, donde coon un switch case se imitan las opciones de destino de 
@@ -48,8 +41,7 @@ public class clsDatos implements itfDatos
 	 * @return
 	 */
 	private String setfichero (enFicDatos Fichero)
-	{
-	
+	{	
 		switch(Fichero)
 		{
 
@@ -58,8 +50,7 @@ public class clsDatos implements itfDatos
 		case FICHEROSESION:
 			return fic_sesion;
 		}
-		return " ";
-		
+		return " ";	
 	}
 	
 	/**

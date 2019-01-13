@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.border.TitledBorder;
 
@@ -43,6 +45,7 @@ import COMUN.clsElementoRepetido;
 import COMUN.clsEmailNoValido;
 import COMUN.clsUsuarioNoRegistrado;
 import LD.clsBaseDeDatos;
+import LN.clsAudio;
 import LN.clsGestor;
 import LN.clsUsuario;
 import LN.clsUsuarioRepetido;
@@ -80,6 +83,7 @@ public class frmPantalla extends JFrame implements ActionListener
 	JPanel contentPane = new JPanel();
 	private String ficProperties = "Properties.ini";
 	private File nomFic;
+	private static Logger logger = Logger.getLogger(frmPantalla.class.getName() );
 	
 	/**
 	 * Esta es la pantalla en sí misma, únicamente ella.
@@ -116,6 +120,7 @@ public class frmPantalla extends JFrame implements ActionListener
 			setContentPane(VentanaInicial());
 			cargaProperties();
 			contentPane.revalidate();
+			logger.log( Level.INFO, "Volviendo atrás.");
 			break;
 			
 		case CMD_BTN_INICIAR_SESION :
@@ -124,6 +129,7 @@ public class frmPantalla extends JFrame implements ActionListener
 			setContentPane(IniciarSesion());
 			cargaProperties();
 			contentPane.revalidate();
+			logger.log( Level.INFO, "Opción de iniciar sesión.");
 			break;
 			
 		case CMD_BTN_REGISTRARSE:
@@ -132,6 +138,7 @@ public class frmPantalla extends JFrame implements ActionListener
 			setContentPane(Registrarse());
 			cargaProperties();
 			contentPane.revalidate();
+			logger.log( Level.INFO, "Opción de registrarse.");
 			break;
 
 		case CMD_BTN_INICIAR_SESION2:
@@ -143,6 +150,7 @@ public class frmPantalla extends JFrame implements ActionListener
 				salvaProperties();
 				frmMenuPrincipal frame = new frmMenuPrincipal();
 				frame.setVisible(true);
+				logger.log( Level.INFO, "Iniciando sesión.");
 			} 
 			catch (clsUsuarioNoRegistrado e1)
 			{
@@ -157,10 +165,10 @@ public class frmPantalla extends JFrame implements ActionListener
 			try {
 				clsBaseDeDatos.anyadirFilaATabla(clsBaseDeDatos.getStatement(), a);
 				clsGestor.IniciarSesion(nomusutxt.getText(), corretxt.getText());
-				
+				logger.log( Level.INFO, "Registrando usuario.");
 				
 			} catch (clsEmailNoValido e1) {
-				// TODO Auto-generated catch block
+				
 				JOptionPane.showMessageDialog(null, e1.getMessage());
 			} catch (clsUsuarioRepetido e1) {
 				// TODO Auto-generated catch block

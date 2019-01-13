@@ -1,6 +1,5 @@
 package COMUN;
 
-
 public class clsPropertyException extends RuntimeException
 {
 	/**
@@ -26,7 +25,6 @@ public class clsPropertyException extends RuntimeException
 	{
 		return MENSAJE;
 	}
-	
 	
 	/**
 	 * Este es el método que hace que el mensaje sea apropiado para su presentación.

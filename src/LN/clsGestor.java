@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import javax.mail.Message;
@@ -26,6 +28,7 @@ import LD.itfDatos;
 
 public class clsGestor 
 {
+	private static Logger logger = Logger.getLogger(clsGestor.class.getName() );
 	public static String ficherosesion = ".\\data\\sesion.dat";
 	/**
 	 * Método en el que se recoge todo la lista de usuarios de tipo clsUsuario.
@@ -142,7 +145,7 @@ public class clsGestor
 		        transport.close();
 		    }
 		    catch (MessagingException me) {
-		        me.printStackTrace();   //Si se produce un error
+		      logger.log( Level.SEVERE, "Error a la hora de mandar el correo.", me);
 		    }
 		}
 		

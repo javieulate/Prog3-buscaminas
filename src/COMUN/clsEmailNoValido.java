@@ -35,6 +35,3 @@ public class clsEmailNoValido extends Exception
 		return MENSAJE;
 	}
 }
-
-
-

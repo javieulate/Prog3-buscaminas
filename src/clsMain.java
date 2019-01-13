@@ -28,16 +28,7 @@ public class clsMain {
 		private static Logger logger = Logger.getLogger( clsMain.class.getName() );
 	
 	public static void main(String[] args) {
-//
-//		try{
-//			
-//				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-//		}
-//			catch (InstantiationException | IllegalAccessException
-//					| UnsupportedLookAndFeelException | ClassNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+
 		logger.setLevel( Level.ALL );  
 		try {
 		
@@ -58,7 +49,6 @@ public class clsMain {
 		ArrayList<clsUsuario> listaUsu = new ArrayList<clsUsuario>();
 		clsBaseDeDatos.initBD( "Usuarios.bd" );
 		clsBaseDeDatos.crearTablaBD();
-//		clsBaseDeDatos.initBD("Partidas.bd");
 		clsBaseDeDatos.crearTablaBDPartidas();
 		listaUsu = clsBaseDeDatos.cargarVariosDeTabla2(clsBaseDeDatos.getStatement());
 		logger.log( Level.INFO, "Usuarios registrados en la base de datos");
