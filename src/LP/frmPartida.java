@@ -176,47 +176,13 @@ public class frmPartida extends JPanel implements ActionListener
 				
 				cronometro.setText(hora + ":" + min + ":" + seg);
 				
-				
 				casillasAcertadas = panelp.casillasbuenas;
 				clsAudio.pararAudio();
-				
-//				try {
-//					reproducir=false;
-//					music(reproducir);
-//				} catch (LineUnavailableException | IOException
-//						| UnsupportedAudioFileException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				
-				
-				
-				
-				
 				usuario();
 				vidas(casillasAcertadas);
 				String horacompleta = hora + ":" + min + ":" + seg;
 				clsBaseDeDatos.modificarFilaEnTabla(clsBaseDeDatos.getStatement(), usu1);
 				clsBaseDeDatos.anyadirFilaATablaPuntuacion(clsBaseDeDatos.getStatement(), usu1,dnom,casillasAcertadas,horacompleta);
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				
 			}
 			
@@ -302,19 +268,6 @@ public class frmPartida extends JPanel implements ActionListener
 //		clip.close();		
 		
 		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
 

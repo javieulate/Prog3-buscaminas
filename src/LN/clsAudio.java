@@ -41,10 +41,10 @@ public class clsAudio
 	
 	public static void pararAudio()
 	{
-		if(clip.isOpen())
-		{
+//		if(clip.isOpen())
+//		{
 			clip.stop();
 			clip.close();
-		}
+//		}
 	}
 }
