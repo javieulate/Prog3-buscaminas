@@ -29,7 +29,7 @@ public class clsAudio
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		clip.start();; 
+		clip.loop(10000); 
 //		Thread.sleep(clip.getMicrosecondLength()); }
 //		catch (Exception e) { 
 //			System.err.println(e.getMessage());
